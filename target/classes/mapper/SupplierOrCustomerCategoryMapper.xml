@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.SupplierOrCustomerCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.SupplierOrCustomerCategory" >
+    <id column="sc_id" property="scId" jdbcType="INTEGER" />
+    <result column="sc_name" property="scName" jdbcType="VARCHAR" />
+    <result column="sc_createtime" property="scCreatetime" jdbcType="TIMESTAMP" />
+    <result column="sc_updatetime" property="scUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="sc_remark" property="scRemark" jdbcType="VARCHAR" />
+    <result column="sc_type" property="scType" jdbcType="BIT" />
+    <result column="sc_discount" property="scDiscount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sc_id, sc_name, sc_createtime, sc_updatetime, sc_remark, sc_type, sc_discount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from i_supplier_customer_category
+    where sc_id = #{scId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from i_supplier_customer_category
+    where sc_id = #{scId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hero.entity.SupplierOrCustomerCategory" >
+    insert into i_supplier_customer_category (sc_id, sc_name, sc_createtime, 
+      sc_updatetime, sc_remark, sc_type, 
+      sc_discount)
+    values (#{scId,jdbcType=INTEGER}, #{scName,jdbcType=VARCHAR}, #{scCreatetime,jdbcType=TIMESTAMP}, 
+      #{scUpdatetime,jdbcType=TIMESTAMP}, #{scRemark,jdbcType=VARCHAR}, #{scType,jdbcType=BIT}, 
+      #{scDiscount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hero.entity.SupplierOrCustomerCategory" >
+    insert into i_supplier_customer_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scId != null" >
+        sc_id,
+      </if>
+      <if test="scName != null" >
+        sc_name,
+      </if>
+      <if test="scCreatetime != null" >
+        sc_createtime,
+      </if>
+      <if test="scUpdatetime != null" >
+        sc_updatetime,
+      </if>
+      <if test="scRemark != null" >
+        sc_remark,
+      </if>
+      <if test="scType != null" >
+        sc_type,
+      </if>
+      <if test="scDiscount != null" >
+        sc_discount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scId != null" >
+        #{scId,jdbcType=INTEGER},
+      </if>
+      <if test="scName != null" >
+        #{scName,jdbcType=VARCHAR},
+      </if>
+      <if test="scCreatetime != null" >
+        #{scCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scUpdatetime != null" >
+        #{scUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scRemark != null" >
+        #{scRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="scType != null" >
+        #{scType,jdbcType=BIT},
+      </if>
+      <if test="scDiscount != null" >
+        #{scDiscount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.SupplierOrCustomerCategory" >
+    update i_supplier_customer_category
+    <set >
+      <if test="scName != null" >
+        sc_name = #{scName,jdbcType=VARCHAR},
+      </if>
+      <if test="scCreatetime != null" >
+        sc_createtime = #{scCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scUpdatetime != null" >
+        sc_updatetime = #{scUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scRemark != null" >
+        sc_remark = #{scRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="scType != null" >
+        sc_type = #{scType,jdbcType=BIT},
+      </if>
+      <if test="scDiscount != null" >
+        sc_discount = #{scDiscount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where sc_id = #{scId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hero.entity.SupplierOrCustomerCategory" >
+    update i_supplier_customer_category
+    set sc_name = #{scName,jdbcType=VARCHAR},
+      sc_createtime = #{scCreatetime,jdbcType=TIMESTAMP},
+      sc_updatetime = #{scUpdatetime,jdbcType=TIMESTAMP},
+      sc_remark = #{scRemark,jdbcType=VARCHAR},
+      sc_type = #{scType,jdbcType=BIT},
+      sc_discount = #{scDiscount,jdbcType=DECIMAL}
+    where sc_id = #{scId,jdbcType=INTEGER}
+  </update>
+</mapper>

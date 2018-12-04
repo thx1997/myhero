@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.SupplierOrCustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.SupplierOrCustomer" >
+    <id column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+    <result column="s_fax" property="sFax" jdbcType="VARCHAR" />
+    <result column="s_sc_id" property="sScId" jdbcType="INTEGER" />
+    <result column="s_constacperson" property="sConstacperson" jdbcType="VARCHAR" />
+    <result column="s_constacphone" property="sConstacphone" jdbcType="VARCHAR" />
+    <result column="s_address" property="sAddress" jdbcType="VARCHAR" />
+    <result column="s_description" property="sDescription" jdbcType="VARCHAR" />
+    <result column="s_isexit" property="sIsexit" jdbcType="CHAR" />
+    <result column="s_tallage" property="sTallage" jdbcType="VARCHAR" />
+    <result column="s_createtime" property="sCreatetime" jdbcType="TIMESTAMP" />
+    <result column="s_updatetime" property="sUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="s_remark" property="sRemark" jdbcType="VARCHAR" />
+    <result column="s_type" property="sType" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    s_id, s_name, s_fax, s_sc_id, s_constacperson, s_constacphone, s_address, s_description, 
+    s_isexit, s_tallage, s_createtime, s_updatetime, s_remark, s_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from i_supplier_customer
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from i_supplier_customer
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hero.entity.SupplierOrCustomer" >
+    insert into i_supplier_customer (s_id, s_name, s_fax, 
+      s_sc_id, s_constacperson, s_constacphone, 
+      s_address, s_description, s_isexit, 
+      s_tallage, s_createtime, s_updatetime, 
+      s_remark, s_type)
+    values (#{sId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, #{sFax,jdbcType=VARCHAR}, 
+      #{sScId,jdbcType=INTEGER}, #{sConstacperson,jdbcType=VARCHAR}, #{sConstacphone,jdbcType=VARCHAR}, 
+      #{sAddress,jdbcType=VARCHAR}, #{sDescription,jdbcType=VARCHAR}, #{sIsexit,jdbcType=CHAR}, 
+      #{sTallage,jdbcType=VARCHAR}, #{sCreatetime,jdbcType=TIMESTAMP}, #{sUpdatetime,jdbcType=TIMESTAMP}, 
+      #{sRemark,jdbcType=VARCHAR}, #{sType,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hero.entity.SupplierOrCustomer" >
+    insert into i_supplier_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="sName != null" >
+        s_name,
+      </if>
+      <if test="sFax != null" >
+        s_fax,
+      </if>
+      <if test="sScId != null" >
+        s_sc_id,
+      </if>
+      <if test="sConstacperson != null" >
+        s_constacperson,
+      </if>
+      <if test="sConstacphone != null" >
+        s_constacphone,
+      </if>
+      <if test="sAddress != null" >
+        s_address,
+      </if>
+      <if test="sDescription != null" >
+        s_description,
+      </if>
+      <if test="sIsexit != null" >
+        s_isexit,
+      </if>
+      <if test="sTallage != null" >
+        s_tallage,
+      </if>
+      <if test="sCreatetime != null" >
+        s_createtime,
+      </if>
+      <if test="sUpdatetime != null" >
+        s_updatetime,
+      </if>
+      <if test="sRemark != null" >
+        s_remark,
+      </if>
+      <if test="sType != null" >
+        s_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="sName != null" >
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sFax != null" >
+        #{sFax,jdbcType=VARCHAR},
+      </if>
+      <if test="sScId != null" >
+        #{sScId,jdbcType=INTEGER},
+      </if>
+      <if test="sConstacperson != null" >
+        #{sConstacperson,jdbcType=VARCHAR},
+      </if>
+      <if test="sConstacphone != null" >
+        #{sConstacphone,jdbcType=VARCHAR},
+      </if>
+      <if test="sAddress != null" >
+        #{sAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sDescription != null" >
+        #{sDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="sIsexit != null" >
+        #{sIsexit,jdbcType=CHAR},
+      </if>
+      <if test="sTallage != null" >
+        #{sTallage,jdbcType=VARCHAR},
+      </if>
+      <if test="sCreatetime != null" >
+        #{sCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sUpdatetime != null" >
+        #{sUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sRemark != null" >
+        #{sRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null" >
+        #{sType,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.SupplierOrCustomer" >
+    update i_supplier_customer
+    <set >
+      <if test="sName != null" >
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sFax != null" >
+        s_fax = #{sFax,jdbcType=VARCHAR},
+      </if>
+      <if test="sScId != null" >
+        s_sc_id = #{sScId,jdbcType=INTEGER},
+      </if>
+      <if test="sConstacperson != null" >
+        s_constacperson = #{sConstacperson,jdbcType=VARCHAR},
+      </if>
+      <if test="sConstacphone != null" >
+        s_constacphone = #{sConstacphone,jdbcType=VARCHAR},
+      </if>
+      <if test="sAddress != null" >
+        s_address = #{sAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sDescription != null" >
+        s_description = #{sDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="sIsexit != null" >
+        s_isexit = #{sIsexit,jdbcType=CHAR},
+      </if>
+      <if test="sTallage != null" >
+        s_tallage = #{sTallage,jdbcType=VARCHAR},
+      </if>
+      <if test="sCreatetime != null" >
+        s_createtime = #{sCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sUpdatetime != null" >
+        s_updatetime = #{sUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sRemark != null" >
+        s_remark = #{sRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null" >
+        s_type = #{sType,jdbcType=BIT},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hero.entity.SupplierOrCustomer" >
+    update i_supplier_customer
+    set s_name = #{sName,jdbcType=VARCHAR},
+      s_fax = #{sFax,jdbcType=VARCHAR},
+      s_sc_id = #{sScId,jdbcType=INTEGER},
+      s_constacperson = #{sConstacperson,jdbcType=VARCHAR},
+      s_constacphone = #{sConstacphone,jdbcType=VARCHAR},
+      s_address = #{sAddress,jdbcType=VARCHAR},
+      s_description = #{sDescription,jdbcType=VARCHAR},
+      s_isexit = #{sIsexit,jdbcType=CHAR},
+      s_tallage = #{sTallage,jdbcType=VARCHAR},
+      s_createtime = #{sCreatetime,jdbcType=TIMESTAMP},
+      s_updatetime = #{sUpdatetime,jdbcType=TIMESTAMP},
+      s_remark = #{sRemark,jdbcType=VARCHAR},
+      s_type = #{sType,jdbcType=BIT}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.Role" >
+    <id column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="r_name" property="rName" jdbcType="VARCHAR" />
+    <result column="r_createtime" property="rCreatetime" jdbcType="TIMESTAMP" />
+    <result column="r_updatetime" property="rUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="r_remark" property="rRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_id, r_name, r_createtime, r_updatetime, r_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from i_role
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from i_role
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hero.entity.Role" >
+    insert into i_role (r_id, r_name, r_createtime, 
+      r_updatetime, r_remark)
+    values (#{rId,jdbcType=INTEGER}, #{rName,jdbcType=VARCHAR}, #{rCreatetime,jdbcType=TIMESTAMP}, 
+      #{rUpdatetime,jdbcType=TIMESTAMP}, #{rRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hero.entity.Role" >
+    insert into i_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="rName != null" >
+        r_name,
+      </if>
+      <if test="rCreatetime != null" >
+        r_createtime,
+      </if>
+      <if test="rUpdatetime != null" >
+        r_updatetime,
+      </if>
+      <if test="rRemark != null" >
+        r_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null" >
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rCreatetime != null" >
+        #{rCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rUpdatetime != null" >
+        #{rUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rRemark != null" >
+        #{rRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.Role" >
+    update i_role
+    <set >
+      <if test="rName != null" >
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rCreatetime != null" >
+        r_createtime = #{rCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rUpdatetime != null" >
+        r_updatetime = #{rUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rRemark != null" >
+        r_remark = #{rRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hero.entity.Role" >
+    update i_role
+    set r_name = #{rName,jdbcType=VARCHAR},
+      r_createtime = #{rCreatetime,jdbcType=TIMESTAMP},
+      r_updatetime = #{rUpdatetime,jdbcType=TIMESTAMP},
+      r_remark = #{rRemark,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+</mapper>

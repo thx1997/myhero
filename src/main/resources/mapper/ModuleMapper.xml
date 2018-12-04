@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.ModuleMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.Module" >
+    <id column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="m_name" property="mName" jdbcType="VARCHAR" />
+    <result column="m_parentid" property="mParentid" jdbcType="INTEGER" />
+    <result column="m_path" property="mPath" jdbcType="VARCHAR" />
+    <result column="m_weight" property="mWeight" jdbcType="INTEGER" />
+    <result column="m_createtime" property="mCreatetime" jdbcType="TIMESTAMP" />
+    <result column="m_updatetime" property="mUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="m_remark" property="mRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    m_id, m_name, m_parentid, m_path, m_weight, m_createtime, m_updatetime, m_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from i_module
+    where m_id = #{mId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from i_module
+    where m_id = #{mId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hero.entity.Module" >
+    insert into i_module (m_id, m_name, m_parentid, 
+      m_path, m_weight, m_createtime, 
+      m_updatetime, m_remark)
+    values (#{mId,jdbcType=INTEGER}, #{mName,jdbcType=VARCHAR}, #{mParentid,jdbcType=INTEGER}, 
+      #{mPath,jdbcType=VARCHAR}, #{mWeight,jdbcType=INTEGER}, #{mCreatetime,jdbcType=TIMESTAMP}, 
+      #{mUpdatetime,jdbcType=TIMESTAMP}, #{mRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hero.entity.Module" >
+    insert into i_module
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="mName != null" >
+        m_name,
+      </if>
+      <if test="mParentid != null" >
+        m_parentid,
+      </if>
+      <if test="mPath != null" >
+        m_path,
+      </if>
+      <if test="mWeight != null" >
+        m_weight,
+      </if>
+      <if test="mCreatetime != null" >
+        m_createtime,
+      </if>
+      <if test="mUpdatetime != null" >
+        m_updatetime,
+      </if>
+      <if test="mRemark != null" >
+        m_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="mName != null" >
+        #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mParentid != null" >
+        #{mParentid,jdbcType=INTEGER},
+      </if>
+      <if test="mPath != null" >
+        #{mPath,jdbcType=VARCHAR},
+      </if>
+      <if test="mWeight != null" >
+        #{mWeight,jdbcType=INTEGER},
+      </if>
+      <if test="mCreatetime != null" >
+        #{mCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mUpdatetime != null" >
+        #{mUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mRemark != null" >
+        #{mRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.Module" >
+    update i_module
+    <set >
+      <if test="mName != null" >
+        m_name = #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mParentid != null" >
+        m_parentid = #{mParentid,jdbcType=INTEGER},
+      </if>
+      <if test="mPath != null" >
+        m_path = #{mPath,jdbcType=VARCHAR},
+      </if>
+      <if test="mWeight != null" >
+        m_weight = #{mWeight,jdbcType=INTEGER},
+      </if>
+      <if test="mCreatetime != null" >
+        m_createtime = #{mCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mUpdatetime != null" >
+        m_updatetime = #{mUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mRemark != null" >
+        m_remark = #{mRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hero.entity.Module" >
+    update i_module
+    set m_name = #{mName,jdbcType=VARCHAR},
+      m_parentid = #{mParentid,jdbcType=INTEGER},
+      m_path = #{mPath,jdbcType=VARCHAR},
+      m_weight = #{mWeight,jdbcType=INTEGER},
+      m_createtime = #{mCreatetime,jdbcType=TIMESTAMP},
+      m_updatetime = #{mUpdatetime,jdbcType=TIMESTAMP},
+      m_remark = #{mRemark,jdbcType=VARCHAR}
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+</mapper>
