@@ -2,6 +2,9 @@ package com.hero.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 public class SupplierOrCustomer {
     private Integer sId;
 
@@ -22,24 +25,17 @@ public class SupplierOrCustomer {
     private String sIsexit;
 
     private String sTallage;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     private Date sCreatetime;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     private Date sUpdatetime;
 
     private String sRemark;
 
     private Boolean sType;
-
-    @Override
-	public String toString() {
-		return "SupplierOrCustomer [sId=" + sId + ", sName=" + sName + ", sFax=" + sFax + ", sScId=" + sScId
-				+ ", sConstacperson=" + sConstacperson + ", sConstacphone=" + sConstacphone + ", sAddress=" + sAddress
-				+ ", sDescription=" + sDescription + ", sIsexit=" + sIsexit + ", sTallage=" + sTallage
-				+ ", sCreatetime=" + sCreatetime + ", sUpdatetime=" + sUpdatetime + ", sRemark=" + sRemark + ", sType="
-				+ sType + "]";
-	}
-
+    @JsonUnwrapped//rfy
+    private SupplierOrCustomerCategory category;
+   
 	public SupplierOrCustomer() {
 		super();
 	}
@@ -62,6 +58,35 @@ public class SupplierOrCustomer {
 		this.sUpdatetime = sUpdatetime;
 		this.sRemark = sRemark;
 		this.sType = sType;
+	}
+	
+	public SupplierOrCustomer(Integer sId, String sName, String sFax, Integer sScId, String sConstacperson,
+			String sConstacphone, String sAddress, String sDescription, String sIsexit, String sTallage,
+			Date sCreatetime, Date sUpdatetime, String sRemark, Boolean sType, SupplierOrCustomerCategory category) {
+		super();
+		this.sId = sId;
+		this.sName = sName;
+		this.sFax = sFax;
+		this.sScId = sScId;
+		this.sConstacperson = sConstacperson;
+		this.sConstacphone = sConstacphone;
+		this.sAddress = sAddress;
+		this.sDescription = sDescription;
+		this.sIsexit = sIsexit;
+		this.sTallage = sTallage;
+		this.sCreatetime = sCreatetime;
+		this.sUpdatetime = sUpdatetime;
+		this.sRemark = sRemark;
+		this.sType = sType;
+		this.category = category;
+	}
+
+	public SupplierOrCustomerCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(SupplierOrCustomerCategory category) {
+		this.category = category;
 	}
 
 	public Integer getsId() {
@@ -175,4 +200,14 @@ public class SupplierOrCustomer {
     public void setsType(Boolean sType) {
         this.sType = sType;
     }
+
+	@Override
+	public String toString() {
+		return "SupplierOrCustomer [sId=" + sId + ", sName=" + sName + ", sFax=" + sFax + ", sScId=" + sScId
+				+ ", sConstacperson=" + sConstacperson + ", sConstacphone=" + sConstacphone + ", sAddress=" + sAddress
+				+ ", sDescription=" + sDescription + ", sIsexit=" + sIsexit + ", sTallage=" + sTallage
+				+ ", sCreatetime=" + sCreatetime + ", sUpdatetime=" + sUpdatetime + ", sRemark=" + sRemark + ", sType="
+				+ sType + ", category=" + category + "]";
+	}
+    
 }

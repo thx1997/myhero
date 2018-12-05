@@ -1,12 +1,17 @@
 package com.hero.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,15 +36,15 @@ public class ModuleController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/queryByRid")
-	@ResponseBody
-	public Object queryModuleTreeByRid(HttpServletRequest request) throws Exception{
-		String token = request.getParameter("token");
-		List<Integer> roleIdList=new ArrayList<Integer>();
-		Token tokenObject = JwtToken.unsign(token, Token.class);//从token中取出用户信息
-		if(tokenObject != null){
-			roleIdList = tokenObject.getRoleIdList();//取出token中隐藏的角色编号
-		}	
-		List<Module> mList=moduleService.queryModuleTreeByRid(roleIdList);
+	public Object queryModuleTreeByRid(@RequestParam("rids[]")String[] rids){
+		System.out.println("参数>>>>>>>"+rids);
+		List<String> ridlist = new ArrayList<String>();
+	    for (int i = 0; i < rids.length; i++) {
+	    	ridlist.add(rids[i]);
+	    }
+	    
+	    List<Integer> ridslist =ridlist.stream().map(Integer::parseInt).collect(Collectors.toList());
+		List<Module> mList=moduleService.queryModuleTreeByRid(ridslist);
 		System.out.println("mList==>"+mList);
 		return mList;
 	}

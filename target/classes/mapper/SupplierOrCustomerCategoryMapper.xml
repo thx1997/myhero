@@ -114,4 +114,11 @@
       sc_discount = #{scDiscount,jdbcType=DECIMAL}
     where sc_id = #{scId,jdbcType=INTEGER}
   </update>
+  
+  <!-- 根据stype查询所有类别信息(rfy) -->
+  <select id="selectAllCate" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from i_supplier_customer_category
+    where sc_type = #{stype}
+  </select>
 </mapper>

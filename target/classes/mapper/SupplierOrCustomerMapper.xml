@@ -16,6 +16,9 @@
     <result column="s_updatetime" property="sUpdatetime" jdbcType="TIMESTAMP" />
     <result column="s_remark" property="sRemark" jdbcType="VARCHAR" />
     <result column="s_type" property="sType" jdbcType="BIT" />
+    <!--所属类别映射设置(rfy) -->
+	<association property="category" resultMap="com.hero.repository.SupplierOrCustomerCategoryMapper.BaseResultMap"></association>
+    
   </resultMap>
   <sql id="Base_Column_List" >
     s_id, s_name, s_fax, s_sc_id, s_constacperson, s_constacphone, s_address, s_description, 
@@ -196,4 +199,36 @@
       s_type = #{sType,jdbcType=BIT}
     where s_id = #{sId,jdbcType=INTEGER}
   </update>
+  
+  
+  <sql id="CountwhereSQL">
+  	<where>
+  		  s_isexit=0
+	      <if test="scname != null and scname!=''" >
+	        and s_name like "%"#{scname}"%"
+	      </if>
+	      <if test="cateid != null" >
+	        and s_sc_id=#{cateid}
+	      </if>
+	      <if test="sctype != null" >
+	        and s_type=#{sctype}
+	      </if>
+	      
+  	</where>
+  	  	  <if test="orderby != null and orderby!=''" >
+	        order by ${orderby}
+	      </if>
+  </sql>
+  <!--多条件分页查询供应商客户信息 (rfy)-->
+  	<select id="selectAllByCount" resultMap="BaseResultMap" parameterType="com.hero.entity.query.SupplierOrCustomerQuery">
+  		SELECT * FROM i_supplier_customer sc LEFT JOIN i_supplier_customer_category scc ON sc.s_sc_id=scc.sc_id
+  		<include refid="CountwhereSQL"/>
+  		LIMIT #{startIndex},#{rows}
+  	</select>
+  	
+  	<!--查询分页总记录数(rfy) -->
+  	<select id="selectCount" resultType="int" parameterType="com.hero.entity.query.SupplierOrCustomerQuery">
+  		select count(*) FROM i_supplier_customer sc LEFT JOIN i_supplier_customer_category scc ON sc.s_sc_id=scc.sc_id
+  		<include refid="CountwhereSQL"/>
+  	</select>
 </mapper>

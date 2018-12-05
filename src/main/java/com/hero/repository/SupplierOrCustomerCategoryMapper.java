@@ -1,5 +1,7 @@
 package com.hero.repository;
 
+import java.util.List;
+
 import com.hero.entity.SupplierOrCustomerCategory;
 
 public interface SupplierOrCustomerCategoryMapper {
@@ -14,4 +16,6 @@ public interface SupplierOrCustomerCategoryMapper {
     int updateByPrimaryKeySelective(SupplierOrCustomerCategory record);
 
     int updateByPrimaryKey(SupplierOrCustomerCategory record);
+    //根据stype查询所有类别信息(rfy)
+    public List<SupplierOrCustomerCategory> selectAllCate(Integer stype);
 }

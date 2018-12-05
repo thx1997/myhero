@@ -131,7 +131,7 @@
      FROM i_module WHERE m_id IN(SELECT rm_m_id FROM i_role_module WHERE rm_r_id IN
     <foreach collection="rids" item="rids" open="(" separator="," close=")" index="index">
     #{rids}
-    </foreach>
+    </foreach>)
     AND m_parentid=#{pid} ORDER BY m_weight DESC
   </select>
 </mapper>

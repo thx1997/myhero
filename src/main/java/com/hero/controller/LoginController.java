@@ -43,7 +43,7 @@ public class LoginController {
 		//先把用户输入的密码进行加密
 		PasswordEncoder encoder=null;
 		encoder = new PasswordEncoder(un, "Md5");	
-		pwd=encoder.encode(pwd, 3);
+		pwd=encoder.encode(pwd, 5);
 		Employee user=employeeService.getEmpByEloginname(un);//根据用户名获取用户信息
 		
 		if(user==null)

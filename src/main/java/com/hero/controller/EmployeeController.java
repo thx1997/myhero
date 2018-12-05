@@ -16,6 +16,7 @@ import com.hero.entity.Role;
 import com.hero.entity.query.EmployeeQuery;
 import com.hero.service.EmployeeService;
 import com.hero.util.PasswordEncoder;
+import com.hero.util.Result;
 /**
  * 员工管理控制层
  * @author thx
@@ -140,6 +141,17 @@ public class EmployeeController {
 			 map.put("message", "重置失败"); 
 		}
 		return map;
+	}
+	
+	
+	
+	/**
+	 * (rfy)
+	 * 测试token是否有效
+	 */
+	@RequestMapping("/testToken")
+	public Object testToken(){
+		return new Result(1, 0, "token有效,请放心使用");
 	}
 	
 }
