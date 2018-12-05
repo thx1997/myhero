@@ -125,4 +125,13 @@
       m_remark = #{mRemark,jdbcType=VARCHAR}
     where m_id = #{mId,jdbcType=INTEGER}
   </update>
+   <!-- 根据父id和角色id查询角色拥有的模块信息 (rfy)-->
+  <select id="queryModuleByPidRid" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+     FROM i_module WHERE m_id IN(SELECT rm_m_id FROM i_role_module WHERE rm_r_id IN
+    <foreach collection="rids" item="rids" open="(" separator="," close=")" index="index">
+    #{rids}
+    </foreach>
+    AND m_parentid=#{pid} ORDER BY m_weight DESC
+  </select>
 </mapper>

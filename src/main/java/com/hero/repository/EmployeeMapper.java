@@ -65,6 +65,12 @@ public interface EmployeeMapper {
      */
     public int lockEmp(@Param("eid")Integer eid,@Param("uIsLockout")Integer uIsLockout);
 
+    
+    //更新用户信息：锁定解锁、锁定时间、登录时间、密码错误次数（rfy）
+    int updateBySelective(Employee record);
+    //根据员工登录名获取员工信息（rfy）
+    public Employee getEmpByEloginname(String ename);
+    
     int insert(Employee record);
     int deleteByPrimaryKey(Integer eId);
     Employee selectByPrimaryKey(Integer eId);
