@@ -1,6 +1,7 @@
 package com.hero.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Module {
     private Integer mId;
@@ -18,12 +19,23 @@ public class Module {
     private Date mUpdatetime;
 
     private String mRemark;
+    private List<Module> children;
+   	public Boolean checked;
+    
 
-    @Override
-	public String toString() {
-		return "Module [mId=" + mId + ", mName=" + mName + ", mParentid=" + mParentid + ", mPath=" + mPath
-				+ ", mWeight=" + mWeight + ", mCreatetime=" + mCreatetime + ", mUpdatetime=" + mUpdatetime
-				+ ", mRemark=" + mRemark + "]";
+	public Module(Integer mId, String mName, Integer mParentid, String mPath, Integer mWeight, Date mCreatetime,
+			Date mUpdatetime, String mRemark, List<Module> children, Boolean checked) {
+		super();
+		this.mId = mId;
+		this.mName = mName;
+		this.mParentid = mParentid;
+		this.mPath = mPath;
+		this.mWeight = mWeight;
+		this.mCreatetime = mCreatetime;
+		this.mUpdatetime = mUpdatetime;
+		this.mRemark = mRemark;
+		this.children = children;
+		this.checked = checked;
 	}
 
 	public Module() {
@@ -41,6 +53,22 @@ public class Module {
 		this.mCreatetime = mCreatetime;
 		this.mUpdatetime = mUpdatetime;
 		this.mRemark = mRemark;
+	}
+
+	public List<Module> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Module> children) {
+		this.children = children;
+	}
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
 	}
 
 	public Integer getmId() {
@@ -106,4 +134,12 @@ public class Module {
     public void setmRemark(String mRemark) {
         this.mRemark = mRemark == null ? null : mRemark.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Module [mId=" + mId + ", mName=" + mName + ", mParentid=" + mParentid + ", mPath=" + mPath
+				+ ", mWeight=" + mWeight + ", mCreatetime=" + mCreatetime + ", mUpdatetime=" + mUpdatetime
+				+ ", mRemark=" + mRemark + ", children=" + children + ", checked=" + checked + "]";
+	}
+    
 }

@@ -114,4 +114,10 @@
       per_remark = #{perRemark,jdbcType=VARCHAR}
     where per_id = #{perId,jdbcType=INTEGER}
   </update>
+   <!--查询用户所拥有的权限-->
+  <select id="getPermissionValueByEid" resultType="String" parameterType="int">
+  		SELECT per_value FROM i_permission WHERE per_id IN
+  		(SELECT rper_per_id FROM i_role_permission WHERE rper_r_id IN
+		(SELECT re_r_id FROM i_role_employee WHERE re_e_id = #{eid}))
+  </select>
 </mapper>

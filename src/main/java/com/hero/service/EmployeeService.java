@@ -51,6 +51,12 @@ public interface EmployeeService {
 	     * @param eid 员工编号
 	     * @return 受影响的行数
 	     */
-	    public int resetPwd(String pwd,int eid);
+	 public int resetPwd(String pwd,int eid);
+	 
+	 
+	 //根据员工登录名获取员工信息（rfy）
+	 public Employee getEmpByEloginname(String ename);
+	 //更新用户信息：锁定解锁、锁定时间、登录时间、密码错误次数（rfy）
+	 public int updateBySelective(Employee record);
 	    
 }

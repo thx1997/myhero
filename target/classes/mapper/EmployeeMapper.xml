@@ -365,4 +365,70 @@
 		where e_id =
 		#{eId,jdbcType=INTEGER}
 	</update>
+	
+	
+	
+	 <!-- 更新用户信息：锁定解锁、锁定时间、登录时间、密码错误次数（rfy） -->
+  <update id="updateBySelective" parameterType="com.hero.entity.Employee" >
+    update i_employee
+    <set >
+      <if test="eName != null" >
+        e_name = #{eName,jdbcType=VARCHAR},
+      </if>
+      <if test="eSex != null" >
+        e_sex = #{eSex,jdbcType=CHAR},
+      </if>
+      <if test="eIdcard != null" >
+        e_idcard = #{eIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="eBirthday != null" >
+        e_birthday = #{eBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ePwd != null" >
+        e_pwd = #{ePwd,jdbcType=VARCHAR},
+      </if>
+      <if test="eLogintime != null" >
+        e_logintime = #{eLogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eCreatetime != null" >
+        e_createtime = #{eCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      
+        e_updatetime = NOW(),
+      
+      <if test="eIslockout != null" >
+        e_islockout = #{eIslockout,jdbcType=INTEGER},
+      </if>
+      <if test="eLockouttime != null" >
+        e_lockouttime = #{eLockouttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eEmail != null" >
+        e_email = #{eEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="eTelphone != null" >
+        e_telphone = #{eTelphone,jdbcType=VARCHAR},
+      </if>
+      <if test="ePwdwrongcount != null" >
+        e_pwdwrongcount = #{ePwdwrongcount,jdbcType=TINYINT},
+      </if>
+      <if test="eIsexit != null" >
+        e_isexit = #{eIsexit,jdbcType=INTEGER},
+      </if>
+      <if test="eDeptid != null" >
+        e_deptid = #{eDeptid,jdbcType=INTEGER},
+      </if>
+      <if test="eLoginname != null" >
+        e_loginname = #{eLoginname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where e_id = #{eId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据员工登录名获取员工信息（rfy） -->
+   <select id="getEmpByEloginname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from i_employee
+    where e_loginname = #{ename}
+  </select>
 </mapper>

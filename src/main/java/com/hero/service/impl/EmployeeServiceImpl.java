@@ -44,6 +44,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int resetPwd(String pwd, int eid) {
 		return employeeMapper.resetPwd(pwd, eid);
 	}
+	@Override
+	public Employee getEmpByEloginname(String ename) {
+		return employeeMapper.getEmpByEloginname(ename);
+	}
+	@Override
+	public int updateBySelective(Employee record) {
+		return employeeMapper.updateBySelective(record);
+	}
 	
 
 }

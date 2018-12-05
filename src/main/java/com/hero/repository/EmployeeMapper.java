@@ -58,8 +58,11 @@ public interface EmployeeMapper {
      */
     public int resetPwd(@Param("pwd")String pwd,@Param("eid")int eid);
     
-
-
+    //更新用户信息：锁定解锁、锁定时间、登录时间、密码错误次数（rfy）
+    int updateBySelective(Employee record);
+    //根据员工登录名获取员工信息（rfy）
+    public Employee getEmpByEloginname(String ename);
+    
     int insert(Employee record);
     int deleteByPrimaryKey(Integer eId);
     Employee selectByPrimaryKey(Integer eId);
