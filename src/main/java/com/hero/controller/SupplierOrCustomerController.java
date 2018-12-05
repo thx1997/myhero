@@ -32,7 +32,62 @@ public class SupplierOrCustomerController {
 		map.put("rows",list);
 		return map;
 	}
+	/**
+	 * 添加信息(rfy)
+	 * @param sc
+	 * @return
+	 */
+	@RequestMapping(value="/insert")
+	public Object insert(SupplierOrCustomer sc){
+		System.out.println("表单序列化参数>>>>>"+sc);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int n=supplierOrCustomerService.insertSelective(sc);
+		if (n>0) {
+			map.put("success", true);
+			map.put("message", "添加成功");
+		} else {
+			map.put("success", false);
+			map.put("message", "添加失败");
+		}
+		return map;
+	}
 	
+	/**
+	 * 修改信息(rfy)
+	 * @param sc
+	 * @return
+	 */
+	@RequestMapping(value="/update")
+	public Object update(SupplierOrCustomer sc){
+		System.out.println("表单序列化参数>>>>>"+sc);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int n=supplierOrCustomerService.updateByPrimaryKeySelective(sc);
+		if (n>0) {
+			map.put("success", true);
+			map.put("message", "修改成功");
+		} else {
+			map.put("success", false);
+			map.put("message", "修改失败");
+		}
+		return map;
+	}
 	
-	
+	/**
+	 * 删除信息(rfy)
+	 * @param sc
+	 * @return
+	 */
+	@RequestMapping(value="/delete")
+	public Object delete(Integer sid){
+		Map<String, Object> map = new HashMap<String, Object>();
+		int n=supplierOrCustomerService.updexit(sid);
+		if (n>0) {
+			map.put("success", true);
+			map.put("message", "删除成功");
+		} else {
+			map.put("success", false);
+			map.put("message", "删除失败");
+		}
+		return map;
+	}
 }

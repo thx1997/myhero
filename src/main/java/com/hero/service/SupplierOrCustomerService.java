@@ -10,4 +10,10 @@ public interface SupplierOrCustomerService {
     public List<SupplierOrCustomer> selectAllByCount(SupplierOrCustomerQuery scquery);
     //查询分页总记录数(rfy)
     public int selectCount(SupplierOrCustomerQuery scquery);
+    //添加（rfy）
+    int insertSelective(SupplierOrCustomer record);
+    //修改（rfy）
+    int updateByPrimaryKeySelective(SupplierOrCustomer record);
+    //软删（rfy）
+    public int updexit(Integer sId);
 }
