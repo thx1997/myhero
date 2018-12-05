@@ -44,6 +44,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int resetPwd(String pwd, int eid) {
 		return employeeMapper.resetPwd(pwd, eid);
 	}
+	@Override//thx
+	public int lockEmp(Integer eid, Integer uIsLockout) {
+		return employeeMapper.lockEmp(eid, uIsLockout);
+	}
 	
 
 }

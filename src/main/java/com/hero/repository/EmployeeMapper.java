@@ -57,8 +57,13 @@ public interface EmployeeMapper {
      * @return 受影响的行数
      */
     public int resetPwd(@Param("pwd")String pwd,@Param("eid")int eid);
-    
-
+    /**
+     * 根据编号锁定解锁(thx)
+     * @param eid 员工编号
+     * @param uIsLockout (0:否：1是)
+     * @return 受影响的行数
+     */
+    public int lockEmp(@Param("eid")Integer eid,@Param("uIsLockout")Integer uIsLockout);
 
     int insert(Employee record);
     int deleteByPrimaryKey(Integer eId);

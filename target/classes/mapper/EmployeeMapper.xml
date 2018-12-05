@@ -289,12 +289,15 @@
     <update id="delEmpByeid" parameterType="int">
          UPDATE i_employee SET e_isexit=1 WHERE e_id=#{eId,jdbcType=INTEGER}
     </update>
-   <!--重置密码  -->
+   <!--重置密码 (thx) -->
    <update id="resetPwd">
         UPDATE i_employee SET e_pwd=#{pwd} WHERE e_id=#{eid}
     </update>
-
-
+   <!--锁定解锁(thx)  -->
+    <update id="lockEmp">
+        UPDATE i_employee SET e_islockout=#{uIsLockout} WHERE e_id=#{eid}
+    </update>
+    
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
