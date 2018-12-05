@@ -44,8 +44,9 @@ public class LoginController {
 		PasswordEncoder encoder=null;
 		encoder = new PasswordEncoder(un, "Md5");	
 		pwd=encoder.encode(pwd, 5);
-		Employee user=employeeService.getEmpByEloginname(un);//根据用户名获取用户信息
 		
+		Employee user=employeeService.getEmpByEloginname(un);//根据用户名获取用户信息
+		System.out.println("加密密码"+pwd+"正确密码"+user.getePwd());
 		if(user==null)
 			return new Result("用户名错误",0);
 		if(user.geteIslockout()==1)

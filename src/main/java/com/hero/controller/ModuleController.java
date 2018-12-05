@@ -25,10 +25,7 @@ import com.hero.util.JwtToken;
 public class ModuleController {
 
 	@Autowired
-	private ModuleService moduleService;
-	
-	
-	
+	private ModuleService moduleService;	
 	/**
 	 * 查询角色所拥有的模块,加载左侧菜单树(rfy)
 	 * @param request

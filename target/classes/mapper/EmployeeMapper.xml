@@ -105,7 +105,7 @@
 	</sql>
 
 	<!--多条件分页查询员工,返回满足条件的集合(thx) -->
-	<select id="queryEmp" parameterType="employeeQuery" resultMap="BaseResultMap">
+	<select id="queryEmp" parameterType="com.hero.entity.query.EmployeeQuery" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		,
@@ -115,7 +115,7 @@
 		limit #{startIndex},#{rows}
 	</select>
 	<!--多条件分页查询员工,返回满足条件的集合的总条数(thx) -->
-	<select id="queryEmpCount" parameterType="employeeQuery"
+	<select id="queryEmpCount" parameterType="com.hero.entity.query.EmployeeQuery"
 		resultType="int">
 		select count(*) from i_employee e JOIN i_department d ON
 		e.e_deptid=d.d_id														
@@ -289,12 +289,15 @@
     <update id="delEmpByeid" parameterType="int">
          UPDATE i_employee SET e_isexit=1 WHERE e_id=#{eId,jdbcType=INTEGER}
     </update>
-   <!--重置密码  -->
+   <!--重置密码 (thx) -->
    <update id="resetPwd">
         UPDATE i_employee SET e_pwd=#{pwd} WHERE e_id=#{eid}
     </update>
-
-
+   <!--锁定解锁(thx)  -->
+    <update id="lockEmp">
+        UPDATE i_employee SET e_islockout=#{uIsLockout} WHERE e_id=#{eid}
+    </update>
+    
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select

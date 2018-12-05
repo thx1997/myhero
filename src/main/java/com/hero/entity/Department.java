@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Department {
     private Integer dId;
-
     private String dName;
 
     private Integer dParentid;

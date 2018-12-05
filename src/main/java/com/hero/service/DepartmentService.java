@@ -1,12 +1,11 @@
-package com.hero.repository;
+package com.hero.service;
 
 import java.util.List;
 
 import com.hero.entity.Department;
 import com.hero.entity.query.DepartmentQuery;
 
-public interface DepartmentMapper {
-	
+public interface DepartmentService {
 	/**
 	 * 多条件分页查询部门
 	 * @param departmentQuery 条件封装成的实体
@@ -23,7 +22,8 @@ public interface DepartmentMapper {
 	 * 查询所有部门
 	 * @return 部门集合
 	 */
-	public List<Department> queryAllDep();	
+	public List<Department> queryAllDep();
+	
     /**
      * 添加新部门
      * @param record 条件封装的部门实体
@@ -34,7 +34,6 @@ public interface DepartmentMapper {
 	 * 更新部门信息
 	 * @param record 修改后的目标对象
 	 * @return 受影响的行数
-	 * 
 	 */
     int updateByPrimaryKeySelective(Department record);
 	/**
@@ -43,15 +42,4 @@ public interface DepartmentMapper {
 	 * @return 受影响的行数
 	 */
 	int deleteByPrimaryKey(Integer dId);
-
-	
-	
-	
-    int insert(Department record);
-
-
-    Department selectByPrimaryKey(Integer dId);
-
-
-    int updateByPrimaryKey(Department record);
 }
