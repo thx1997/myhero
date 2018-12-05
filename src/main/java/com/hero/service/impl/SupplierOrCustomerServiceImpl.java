@@ -25,6 +25,24 @@ public class SupplierOrCustomerServiceImpl implements SupplierOrCustomerService 
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.selectCount(scquery);
 	}
+
+	@Override
+	public int insertSelective(SupplierOrCustomer record) {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.insertSelective(record);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(SupplierOrCustomer record) {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public int updexit(Integer sId) {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.updexit(sId);
+	}
 	
 	
 }
