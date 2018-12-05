@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hero.entity.Employee;
@@ -20,7 +17,6 @@ import com.hero.util.Result;
 /**
  * 员工管理控制层
  * @author thx
- *
  */
 @RestController
 @RequestMapping(value="/employee",name="员工管理")
@@ -34,10 +30,11 @@ public class EmployeeController {
 	 * http://localhost:8080/invoicing/employee/queryEmp?eIslockout=0&eIdcard=410
 	 * @param employeeQuery 条件封装的实体对象
 	 * @return 
+	 * 
 	 */
 	@RequestMapping(value="/queryEmp",name="多条件查询员工")
 	public Object queryEmp(EmployeeQuery employeeQuery) {
-		System.out.println("查询条件==》"+employeeQuery.toString());
+		System.out.println("查询条件==》"+employeeQuery);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Employee> empList=employeeService.queryEmp(employeeQuery);
 		Integer total=employeeService.queryEmpCount(employeeQuery);	
@@ -55,8 +52,14 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value="/addEmp",name="添加新员工")
 	public Object addEmp(Employee emp) {
+		System.out.println("添加参数==》" + emp);
+		// 将用户输入的密码加密
+		PasswordEncoder yanzhi = new PasswordEncoder(emp.geteLoginname(), "Md5");
+		String pwd = yanzhi.encode("ysd123", 5);
+		emp.setePwd(pwd);
 		Map<String, Object> map = new HashMap<String, Object>();
-		Integer n=employeeService.insertSelective(emp);
+         System.out.println("最终参数==》" + emp);
+		Integer n = employeeService.insertSelective(emp);
 		if(n>0) {
 		     map.put("success", true);
 		     map.put("message", "添加成功");     
@@ -74,7 +77,7 @@ public class EmployeeController {
 	 * @return
 	 */
 	@RequestMapping(value="/updateEmp",name="修改员工资料")
-	public Object updateEmp(@ModelAttribute Employee emp) {
+	public Object updateEmp(Employee emp) {
 		System.out.println("修改参数==》"+emp);
 		Map<String, Object> map = new HashMap<String, Object>();
 		Integer n=employeeService.updateByPrimaryKeySelective(emp);
@@ -95,8 +98,8 @@ public class EmployeeController {
 	 * @return
 	 */
 	String rname="";
-	@RequestMapping(value="/delEmp",name="根据编号某个员工")
-	public Object updateEmp(int eId) {
+	@RequestMapping(value="/delEmp",name="根据编号删除某个员工")
+	public Object delEmp(int eId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		//先判断该员工是否拥有某些角色
 		List<Role> rlist=employeeService.queryEmpHaveRole(eId);
@@ -121,10 +124,11 @@ public class EmployeeController {
 	}
 	/**
 	 * 重置员工密码
+	 * @author thx
 	 * @param eId 员工编号
 	 * @param eLoginname 员工的登录名
 	 * @return
-	 */
+	 */                                                                                                          
 	@RequestMapping(value="/resetPwd",name="重置员工密码")
 	public Object resetPwd(int eId,String eLoginname) {
 		System.out.println("重置参数==》"+eId+eLoginname);
@@ -139,6 +143,27 @@ public class EmployeeController {
 		}else {
 			 map.put("success", false);
 			 map.put("message", "重置失败"); 
+		}
+		return map;
+	}
+	/**
+	 * 锁定解锁
+	 * http://localhost:8080/invoicing/employee/lockEmp?eid=2&uIsLockout=0
+	 * @author thx
+	 * @param emp 参数封装的员工实体
+	 * @return
+	 */
+	@RequestMapping(value="/lockEmp",name="锁定解锁操作")
+	public Object lockEmp(int eid,int eIslockout) {
+		System.out.println("锁定参数==》"+eid+eIslockout);
+		Map<String, Object> map = new HashMap<String, Object>();
+		Integer n=employeeService.lockEmp(eid, eIslockout);
+		if(n>0) {
+		     map.put("success", true);
+		     map.put("message", "锁定成功");     
+		}else {
+			 map.put("success", false);
+			 map.put("message", "锁定失败"); 
 		}
 		return map;
 	}

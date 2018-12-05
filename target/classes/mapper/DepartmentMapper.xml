@@ -12,81 +12,85 @@
   <sql id="Base_Column_List" >
     d_id, d_name, d_parentid, d_createtime, d_updatetime, d_remark
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from i_department
-    where d_id = #{dId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from i_department
-    where d_id = #{dId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.hero.entity.Department" >
-    insert into i_department (d_id, d_name, d_parentid, 
-      d_createtime, d_updatetime, d_remark
-      )
-    values (#{dId,jdbcType=INTEGER}, #{dName,jdbcType=VARCHAR}, #{dParentid,jdbcType=INTEGER}, 
-      #{dCreatetime,jdbcType=TIMESTAMP}, #{dUpdatetime,jdbcType=TIMESTAMP}, #{dRemark,jdbcType=VARCHAR}
-      )
-  </insert>
+  <sql id="queryWhere">
+     <where>
+           <if test="dName != null and dName != ''">
+				and d_name like "%"#{dName}"%"
+			</if>
+			<if test="beginCreatetime != null">
+				and d_createtime &gt; #{beginCreatetime}
+			</if>
+			<if test="endCreatetime != null">
+				and d_createtime &lt; #{beginCreatetime}
+			</if>
+			<if test="beginUpdatetime != null">
+				and d_updatetime &gt; #{beginUpdatetime}
+			</if>
+			<if test="beginUpdatetime != null">
+				and d_updatetime &lt; #{beginUpdatetime}
+			</if>
+		</where>
+  </sql>
+  <!--多条件分页查询部门,返回满足条件的集合(thx) -->
+	<select id="queryDep" parameterType="com.hero.entity.query.DepartmentQuery" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />		
+		from i_department
+		<include refid="queryWhere" />
+		limit #{startIndex},#{rows}
+	</select>
+	<!--多条件分页查询部门,返回满足条件的集合的总条数(thx) -->
+	<select id="queryDepCount"  parameterType="com.hero.entity.query.DepartmentQuery" resultType="int">
+		select	count(*) from i_department
+		<include refid="queryWhere" />
+	</select>
+   <!-- 查询所有部门(thx) -->
+    <select id="queryAllDep" resultMap="BaseResultMap">
+       	select	
+       	<include refid="Base_Column_List" />	
+       	 from i_department
+    </select>
+    
+  <!-- 添加新部门(thx) -->
   <insert id="insertSelective" parameterType="com.hero.entity.Department" >
     insert into i_department
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="dId != null" >
-        d_id,
-      </if>
       <if test="dName != null" >
         d_name,
       </if>
-      <if test="dParentid != null" >
-        d_parentid,
-      </if>
-      <if test="dCreatetime != null" >
+      <if test="1==1" >
         d_createtime,
-      </if>
-      <if test="dUpdatetime != null" >
-        d_updatetime,
       </if>
       <if test="dRemark != null" >
         d_remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="dId != null" >
-        #{dId,jdbcType=INTEGER},
-      </if>
       <if test="dName != null" >
         #{dName,jdbcType=VARCHAR},
       </if>
-      <if test="dParentid != null" >
-        #{dParentid,jdbcType=INTEGER},
-      </if>
-      <if test="dCreatetime != null" >
-        #{dCreatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="dUpdatetime != null" >
-        #{dUpdatetime,jdbcType=TIMESTAMP},
+      <if test="1==1" >
+        now(),
       </if>
       <if test="dRemark != null" >
         #{dRemark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
+  <!-- 根据编号删除部门(thx)   -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from i_department
+    where d_id = #{dId,jdbcType=INTEGER}
+  </delete>
+  <!-- 更新部门信息(thx) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.Department" >
     update i_department
     <set >
       <if test="dName != null" >
         d_name = #{dName,jdbcType=VARCHAR},
       </if>
-      <if test="dParentid != null" >
-        d_parentid = #{dParentid,jdbcType=INTEGER},
-      </if>
-      <if test="dCreatetime != null" >
-        d_createtime = #{dCreatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="dUpdatetime != null" >
-        d_updatetime = #{dUpdatetime,jdbcType=TIMESTAMP},
+      <if test="1==1" >
+        d_updatetime = now(),
       </if>
       <if test="dRemark != null" >
         d_remark = #{dRemark,jdbcType=VARCHAR},
@@ -94,13 +98,5 @@
     </set>
     where d_id = #{dId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hero.entity.Department" >
-    update i_department
-    set d_name = #{dName,jdbcType=VARCHAR},
-      d_parentid = #{dParentid,jdbcType=INTEGER},
-      d_createtime = #{dCreatetime,jdbcType=TIMESTAMP},
-      d_updatetime = #{dUpdatetime,jdbcType=TIMESTAMP},
-      d_remark = #{dRemark,jdbcType=VARCHAR}
-    where d_id = #{dId,jdbcType=INTEGER}
-  </update>
+ 
 </mapper>
