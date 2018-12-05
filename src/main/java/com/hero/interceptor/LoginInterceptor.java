@@ -75,7 +75,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			HandlerMethod hMethod = (HandlerMethod) handler;//请求映射方法
 			//当前请求映射方法需要拥有的权限对象字符串
 			String permissionValue = SysUtils.method2PermissionValue(hMethod);//从请求映射方法上取出需要的权限对象
-			if(permissionValue == null) return true;//当前请求的方法没有name属性,则该方法不需要权限就可以访问
+			if(permissionValue == null) 
+				return true;//当前请求的方法没有name属性,则该方法不需要权限就可以访问
 			System.err.println(" VS 访问当前方法需要权限=>"+permissionValue);
 			//当前用户没有访问当前方法的权限则拦截
 			if( pList != null && !pList.contains( permissionValue ) ){

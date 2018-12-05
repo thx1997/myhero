@@ -21,13 +21,13 @@
 				and d_createtime &gt; #{beginCreatetime}
 			</if>
 			<if test="endCreatetime != null">
-				and d_createtime &lt; #{beginCreatetime}
+				and d_createtime &lt; #{endCreatetime}
 			</if>
 			<if test="beginUpdatetime != null">
 				and d_updatetime &gt; #{beginUpdatetime}
 			</if>
-			<if test="beginUpdatetime != null">
-				and d_updatetime &lt; #{beginUpdatetime}
+			<if test="endUpdatetime != null">
+				and d_updatetime &lt; #{endUpdatetime}
 			</if>
 		</where>
   </sql>

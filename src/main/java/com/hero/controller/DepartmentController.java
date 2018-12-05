@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,8 +30,9 @@ public class DepartmentController {
 	 * @return 
 	 * 
 	 */
-	@RequestMapping(value="/queryDep",name="多条件查询部门")
-	public Object queryDep(DepartmentQuery departmentQuery) {
+	//@RequestMapping(value="/queryDep",name="多条件查询部门")
+	@RequestMapping(value="/queryDep")
+	public Object queryDep(DepartmentQuery departmentQuery,BindingResult bindingResult) {
 		System.out.println("查询条件==》"+departmentQuery);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Department> depList=departmentService.queryDep(departmentQuery);
@@ -46,7 +48,8 @@ public class DepartmentController {
 	 * @author thx
 	 * @return
 	 */
-	@RequestMapping(value="/queryAllDep",name="查询所有部门")
+	//@RequestMapping(value="/queryAllDep",name="查询所有部门")
+	@RequestMapping(value="/queryAllDep")
 	public Object queryAllDep() {
 		List<Department> depList=departmentService.queryAllDep();
 		return depList;
@@ -58,7 +61,8 @@ public class DepartmentController {
 	 * @param dep 参数封装的部门实体对象
 	 * @return
 	 */
-	@RequestMapping(value="/addDep",name="添加新部门")
+	//@RequestMapping(value="/addDep",name="添加新部门")
+	@RequestMapping(value="/addDep")
 	public Object addEmp(Department dep) {
 		System.out.println("添加参数==》" + dep);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -73,16 +77,19 @@ public class DepartmentController {
 		return map;
 	}
 	/**
-	 * 添加新部门
+	 * 修改部门
 	 * http://localhost:8080/invoicing/department/updateDep?dName=a&dRemark=a&dId=11
 	 * @author thx
 	 * @param dep 参数封装的部门实体
 	 * @return
 	 */
-	@RequestMapping(value="/updateDep",name="修改部门信息")
-	public Object updateDep(Department dep) {
+	//@RequestMapping(value="/updateDep",name="修改部门信息")
+	@RequestMapping(value="/updateDep")
+	public Object updateDep(Department dep,int dId) {
 		System.out.println("修改参数==》" + dep);
 		Map<String, Object> map = new HashMap<String, Object>();
+		dep.setdId(dId);
+		System.out.println("最终修改参数==》" + dep);
    		Integer n = departmentService.updateByPrimaryKeySelective(dep);
 		if(n>0) {
 		     map.put("success", true);
@@ -101,7 +108,8 @@ public class DepartmentController {
 	 * @return
 	 */
 	Integer n;
-	@RequestMapping(value="/delDep",name="根据编号某个部门")
+	//@RequestMapping(value="/delDep",name="根据编号某个部门")
+	@RequestMapping(value="/delDep")
 	public Object delDep(int dId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		

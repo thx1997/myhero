@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,8 +33,9 @@ public class EmployeeController {
 	 * @return 
 	 * 
 	 */
-	@RequestMapping(value="/queryEmp",name="多条件查询员工")
-	public Object queryEmp(EmployeeQuery employeeQuery) {
+	//@RequestMapping(value="/queryEmp",name="多条件查询员工")
+	@RequestMapping(value="/queryEmp")
+	public Object queryEmp(EmployeeQuery employeeQuery,BindingResult bindingResult) {
 		System.out.println("查询条件==》"+employeeQuery);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Employee> empList=employeeService.queryEmp(employeeQuery);
@@ -50,7 +52,8 @@ public class EmployeeController {
 	 * @param emp 参数封装的员工实体
 	 * @return
 	 */
-	@RequestMapping(value="/addEmp",name="添加新员工")
+	//@RequestMapping(value="/addEmp",name="添加新员工")
+	@RequestMapping(value="/addEmp")
 	public Object addEmp(Employee emp) {
 		System.out.println("添加参数==》" + emp);
 		// 将用户输入的密码加密
@@ -76,7 +79,8 @@ public class EmployeeController {
 	 * @param emp 参数封装的员工实体
 	 * @return
 	 */
-	@RequestMapping(value="/updateEmp",name="修改员工资料")
+	//@RequestMapping(value="/updateEmp",name="修改员工资料")
+	@RequestMapping(value="/updateEmp")
 	public Object updateEmp(Employee emp) {
 		System.out.println("修改参数==》"+emp);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -98,7 +102,8 @@ public class EmployeeController {
 	 * @return
 	 */
 	String rname="";
-	@RequestMapping(value="/delEmp",name="根据编号删除某个员工")
+	//@RequestMapping(value="/delEmp",name="根据编号删除某个员工")
+	@RequestMapping(value="/delEmp")
 	public Object delEmp(int eId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		//先判断该员工是否拥有某些角色
@@ -129,7 +134,8 @@ public class EmployeeController {
 	 * @param eLoginname 员工的登录名
 	 * @return
 	 */                                                                                                          
-	@RequestMapping(value="/resetPwd",name="重置员工密码")
+	//@RequestMapping(value="/resetPwd",name="重置员工密码")
+	@RequestMapping(value="/resetPwd")
 	public Object resetPwd(int eId,String eLoginname) {
 		System.out.println("重置参数==》"+eId+eLoginname);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -153,7 +159,8 @@ public class EmployeeController {
 	 * @param emp 参数封装的员工实体
 	 * @return
 	 */
-	@RequestMapping(value="/lockEmp",name="锁定解锁操作")
+	//@RequestMapping(value="/lockEmp",name="锁定解锁操作")
+	@RequestMapping(value="/lockEmp")
 	public Object lockEmp(int eid,int eIslockout) {
 		System.out.println("锁定参数==》"+eid+eIslockout);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -167,7 +174,6 @@ public class EmployeeController {
 		}
 		return map;
 	}
-	
 	
 	
 	/**

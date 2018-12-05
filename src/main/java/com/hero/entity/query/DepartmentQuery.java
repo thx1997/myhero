@@ -2,6 +2,8 @@ package com.hero.entity.query;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -17,13 +19,17 @@ public class DepartmentQuery extends QueryBase{
 	    private String dName;//部门名称
 	    //创建时间段
 	    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+	    @DateTimeFormat(pattern="yyyy-MM-dd")
 	    private Date beginCreatetime;
 	    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+	    @DateTimeFormat(pattern="yyyy-MM-dd")
 	    private Date endCreatetime;
 	    //最近修改时间段
 	    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+	    @DateTimeFormat(pattern="yyyy-MM-dd")
 	    private Date beginUpdatetime;
 	    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+	    @DateTimeFormat(pattern="yyyy-MM-dd")
 	    private Date endUpdatetime;
 		public Integer getdId() {
 			return dId;

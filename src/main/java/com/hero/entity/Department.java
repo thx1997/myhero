@@ -2,14 +2,16 @@ package com.hero.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Department {
     private Integer dId;
     private String dName;
 
     private Integer dParentid;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
     private Date dCreatetime;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
     private Date dUpdatetime;
 
     private String dRemark;
