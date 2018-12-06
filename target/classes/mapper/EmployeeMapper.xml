@@ -105,7 +105,8 @@
 	</sql>
 
 	<!--多条件分页查询员工,返回满足条件的集合(thx) -->
-	<select id="queryEmp" parameterType="com.hero.entity.query.EmployeeQuery" resultMap="BaseResultMap">
+	<select id="queryEmp" parameterType="com.hero.entity.query.EmployeeQuery"
+		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		,
@@ -118,8 +119,8 @@
 	<select id="queryEmpCount" parameterType="com.hero.entity.query.EmployeeQuery"
 		resultType="int">
 		select count(*) from i_employee e JOIN i_department d ON
-		e.e_deptid=d.d_id														
-		<include refid="queryWhere" />			
+		e.e_deptid=d.d_id
+		<include refid="queryWhere" />
 	</select>
 	<!-- 添加新员工(thx) -->
 	<insert id="insertSelective" parameterType="employee">
@@ -231,7 +232,7 @@
 			</if>
 		</trim>
 	</insert>
-	<!-- 修改员工资料 (thx)-->
+	<!-- 修改员工资料 (thx) -->
 	<update id="updateByPrimaryKeySelective" parameterType="employee">
 		update i_employee
 		<set>
@@ -295,7 +296,7 @@
     </update>
    <!--锁定解锁(thx)  -->
     <update id="lockEmp">
-        UPDATE i_employee SET e_islockout=#{uIsLockout} WHERE e_id=#{eid}
+        UPDATE i_employee SET e_islockout=#{uIsLockout},e_lockouttime=now() WHERE e_id=#{eid}
     </update>
     <!--根据员工编号移除他的所有角色(thx)  -->
     <delete id="delRE" parameterType="int">
@@ -313,6 +314,7 @@
     
     </insert>
     
+
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
@@ -383,9 +385,7 @@
 		where e_id =
 		#{eId,jdbcType=INTEGER}
 	</update>
-	
-	
-	
+
 	 <!-- 更新用户信息：锁定解锁、锁定时间、登录时间、密码错误次数（rfy） -->
   <update id="updateBySelective" parameterType="com.hero.entity.Employee" >
     update i_employee
