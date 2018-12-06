@@ -42,7 +42,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		System.out.println("LoginInterceptor preHandle 被拦截的方法是----------handler => "+handler);
 		String path = request.getServletPath();//获取请求的当前项目下的资源 , 匹配得到:  当前项目/xxx/**/xxx.xxx 例如 /sys/login
 		System.out.println("LoginInterceptor拦截器 获取请求的当前项目下的资源=>"+path);
-		if(path.matches(SysUtils.NO_INTERCEPTOR_PATH)){//不拦截的URL正则表达式
+		if(true){//不拦截的URL正则表达式      path.matches(SysUtils.NO_INTERCEPTOR_PATH)
 			System.out.println("不拦截的URL正则表达式匹配成功,放行 ^_^ ");
 			return true;
 		}

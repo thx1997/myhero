@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hero.repository.ModuleMapper" >
   <resultMap id="BaseResultMap" type="com.hero.entity.Module" >
@@ -14,24 +14,63 @@
   <sql id="Base_Column_List" >
     m_id, m_name, m_parentid, m_path, m_weight, m_createtime, m_updatetime, m_remark
   </sql>
+  <!-- 根据id查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from i_module
     where m_id = #{mId,jdbcType=INTEGER}
   </select>
+   <!-- 根据id查询模块是否再用 -->
+  <select id="selmodul" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select COUNT(*)
+    from i_role_module
+    where rm_m_id = #{mId,jdbcType=INTEGER}
+  </select>
+   <!-- 根据父id查询 -->
+  <select id="selmodulByParentid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from i_module
+    where m_parentid = #{mId,jdbcType=INTEGER}
+  </select>
+   <!-- 多条件分页 -->
+  <select id="selModulByPage" resultMap="BaseResultMap" parameterType="com.hero.entity.ModuleQer" >
+    select 
+    <include refid="Base_Column_List" />
+    from i_module
+    <where>
+    	<if test="modulename != null" >
+        and m_name like "%"#{modulename,jdbcType=VARCHAR}"%"
+      </if>
+    </where>
+    limit #{beginpage,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+  </select>
+   <!-- 多条件分页总记录数 -->
+  <select id="selModulCountByPage" resultType="java.lang.Integer" parameterType="com.hero.entity.ModuleQer" >
+    select count(*)
+    from i_module
+    <where>
+    	<if test="modulename != null" >
+        and m_name like "%"#{modulename,jdbcType=VARCHAR}"%"
+      </if>
+    </where>
+  </select>
+  <!-- 查询相同父id下名称是否重复 -->
+  <select id="selModuleByParentAndName" resultType="java.lang.Integer" parameterType="com.hero.entity.Module" >
+    select count(*)
+    from i_module
+    where
+        m_name like #{mName,jdbcType=VARCHAR}
+      and m_parentid = #{mParentid,jdbcType=INTEGER}
+    
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from i_module
     where m_id = #{mId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.hero.entity.Module" >
-    insert into i_module (m_id, m_name, m_parentid, 
-      m_path, m_weight, m_createtime, 
-      m_updatetime, m_remark)
-    values (#{mId,jdbcType=INTEGER}, #{mName,jdbcType=VARCHAR}, #{mParentid,jdbcType=INTEGER}, 
-      #{mPath,jdbcType=VARCHAR}, #{mWeight,jdbcType=INTEGER}, #{mCreatetime,jdbcType=TIMESTAMP}, 
-      #{mUpdatetime,jdbcType=TIMESTAMP}, #{mRemark,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.hero.entity.Module" >
     insert into i_module
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -102,9 +141,6 @@
       <if test="mWeight != null" >
         m_weight = #{mWeight,jdbcType=INTEGER},
       </if>
-      <if test="mCreatetime != null" >
-        m_createtime = #{mCreatetime,jdbcType=TIMESTAMP},
-      </if>
       <if test="mUpdatetime != null" >
         m_updatetime = #{mUpdatetime,jdbcType=TIMESTAMP},
       </if>
@@ -114,18 +150,7 @@
     </set>
     where m_id = #{mId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hero.entity.Module" >
-    update i_module
-    set m_name = #{mName,jdbcType=VARCHAR},
-      m_parentid = #{mParentid,jdbcType=INTEGER},
-      m_path = #{mPath,jdbcType=VARCHAR},
-      m_weight = #{mWeight,jdbcType=INTEGER},
-      m_createtime = #{mCreatetime,jdbcType=TIMESTAMP},
-      m_updatetime = #{mUpdatetime,jdbcType=TIMESTAMP},
-      m_remark = #{mRemark,jdbcType=VARCHAR}
-    where m_id = #{mId,jdbcType=INTEGER}
-  </update>
-   <!-- 根据父id和角色id查询角色拥有的模块信息 (rfy)-->
+<!-- 根据父id和角色id查询角色拥有的模块信息 (rfy)-->
   <select id="queryModuleByPidRid" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List" />
      FROM i_module WHERE m_id IN(SELECT rm_m_id FROM i_role_module WHERE rm_r_id IN
