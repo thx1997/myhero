@@ -59,7 +59,19 @@ public interface EmployeeService {
 	     * @return 受影响的行数
 	     */
 	    public int lockEmp(Integer eid,Integer uIsLockout);
-
+	    /**
+	     * 根据员工编号移除他的所有角色(thx)
+	     * @param eid 员工编号
+	     * @return 受影响的行数
+	     */
+	    public int delRE(int eid);
+	    /**
+	     * 为某个员工设置角色(thx)
+	     * @param eid 员工编号
+	     * @param rids 角色编号集合
+	     * @return 受影响的行数
+	     */
+	    public int addRe(int eid,List<Integer> rids);
 	 
 	 
 	 //根据员工登录名获取员工信息（rfy）

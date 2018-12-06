@@ -64,8 +64,19 @@ public interface EmployeeMapper {
      * @return 受影响的行数
      */
     public int lockEmp(@Param("eid")Integer eid,@Param("uIsLockout")Integer uIsLockout);
-
-    
+    /**
+     * 根据员工编号移除他的所有角色(thx)
+     * @param eid 员工编号
+     * @return 受影响的行数
+     */
+    public int delRE(int eid);
+    /**
+     * 为某个员工设置角色(thx)
+     * @param eid 员工编号
+     * @param rids 角色编号集合
+     * @return 受影响的行数
+     */
+    public int addRe(@Param("eid")int eid,@Param("rids") List<Integer> rids);
     //更新用户信息：锁定解锁、锁定时间、登录时间、密码错误次数（rfy）
     int updateBySelective(Employee record);
     //根据员工登录名获取员工信息（rfy）

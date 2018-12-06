@@ -297,6 +297,21 @@
     <update id="lockEmp">
         UPDATE i_employee SET e_islockout=#{uIsLockout} WHERE e_id=#{eid}
     </update>
+    <!--根据员工编号移除他的所有角色(thx)  -->
+    <delete id="delRE" parameterType="int">
+         DELETE FROM i_role_employee WHERE re_e_id=#{eid}
+    </delete>
+    <!-- 为某个员工设置角色 (thx)-->
+    <insert id="addRe">
+    INSERT INTO i_role_employee(re_e_id,re_r_id) VALUES 
+    <foreach collection="rids" item="rids" separator="," index="index">
+   (
+    #{eid},
+    #{rids}
+    )
+    </foreach>
+    
+    </insert>
     
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">

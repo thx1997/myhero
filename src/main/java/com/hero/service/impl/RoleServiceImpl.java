@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hero.entity.Role;
+import com.hero.entity.query.QueryBase;
 import com.hero.repository.RoleMapper;
 import com.hero.service.RoleService;
 @Service
@@ -23,5 +24,14 @@ public class RoleServiceImpl implements RoleService {
 		// TODO Auto-generated method stub
 		return roleMapper.getRoleByEid(eid);
 	}
+	@Override//thx
+	public List<Role> queryAllRole(QueryBase queryBase) {
+		return roleMapper.queryAllRole(queryBase);
+	}
+	@Override//thx
+	public int queryAllRoleCount(QueryBase queryBase) {
+		return roleMapper.queryAllRoleCount(queryBase);
+	}
+	
 
 }

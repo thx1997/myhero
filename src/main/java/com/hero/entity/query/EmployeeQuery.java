@@ -89,6 +89,114 @@ public class EmployeeQuery extends QueryBase{
 				+ ", endUpdatetime=" + endUpdatetime + ", eIslockout=" + eIslockout + ", eEmail=" + eEmail
 				+ ", eTelphone=" + eTelphone + ", eDeptid=" + eDeptid + ", orderby=" + orderby +  "]";
 	}
+	public Integer geteId() {
+		return eId;
+	}
+	public void seteId(Integer eId) {
+		this.eId = eId;
+	}
+	public String geteName() {
+		return eName;
+	}
+	public void seteName(String eName) {
+		this.eName = eName;
+	}
+	public String geteLoginname() {
+		return eLoginname;
+	}
+	public void seteLoginname(String eLoginname) {
+		this.eLoginname = eLoginname;
+	}
+	public String geteSex() {
+		return eSex;
+	}
+	public void seteSex(String eSex) {
+		this.eSex = eSex;
+	}
+	public String geteIdcard() {
+		return eIdcard;
+	}
+	public void seteIdcard(String eIdcard) {
+		this.eIdcard = eIdcard;
+	}
+	public Date getBeginBirthday() {
+		return beginBirthday;
+	}
+	public void setBeginBirthday(Date beginBirthday) {
+		this.beginBirthday = beginBirthday;
+	}
+	public Date getEndBirthday() {
+		return endBirthday;
+	}
+	public void setEndBirthday(Date endBirthday) {
+		this.endBirthday = endBirthday;
+	}
+	public Date getBeginLogintime() {
+		return beginLogintime;
+	}
+	public void setBeginLogintime(Date beginLogintime) {
+		this.beginLogintime = beginLogintime;
+	}
+	public Date getEndLogintime() {
+		return endLogintime;
+	}
+	public void setEndLogintime(Date endLogintime) {
+		this.endLogintime = endLogintime;
+	}
+	public Date getBeginCreatetime() {
+		return beginCreatetime;
+	}
+	public void setBeginCreatetime(Date beginCreatetime) {
+		this.beginCreatetime = beginCreatetime;
+	}
+	public Date getEndCreatetime() {
+		return endCreatetime;
+	}
+	public void setEndCreatetime(Date endCreatetime) {
+		this.endCreatetime = endCreatetime;
+	}
+	public Date getBeginUpdatetime() {
+		return beginUpdatetime;
+	}
+	public void setBeginUpdatetime(Date beginUpdatetime) {
+		this.beginUpdatetime = beginUpdatetime;
+	}
+	public Date getEndUpdatetime() {
+		return endUpdatetime;
+	}
+	public void setEndUpdatetime(Date endUpdatetime) {
+		this.endUpdatetime = endUpdatetime;
+	}
+	public Integer geteIslockout() {
+		return eIslockout;
+	}
+	public void seteIslockout(Integer eIslockout) {
+		this.eIslockout = eIslockout;
+	}
+	public String geteEmail() {
+		return eEmail;
+	}
+	public void seteEmail(String eEmail) {
+		this.eEmail = eEmail;
+	}
+	public String geteTelphone() {
+		return eTelphone;
+	}
+	public void seteTelphone(String eTelphone) {
+		this.eTelphone = eTelphone;
+	}
+	public Integer geteDeptid() {
+		return eDeptid;
+	}
+	public void seteDeptid(Integer eDeptid) {
+		this.eDeptid = eDeptid;
+	}
+	public String getOrderby() {
+		return orderby;
+	}
+	public void setOrderby(String orderby) {
+		this.orderby = orderby;
+	}
 	
 
 
