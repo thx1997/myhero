@@ -2,13 +2,15 @@ package com.hero.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Role {
     private Integer rId;
 
     private String rName;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
     private Date rCreatetime;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
     private Date rUpdatetime;
 
     private String rRemark;

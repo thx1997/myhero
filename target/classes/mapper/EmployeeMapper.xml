@@ -105,7 +105,8 @@
 	</sql>
 
 	<!--多条件分页查询员工,返回满足条件的集合(thx) -->
-	<select id="queryEmp" parameterType="com.hero.entity.query.EmployeeQuery" resultMap="BaseResultMap">
+	<select id="queryEmp" parameterType="com.hero.entity.query.EmployeeQuery"
+		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		,
@@ -118,8 +119,8 @@
 	<select id="queryEmpCount" parameterType="com.hero.entity.query.EmployeeQuery"
 		resultType="int">
 		select count(*) from i_employee e JOIN i_department d ON
-		e.e_deptid=d.d_id														
-		<include refid="queryWhere" />			
+		e.e_deptid=d.d_id
+		<include refid="queryWhere" />
 	</select>
 	<!-- 添加新员工(thx) -->
 	<insert id="insertSelective" parameterType="employee">
@@ -231,7 +232,7 @@
 			</if>
 		</trim>
 	</insert>
-	<!-- 修改员工资料 (thx)-->
+	<!-- 修改员工资料 (thx) -->
 	<update id="updateByPrimaryKeySelective" parameterType="employee">
 		update i_employee
 		<set>
@@ -280,24 +281,26 @@
 		</set>
 		where e_id = #{eId,jdbcType=INTEGER}
 	</update>
-	 <!--根据员工编号查询已经拥有的角色集合(thx)  -->
-    <select id="queryEmpHaveRole" parameterType="int" resultMap="com.hero.repository.RoleMapper.BaseResultMap">
-        SELECT r.* FROM i_role_employee re JOIN i_role r ON re.re_r_id=r.r_id WHERE re_e_id=#{eId,jdbcType=INTEGER}
-    </select>
-	
-    <!-- 软删某个指定的员工(thx) -->
-    <update id="delEmpByeid" parameterType="int">
-         UPDATE i_employee SET e_isexit=1 WHERE e_id=#{eId,jdbcType=INTEGER}
-    </update>
-   <!--重置密码 (thx) -->
-   <update id="resetPwd">
-        UPDATE i_employee SET e_pwd=#{pwd} WHERE e_id=#{eid}
-    </update>
-   <!--锁定解锁(thx)  -->
-    <update id="lockEmp">
-        UPDATE i_employee SET e_islockout=#{uIsLockout} WHERE e_id=#{eid}
-    </update>
-    
+	<!--根据员工编号查询已经拥有的角色集合(thx) -->
+	<select id="queryEmpHaveRole" parameterType="int"
+		resultMap="com.hero.repository.RoleMapper.BaseResultMap">
+		SELECT r.* FROM i_role_employee re JOIN i_role r ON re.re_r_id=r.r_id WHERE
+		re_e_id=#{eId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 软删某个指定的员工(thx) -->
+	<update id="delEmpByeid" parameterType="int">
+		UPDATE i_employee SET e_isexit=1 WHERE e_id=#{eId,jdbcType=INTEGER}
+	</update>
+	<!--重置密码 (thx) -->
+	<update id="resetPwd">
+		UPDATE i_employee SET e_pwd=#{pwd} WHERE e_id=#{eid}
+	</update>
+	<!--锁定解锁(thx) -->
+	<update id="lockEmp">
+		UPDATE i_employee SET e_islockout=#{uIsLockout} WHERE e_id=#{eid}
+	</update>
+
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
@@ -368,70 +371,71 @@
 		where e_id =
 		#{eId,jdbcType=INTEGER}
 	</update>
-	
-	
-	
-	 <!-- 更新用户信息：锁定解锁、锁定时间、登录时间、密码错误次数（rfy） -->
-  <update id="updateBySelective" parameterType="com.hero.entity.Employee" >
-    update i_employee
-    <set >
-      <if test="eName != null" >
-        e_name = #{eName,jdbcType=VARCHAR},
-      </if>
-      <if test="eSex != null" >
-        e_sex = #{eSex,jdbcType=CHAR},
-      </if>
-      <if test="eIdcard != null" >
-        e_idcard = #{eIdcard,jdbcType=VARCHAR},
-      </if>
-      <if test="eBirthday != null" >
-        e_birthday = #{eBirthday,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ePwd != null" >
-        e_pwd = #{ePwd,jdbcType=VARCHAR},
-      </if>
-      <if test="eLogintime != null" >
-        e_logintime = #{eLogintime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="eCreatetime != null" >
-        e_createtime = #{eCreatetime,jdbcType=TIMESTAMP},
-      </if>
-      
-        e_updatetime = NOW(),
-      
-      <if test="eIslockout != null" >
-        e_islockout = #{eIslockout,jdbcType=INTEGER},
-      </if>
-      <if test="eLockouttime != null" >
-        e_lockouttime = #{eLockouttime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="eEmail != null" >
-        e_email = #{eEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="eTelphone != null" >
-        e_telphone = #{eTelphone,jdbcType=VARCHAR},
-      </if>
-      <if test="ePwdwrongcount != null" >
-        e_pwdwrongcount = #{ePwdwrongcount,jdbcType=TINYINT},
-      </if>
-      <if test="eIsexit != null" >
-        e_isexit = #{eIsexit,jdbcType=INTEGER},
-      </if>
-      <if test="eDeptid != null" >
-        e_deptid = #{eDeptid,jdbcType=INTEGER},
-      </if>
-      <if test="eLoginname != null" >
-        e_loginname = #{eLoginname,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where e_id = #{eId,jdbcType=INTEGER}
-  </update>
-  
-  <!-- 根据员工登录名获取员工信息（rfy） -->
-   <select id="getEmpByEloginname" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from i_employee
-    where e_loginname = #{ename}
-  </select>
+
+
+
+	<!-- 更新用户信息：锁定解锁、锁定时间、登录时间、密码错误次数（rfy） -->
+	<update id="updateBySelective" parameterType="com.hero.entity.Employee">
+		update i_employee
+		<set>
+			<if test="eName != null">
+				e_name = #{eName,jdbcType=VARCHAR},
+			</if>
+			<if test="eSex != null">
+				e_sex = #{eSex,jdbcType=CHAR},
+			</if>
+			<if test="eIdcard != null">
+				e_idcard = #{eIdcard,jdbcType=VARCHAR},
+			</if>
+			<if test="eBirthday != null">
+				e_birthday = #{eBirthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ePwd != null">
+				e_pwd = #{ePwd,jdbcType=VARCHAR},
+			</if>
+			<if test="eLogintime != null">
+				e_logintime = #{eLogintime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="eCreatetime != null">
+				e_createtime = #{eCreatetime,jdbcType=TIMESTAMP},
+			</if>
+
+			e_updatetime = NOW(),
+
+			<if test="eIslockout != null">
+				e_islockout = #{eIslockout,jdbcType=INTEGER},
+			</if>
+			<if test="eLockouttime != null">
+				e_lockouttime = #{eLockouttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="eEmail != null">
+				e_email = #{eEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="eTelphone != null">
+				e_telphone = #{eTelphone,jdbcType=VARCHAR},
+			</if>
+			<if test="ePwdwrongcount != null">
+				e_pwdwrongcount = #{ePwdwrongcount,jdbcType=TINYINT},
+			</if>
+			<if test="eIsexit != null">
+				e_isexit = #{eIsexit,jdbcType=INTEGER},
+			</if>
+			<if test="eDeptid != null">
+				e_deptid = #{eDeptid,jdbcType=INTEGER},
+			</if>
+			<if test="eLoginname != null">
+				e_loginname = #{eLoginname,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where e_id = #{eId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 根据员工登录名获取员工信息（rfy） -->
+	<select id="getEmpByEloginname" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from i_employee
+		where e_loginname = #{ename}
+	</select>
 </mapper>
