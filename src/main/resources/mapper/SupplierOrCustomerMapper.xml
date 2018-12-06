@@ -223,6 +223,13 @@
   	<select id="isExitByName" resultType="int" parameterType="java.lang.String">
   		select count(*) FROM i_supplier_customer where s_name=#{name}
   	</select>
-  
+  	
+  <!-- 批量修改供应商、客户的类别（rfy） -->
+  	<update id="updBatch">
+  		UPDATE i_supplier_customer SET s_sc_id =#{cateid} WHERE s_id IN
+  		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+  	</update>
   
 </mapper>
