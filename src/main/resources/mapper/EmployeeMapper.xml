@@ -378,6 +378,9 @@
       <if test="eName != null" >
         e_name = #{eName,jdbcType=VARCHAR},
       </if>
+      <if test="ePwd != null" >
+        e_pwd = #{ePwd,jdbcType=VARCHAR},
+      </if>
       <if test="eSex != null" >
         e_sex = #{eSex,jdbcType=CHAR},
       </if>

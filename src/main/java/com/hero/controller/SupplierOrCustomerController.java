@@ -41,14 +41,21 @@ public class SupplierOrCustomerController {
 	public Object insert(SupplierOrCustomer sc){
 		System.out.println("表单序列化参数>>>>>"+sc);
 		Map<String, Object> map = new HashMap<String, Object>();
-		int n=supplierOrCustomerService.insertSelective(sc);
-		if (n>0) {
-			map.put("success", true);
-			map.put("message", "添加成功");
-		} else {
+		int e=supplierOrCustomerService.isExitByName(sc.getsName());
+		if (e>0) {
 			map.put("success", false);
-			map.put("message", "添加失败");
+			map.put("message", "该信息已存在，请勿重复添加");
+		} else {
+			int n=supplierOrCustomerService.insertSelective(sc);
+			if (n>0) {
+				map.put("success", true);
+				map.put("message", "添加成功");
+			} else {
+				map.put("success", false);
+				map.put("message", "添加失败");
+			}
 		}
+		
 		return map;
 	}
 	

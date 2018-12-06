@@ -181,18 +181,18 @@
     where s_id = #{sId,jdbcType=INTEGER}
   </update>
   
-  
+  <!-- rfy -->
   <sql id="CountwhereSQL">
   	<where>
-  		  s_isexit=0
+  		  sc.s_isexit=0
 	      <if test="scname != null and scname!=''" >
-	        and s_name like "%"#{scname}"%"
+	        and sc.s_name like "%"#{scname}"%"
 	      </if>
 	      <if test="cateid != null" >
-	        and s_sc_id=#{cateid}
+	        and sc.s_sc_id=#{cateid}
 	      </if>
 	      <if test="sctype != null" >
-	        and s_type=#{sctype}
+	        and sc.s_type=#{sctype}
 	      </if>
 	      
   	</where>
@@ -218,4 +218,11 @@
     set s_isexit = 1
     where s_id = #{sId,jdbcType=INTEGER}
   </update>
+  
+  <!--根据名称查询是否已存在(rfy) -->
+  	<select id="isExitByName" resultType="int" parameterType="java.lang.String">
+  		select count(*) FROM i_supplier_customer where s_name=#{name}
+  	</select>
+  
+  
 </mapper>

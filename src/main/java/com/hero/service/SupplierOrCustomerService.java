@@ -16,4 +16,6 @@ public interface SupplierOrCustomerService {
     int updateByPrimaryKeySelective(SupplierOrCustomer record);
     //软删（rfy）
     public int updexit(Integer sId);
+    //根据名称查询是否已存在(rfy)
+    public int isExitByName(String name);
 }

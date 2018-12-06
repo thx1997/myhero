@@ -19,10 +19,12 @@
     from i_supplier_customer_category
     where sc_id = #{scId,jdbcType=INTEGER}
   </select>
+  <!--  删除类别（rfy）-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from i_supplier_customer_category
     where sc_id = #{scId,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="com.hero.entity.SupplierOrCustomerCategory" >
     insert into i_supplier_customer_category (sc_id, sc_name, sc_createtime, 
       sc_updatetime, sc_remark, sc_type, 
@@ -31,21 +33,15 @@
       #{scUpdatetime,jdbcType=TIMESTAMP}, #{scRemark,jdbcType=VARCHAR}, #{scType,jdbcType=BIT}, 
       #{scDiscount,jdbcType=DECIMAL})
   </insert>
+  
+  <!-- 添加类别信息（rfy） -->
   <insert id="insertSelective" parameterType="com.hero.entity.SupplierOrCustomerCategory" >
     insert into i_supplier_customer_category
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="scId != null" >
-        sc_id,
-      </if>
       <if test="scName != null" >
         sc_name,
       </if>
-      <if test="scCreatetime != null" >
         sc_createtime,
-      </if>
-      <if test="scUpdatetime != null" >
-        sc_updatetime,
-      </if>
       <if test="scRemark != null" >
         sc_remark,
       </if>
@@ -57,18 +53,10 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="scId != null" >
-        #{scId,jdbcType=INTEGER},
-      </if>
       <if test="scName != null" >
         #{scName,jdbcType=VARCHAR},
       </if>
-      <if test="scCreatetime != null" >
-        #{scCreatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="scUpdatetime != null" >
-        #{scUpdatetime,jdbcType=TIMESTAMP},
-      </if>
+        NOW(),
       <if test="scRemark != null" >
         #{scRemark,jdbcType=VARCHAR},
       </if>
@@ -80,23 +68,18 @@
       </if>
     </trim>
   </insert>
+  
+  
+  <!-- 修改类别信息(rfy) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.SupplierOrCustomerCategory" >
     update i_supplier_customer_category
     <set >
       <if test="scName != null" >
         sc_name = #{scName,jdbcType=VARCHAR},
       </if>
-      <if test="scCreatetime != null" >
-        sc_createtime = #{scCreatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="scUpdatetime != null" >
-        sc_updatetime = #{scUpdatetime,jdbcType=TIMESTAMP},
-      </if>
+        sc_updatetime = NOW(),
       <if test="scRemark != null" >
         sc_remark = #{scRemark,jdbcType=VARCHAR},
-      </if>
-      <if test="scType != null" >
-        sc_type = #{scType,jdbcType=BIT},
       </if>
       <if test="scDiscount != null" >
         sc_discount = #{scDiscount,jdbcType=DECIMAL},
@@ -104,6 +87,8 @@
     </set>
     where sc_id = #{scId,jdbcType=INTEGER}
   </update>
+  
+  
   <update id="updateByPrimaryKey" parameterType="com.hero.entity.SupplierOrCustomerCategory" >
     update i_supplier_customer_category
     set sc_name = #{scName,jdbcType=VARCHAR},
@@ -121,4 +106,35 @@
     from i_supplier_customer_category
     where sc_type = #{stype}
   </select>
+  <!-- rfy -->
+  <sql id="CountwhereSQL">
+  	<where>
+	      <if test="scname != null and scname!=''" >
+	        and sc_name like "%"#{scname}"%"
+	      </if>
+	      <if test="sctype != null" >
+	        and sc_type=#{sctype}
+	      </if>
+	      
+  	</where>
+  	  	  <if test="orderby != null and orderby!=''" >
+	        order by ${orderby}
+	      </if>
+  </sql>
+  <!--多条件分页查询供应商客户类别信息 (rfy)-->
+  	<select id="selectAllByCount" resultMap="BaseResultMap" parameterType="com.hero.entity.query.SupplierOrCustomerCategoryQuery">
+  		select * from i_supplier_customer_category
+  		<include refid="CountwhereSQL"/>
+  		LIMIT #{startIndex},#{rows}
+  	</select>
+  	
+  	<!--查询分页总记录数(rfy) -->
+  	<select id="selectCount" resultType="int" parameterType="com.hero.entity.query.SupplierOrCustomerCategoryQuery">
+  		select count(*) FROM i_supplier_customer_category
+  		<include refid="CountwhereSQL"/>
+  	</select>
+  	<!--根据名称查询是否已存在(rfy) -->
+  	<select id="isExitByName" resultType="int" parameterType="java.lang.String">
+  		select count(*) FROM i_supplier_customer_category where sc_name=#{name}
+  	</select>
 </mapper>
