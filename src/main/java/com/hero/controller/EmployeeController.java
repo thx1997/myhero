@@ -277,6 +277,38 @@ public class EmployeeController {
 	
 	
 	/**
+	 * 修改密码(rfy)
+	 * @param u
+	 * @return
+	 */
+	@RequestMapping(value="/updPwd")
+	public Object updPwd(Employee u,String oldPwd,String loginname){
+		PasswordEncoder encoder=null;
+		//对原密码进行加密
+		encoder = new PasswordEncoder(loginname, "Md5");	
+		String oldPass=encoder.encode(oldPwd, 5);
+		//对新密码进行加密
+		encoder = new PasswordEncoder(loginname, "Md5");	
+		String pwd=encoder.encode(u.getePwd(), 5);
+		u.setePwd(pwd);
+		
+		Employee user=employeeService.getEmpByEloginname(loginname);//根据登录名查询用户信息
+		if (!user.getePwd().equals(oldPass)) {//判断原密码输入是否正确
+			return new Result("原密码输入错误",0);
+		} else {
+			int n=employeeService.updateBySelective(u);
+			if (n>0) {
+				return new Result("操作成功",1);
+			} else {
+				return new Result("操作失败",0);
+			}
+		}
+		
+	}
+	
+	
+	
+	/**
 	 * (rfy)
 	 * 测试token是否有效
 	 */
