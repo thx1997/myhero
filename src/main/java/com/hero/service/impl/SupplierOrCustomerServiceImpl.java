@@ -49,6 +49,12 @@ public class SupplierOrCustomerServiceImpl implements SupplierOrCustomerService 
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.isExitByName(name);
 	}
+
+	@Override
+	public int updBatch(int cateid, List<Integer> sid) {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.updBatch(cateid, sid);
+	}
 	
 	
 }

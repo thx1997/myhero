@@ -2,6 +2,8 @@ package com.hero.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hero.entity.SupplierOrCustomer;
 import com.hero.entity.query.SupplierOrCustomerQuery;
 
@@ -26,5 +28,7 @@ public interface SupplierOrCustomerMapper {
     public int updexit(Integer sId);
     //根据名称查询是否已存在(rfy)
     public int isExitByName(String name);
+    //批量修改供应商、客户的类别（rfy）
+    public int updBatch(@Param("cateid")int cateid,@Param("list")List<Integer> sid);
     
 }

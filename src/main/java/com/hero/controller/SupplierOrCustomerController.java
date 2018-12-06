@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hero.entity.SupplierOrCustomer;
@@ -94,6 +95,28 @@ public class SupplierOrCustomerController {
 		} else {
 			map.put("success", false);
 			map.put("message", "删除失败");
+		}
+		return map;
+	}
+	
+	
+	/**
+	 * 批量修改供应商、客户的类别
+	 * @param askerId
+	 * @param stuId
+	 * @return
+	 */
+	@RequestMapping(value="/batch")
+	public Object batchStu(int cateId,@RequestParam("sIds")List<Integer> sIds){
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println("编号>>>>>>>>>>>>>>>>>>"+sIds);
+		int n=supplierOrCustomerService.updBatch(cateId, sIds);
+		if (n>0) {
+			map.put("success", true);
+			map.put("message", "修改成功");
+		} else {
+			map.put("success", false);
+			map.put("message", "修改失败");
 		}
 		return map;
 	}
