@@ -11,6 +11,19 @@
   <sql id="Base_Column_List" >
     r_id, r_name, r_createtime, r_updatetime, r_remark
   </sql>
+  <!-- 查询所有角色(txh) -->
+  <select id="queryAllRole" resultMap="BaseResultMap" parameterType="com.hero.entity.query.QueryBase">
+    select 
+    <include refid="Base_Column_List" />
+    from i_role
+    limit #{startIndex},#{rows}
+  </select>
+   <!-- 查询所有角色,返回总条数(txh) -->
+  <select id="queryAllRoleCount" resultType="int" parameterType="com.hero.entity.query.QueryBase">
+    select count(*)  from i_role
+  </select>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

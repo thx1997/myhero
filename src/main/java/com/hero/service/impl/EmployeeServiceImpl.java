@@ -48,6 +48,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int lockEmp(Integer eid, Integer uIsLockout) {
 		return employeeMapper.lockEmp(eid, uIsLockout);
 	}
+	@Override//thx
+	public int delRE(int eid) {
+		return employeeMapper.delRE(eid);
+	}
+	@Override//thx
+	public int addRe(int eid, List<Integer> rids) {
+		return employeeMapper.addRe(eid, rids);
+	}
 	@Override
 	public Employee getEmpByEloginname(String ename) {
 		return employeeMapper.getEmpByEloginname(ename);
@@ -56,6 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int updateBySelective(Employee record) {
 		return employeeMapper.updateBySelective(record);
 	}
+	
 	
 
 }
