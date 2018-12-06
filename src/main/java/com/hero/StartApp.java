@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Spring Boot 应用启动类
- *
+ *123
  */
 @SpringBootApplication//springboot应用的标识
 @MapperScan("com.hero.repository")
