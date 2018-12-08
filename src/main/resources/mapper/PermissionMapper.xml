@@ -120,4 +120,26 @@
   		(SELECT rper_per_id FROM i_role_permission WHERE rper_r_id IN
 		(SELECT re_r_id FROM i_role_employee WHERE re_e_id = #{eid}))
   </select>
+  
+  
+  
+  <!-- 查询所有权限集合(rfy) -->
+   <select id="queryAll" resultType="String">
+		SELECT per_value FROM i_permission
+	</select>
+
+    <!-- 批量插入权限数据(rfy) -->
+	<insert id="batchInsert" parameterType="list">
+		INSERT INTO i_permission(per_value,per_moule,per_name) VALUES
+		
+		<foreach collection="list" item="permission" separator=",">
+			(#{permission.perValue},#{permission.perMoule},#{permission.perName})
+		</foreach>
+
+	</insert>
+  	<!-- 清除权限(rfy)  -->
+  	<delete id="delPermission">
+  		delete from i_permission <!-- WHERE per_name NOT IN ('设置角色的权限') -->
+  	</delete>
+  
 </mapper>
