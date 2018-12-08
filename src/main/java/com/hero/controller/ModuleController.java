@@ -226,4 +226,16 @@ public class ModuleController {
 		}
 		return map;
 	}
+	
+	/**
+	 * 给角色设置模块时，查询模块信息，角色已拥有模块选中
+	 * @author thx
+	 * @param rId 角色编号
+	 * @return
+	 */
+	@RequestMapping(value="/queryCheckedByRid",name="设置角色模块")
+	@ResponseBody
+	public Object queryModuleChecked(@RequestParam(value="rId",required=true)List<Integer> rId){
+		return moduleService.queryModuleChecked(rId);		
+	}
 }

@@ -1,61 +1,87 @@
 package com.hero.entity.query;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * 角色查询条件实体类
- * @author wxk
- *
+ * 
  */
 @JsonInclude(Include.NON_EMPTY)	//没有接收到的参数为空的不序列化
-public class RoleQuery {
+public class RoleQuery extends QueryBase{
+	private Integer rId;
 	private String roleName;
-	private Integer page = 1;//当前第几页
-	private Integer rows  = 10;//每页大小
-	private Integer startIndex = 0;//Mysql分页查询limit第一个参数
+	//创建时间段
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+    private Date beginCreatetime;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+    private Date endCreatetime;	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+    private Date beginUpdatetime;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+    private Date endUpdatetime;
+	public Integer getrId() {
+		return rId;
+	}
+	public void setrId(Integer rId) {
+		this.rId = rId;
+	}
 	public String getRoleName() {
 		return roleName;
 	}
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	public Integer getPage() {
-		return page;
+	public Date getBeginCreatetime() {
+		return beginCreatetime;
 	}
-	public void setPage(Integer page) {
-		this.page = page;
+	public void setBeginCreatetime(Date beginCreatetime) {
+		this.beginCreatetime = beginCreatetime;
 	}
-	public Integer getRows() {
-		return rows;
+	public Date getEndCreatetime() {
+		return endCreatetime;
 	}
-	public void setRows(Integer rows) {
-		this.rows = rows;
+	public void setEndCreatetime(Date endCreatetime) {
+		this.endCreatetime = endCreatetime;
 	}
-	//MyBatis映射文件中取值使用
-	public Integer getStartIndex() {
-		return (page-1)*rows;
+	public Date getBeginUpdatetime() {
+		return beginUpdatetime;
 	}
-	public void setStartIndex(Integer startIndex) {
-		this.startIndex = startIndex;
+	public void setBeginUpdatetime(Date beginUpdatetime) {
+		this.beginUpdatetime = beginUpdatetime;
 	}
-	public RoleQuery(String roleName, Integer page, Integer rows,
-			Integer startIndex) {
+	public Date getEndUpdatetime() {
+		return endUpdatetime;
+	}
+	public void setEndUpdatetime(Date endUpdatetime) {
+		this.endUpdatetime = endUpdatetime;
+	}
+	public RoleQuery(Integer rId, String roleName, Date beginCreatetime, Date endCreatetime, Date beginUpdatetime,
+			Date endUpdatetime) {
 		super();
+		this.rId = rId;
 		this.roleName = roleName;
-		this.page = page;
-		this.rows = rows;
-		this.startIndex = startIndex;
+		this.beginCreatetime = beginCreatetime;
+		this.endCreatetime = endCreatetime;
+		this.beginUpdatetime = beginUpdatetime;
+		this.endUpdatetime = endUpdatetime;
 	}
 	public RoleQuery() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
-		return "RoleQeury [roleName=" + roleName + ", page=" + page + ", rows="
-				+ rows + ", startIndex=" + startIndex + "]";
+		return "RoleQuery [rId=" + rId + ", roleName=" + roleName + ", beginCreatetime=" + beginCreatetime
+				+ ", endCreatetime=" + endCreatetime + ", beginUpdatetime=" + beginUpdatetime + ", endUpdatetime="
+				+ endUpdatetime + "]";
 	}
-	
-	
-	
+   
 }

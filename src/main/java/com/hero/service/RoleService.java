@@ -2,11 +2,43 @@ package com.hero.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hero.entity.Role;
 import com.hero.entity.query.QueryBase;
 import com.hero.entity.query.RoleQuery;
 
 public interface RoleService {
+	/**
+ 	 * 多条件分页查询角色
+ 	 * @author thx
+ 	 * @param roleQuery 条件封装成的实体
+ 	 * @return 满足条件的角色集合
+ 	 */
+ 	public List<Role> queryRole(RoleQuery roleQuery);
+ 	/**
+ 	 * 多条件分页查询角色
+ 	 * @author thx
+ 	 * @param roleQuery 条件封装成的实体
+ 	 * @return 满足条件的角色集合的总条数
+ 	 */
+ 	public int queryRoleCount(RoleQuery roleQuery);
+ 	/**
+ 	 * 移除指定角色管理的所有模块（操作中间表而已）
+ 	 * @author thx
+ 	 * @param rid 角色编号
+ 	 * @return 受影响的行数
+ 	 */
+	public int delRoleModule(int rid);
+	/**
+	 * 为指定角色设置管理模块
+	 * @author thx
+	 * @param rid 角色编号
+	 * @param mids 模块编号集合
+	 * @return 受影响的行数
+	 */
+	public int addRoleModule(int rid,List<Integer> mids);
+	
   	/**
   	 * 查询所有角色
   	 * @author thx
@@ -44,23 +76,6 @@ public interface RoleService {
 	 */
 	int insertSelective(Role record);
 
-	/**
-	 * 多条件分页查询角色
-	 * 
-	 * @param roleQuery
-	 *            条件封装成的实体
-	 * @return 满足条件的角色集合
-	 */
-	public List<Role> queryRole(RoleQuery roleQuery);
-
-	/**
-	 * 多条件分页查询角色
-	 * 
-	 * @param roleQuery
-	 *            条件封装成的实体
-	 * @return 满足条件的角色集合的总条数
-	 */
-	public int queryRoleCount(RoleQuery roleQuery);
 
 	/**
 	 * 跟据编号删除某个角色

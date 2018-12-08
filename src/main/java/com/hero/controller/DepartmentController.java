@@ -61,8 +61,8 @@ public class DepartmentController {
 	 * @param dep 参数封装的部门实体对象
 	 * @return
 	 */
-	//@RequestMapping(value="/addDep",name="添加新部门")
-	@RequestMapping(value="/addDep")
+	@RequestMapping(value="/addDep",name="添加新部门")
+	//@RequestMapping(value="/addDep")
 	public Object addEmp(Department dep) {
 		System.out.println("添加参数==》" + dep);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -83,8 +83,8 @@ public class DepartmentController {
 	 * @param dep 参数封装的部门实体
 	 * @return
 	 */
-	//@RequestMapping(value="/updateDep",name="修改部门信息")
-	@RequestMapping(value="/updateDep")
+	@RequestMapping(value="/updateDep",name="修改部门信息")
+	//@RequestMapping(value="/updateDep")
 	public Object updateDep(Department dep,int dId) {
 		System.out.println("修改参数==》" + dep);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -108,8 +108,8 @@ public class DepartmentController {
 	 * @return
 	 */
 	Integer n;
-	//@RequestMapping(value="/delDep",name="根据编号某个部门")
-	@RequestMapping(value="/delDep")
+	@RequestMapping(value="/delDep",name="根据编号某个部门")
+	//@RequestMapping(value="/delDep")
 	public Object delDep(int dId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		

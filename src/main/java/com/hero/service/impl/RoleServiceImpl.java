@@ -16,7 +16,15 @@ public class RoleServiceImpl implements RoleService {
 
 	@Autowired
 	private RoleMapper roleMapper;
+	@Override//thx
+	public List<Role> queryRole(RoleQuery roleQuery) {
+		return roleMapper.queryRole(roleQuery);
+	}
 
+	@Override//thx
+	public int queryRoleCount(RoleQuery roleQuery) {
+		return roleMapper.queryRoleCount(roleQuery);
+	}
 	@Override // rfy
 	public List<Integer> getRoleIdByeid(int eid) {
 		return roleMapper.getRoleIdByeid(eid);
@@ -34,7 +42,15 @@ public class RoleServiceImpl implements RoleService {
 	public int queryAllRoleCount(QueryBase queryBase) {
 		return roleMapper.queryAllRoleCount(queryBase);
 	}
-	
+	@Override//thx
+	public int delRoleModule(int rid) {
+		return roleMapper.delRoleModule(rid);
+	}
+
+	@Override//thx
+	public int addRoleModule(int rid, List<Integer> mids) {
+		return roleMapper.addRoleModule(rid, mids);
+	}
 
 	@Override//wxk
 	public int updateByPrimaryKeySelective(Role record) {
@@ -46,15 +62,7 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.insertSelective(record);
 	}
 
-	@Override//wxk
-	public List<Role> queryRole(RoleQuery roleQuery) {
-		return roleMapper.queryRole(roleQuery);
-	}
-
-	@Override//wxk
-	public int queryRoleCount(RoleQuery roleQuery) {
-		return roleMapper.queryRoleCount(roleQuery);
-	}
+	
 
 	@Override//wxk
 	public int delRoleByrid(int rid) {
@@ -65,5 +73,7 @@ public class RoleServiceImpl implements RoleService {
 	public List<Role> queryAllRoles() {
 		return roleMapper.queryAllRoles();
 	}
+
+	
 
 }

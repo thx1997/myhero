@@ -106,4 +106,51 @@ public class ModuleServiceImpl implements ModuleService {
 			// TODO Auto-generated method stub
 			return moduleMapper.selModulCountByPage(moduleQer);
 		}
+
+		@Override//thx
+		public List<Module> queryModuleChecked(List<Integer> rid) {
+			//查询出所有根菜单
+			List<Module> rootList = moduleMapper.selmodulByParentid(0);
+			//查询出角色已拥有的模块的编号
+			List<Integer> midList=moduleMapper.selectMidByRid(rid);
+			//递归设置子菜单
+			this.setChildrensChecked(rootList,midList);
+			System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^最终得到的菜单列表=>"+rootList);
+			return rootList;
+			
+		}
+		/**
+		 * 给菜单模块 设置孩子
+		 * @author thx
+		 * @param parentList 目标模块集合
+		 */
+		private void setChildrensChecked(List<Module> parentList,List<Integer> mList){
+			for(Module m:parentList){
+				//查询出子菜单
+				List<Module> childrenList = this.queryChildrenById(m.getmId());
+				System.out.println("*****************************************************设置子菜单=>"+m.getmName());
+				//如果没有子菜单则递归结束
+				if( childrenList !=null && !childrenList.isEmpty() ){//有子菜单
+					
+					//设置子菜单
+					System.out.println("设置的子菜单是=>"+childrenList);
+					m.setChildren(childrenList);
+					//如果有子菜单则继续递归设置子菜单
+					this.setChildrensChecked(childrenList,mList);
+				}else{
+					if (mList.contains(m.getmId())) {
+						m.setChecked(true);
+					} 
+				}
+			}
+		}
+		//查询角色已拥有的模块的编号
+		@Override
+		public List<Integer> selectMidByRid(List<Integer> rid) {
+			return moduleMapper.selectMidByRid(rid);
+		}
+		@Override//thx(根据父ID查询出所有孩子)
+		public List<Module> queryChildrenById(Integer parentId) {
+			return moduleMapper.selmodulByParentid(parentId);
+		}
 }

@@ -6,6 +6,30 @@ import com.hero.entity.Module;
 import com.hero.entity.ModuleQer;
 
 public interface ModuleService {
+	
+	/**
+	 * 给角色设置模块，已拥有角色处选中状态
+	 * @author thx
+	 * @param rid 角色编号
+	 * @return
+	 */
+	public 	List<Module> queryModuleChecked(List<Integer> rid);
+	
+	/**
+	 * 根据父ID查询出所有孩子
+	 * @author thx
+	 * @param parentId
+	 * @return
+	 */
+	public List<Module> queryChildrenById(Integer parentId);
+	/**
+	 * 根据角色编号查询出所拥有的模块编号
+	 * @author thx
+	 * @param rid 角色编号集合
+	 * @return 模块编号集合
+	 */
+	public List<Integer> selectMidByRid(List<Integer> rid);
+	
 	// 根据父id和角色id查询角色拥有的模块信息(rfy)
 	public List<Module> queryModuleByPidRid(int pid, List<Integer> rids);
 	// 查询左侧菜单树(rfy)

@@ -14,6 +14,14 @@
   <sql id="Base_Column_List" >
     m_id, m_name, m_parentid, m_path, m_weight, m_createtime, m_updatetime, m_remark
   </sql>
+  <!--根据角色编号查询其拥有的模块的编号 (thx) -->
+	<select id="selectMidByRid" parameterType="list" resultType="Integer">
+		SELECT rm_m_id FROM i_role_module WHERE rm_r_id in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+  
   <!-- 根据id查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

@@ -11,6 +11,40 @@
   <sql id="Base_Column_List" >
     r_id, r_name, r_createtime, r_updatetime, r_remark
   </sql>
+  <sql id="queryWhere">
+     <where>
+           <if test="roleName != null and roleName != ''">
+				and r_name like "%"#{roleName}"%"
+			</if>
+			<if test="beginCreatetime != null">
+				and r_createtime &gt; #{beginCreatetime}
+			</if>
+			<if test="endCreatetime != null">
+				and r_createtime &lt; #{endCreatetime}
+			</if>
+			<if test="beginUpdatetime != null">
+				and r_updatetime &gt; #{beginUpdatetime}
+			</if>
+			<if test="endUpdatetime != null">
+				and r_updatetime &lt; #{endUpdatetime}
+			</if>
+		</where>
+  </sql>
+ <!--  移除指定角色管理的所有模块（操作中间表而已）(thx) -->
+  <delete id="delRoleModule" parameterType="int">
+      DELETE FROM i_role_module WHERE rm_r_id=#{rid}
+  </delete>
+  <!-- 为指定角色设置管理模块 -->
+  <insert id="addRoleModule">
+    INSERT INTO i_role_module(rm_r_id,rm_m_id) VALUES 
+    <foreach collection="mids" item="mids" separator="," index="index">
+   (
+    #{rid},
+    #{mids}
+    )
+    </foreach>    
+    </insert>
+  
   <!-- 查询所有角色(thx) -->
   <select id="queryAllRole" resultMap="BaseResultMap" parameterType="com.hero.entity.query.QueryBase">
     select 
@@ -22,6 +56,70 @@
   <select id="queryAllRoleCount" resultType="int" parameterType="com.hero.entity.query.QueryBase">
     select count(*)  from i_role
   </select>
+  <!--多条件分页查询角色,返回满足条件的集合(thx) -->
+	<select id="queryRole" parameterType="com.hero.entity.query.RoleQuery" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />		
+		from i_role
+		<include refid="queryWhere" />
+		limit #{startIndex},#{rows}
+	</select>
+	<!--多条件分页查询部门,返回满足条件的集合的总条数(thx) -->
+	<select id="queryRoleCount"  parameterType="com.hero.entity.query.RoleQuery" resultType="int">
+		select count(*) from i_role
+		<include refid="queryWhere" />
+	</select>
+  <!-- 修改角色名(thx) -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.Role">
+		update i_role
+		<set>
+			<if test="rName != null">
+				r_name = #{rName,jdbcType=VARCHAR},
+			</if>
+			<if test="1==1">
+				r_updatetime = now(),
+			</if>
+			<if test="rRemark != null">
+				r_remark = #{rRemark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where r_id = #{rId,jdbcType=INTEGER}
+	</update>
+  <!-- 新增角色(thx) -->
+	<insert id="insertSelective" parameterType="com.hero.entity.Role">
+		insert into i_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rName != null and rName != ''">
+				r_name,
+			</if>
+			<if test="1==1">
+				r_createtime,
+			</if>
+			<if test="rRemark != null">
+				r_remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rName != null and rName != ''">
+				#{rName,jdbcType=VARCHAR},
+			</if>
+			<if test="1==1">
+				now(),
+			</if>
+			<if test="rRemark != null ">
+				#{rRemark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+  <!-- 删除指定角色(thx) -->
+   <delete id="delRoleByrid" parameterType="java.lang.Integer" >
+    delete from i_role
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  
+  
+  
+  
   
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -30,10 +128,7 @@
     from i_role
     where r_id = #{rId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from i_role
-    where r_id = #{rId,jdbcType=INTEGER}
-  </delete>
+ 
   <insert id="insert" parameterType="com.hero.entity.Role" >
     insert into i_role (r_id, r_name, r_createtime, 
       r_updatetime, r_remark)
@@ -42,63 +137,8 @@
   </insert>
   
 	
-	<!-- 添加新角色(wxk) -->
-	<insert id="insertSelective" parameterType="com.hero.entity.Role">
-		insert into i_role
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="rId != null">
-				r_id,
-			</if>
-			<if test="rName != null">
-				r_name,
-			</if>
-			<if test="rCreatetime != null">
-				r_createtime,
-			</if>
-			<if test="rUpdatetime != null">
-				r_updatetime,
-			</if>
-			<if test="rRemark != null">
-				r_remark,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="rId != null">
-				#{rId,jdbcType=INTEGER},
-			</if>
-			<if test="rName != null">
-				#{rName,jdbcType=VARCHAR},
-			</if>
-			<if test="rCreatetime != null">
-				#{rCreatetime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="rUpdatetime != null">
-				#{rUpdatetime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="rRemark != null">
-				#{rRemark,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</insert>
-	<!-- 更新角色 -->
-	<update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.Role">
-		update i_role
-		<set>
-			<if test="rName != null">
-				r_name = #{rName,jdbcType=VARCHAR},
-			</if>
-			<if test="rCreatetime != null">
-				r_createtime = #{rCreatetime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="rUpdatetime != null">
-				r_updatetime = #{rUpdatetime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="rRemark != null">
-				r_remark = #{rRemark,jdbcType=VARCHAR},
-			</if>
-		</set>
-		where r_id = #{rId,jdbcType=INTEGER}
-	</update>
+	
+	
 	<!--修改角色 -->
 	<update id="updateByPrimaryKey" parameterType="com.hero.entity.Role">
 		update i_role
@@ -108,10 +148,7 @@
 		r_remark = #{rRemark,jdbcType=VARCHAR}
 		where r_id = #{rId,jdbcType=INTEGER}
 	</update>
-	<!-- 软删某个指定的角色(wxk) -->
-	<update id="delRoleByrid" parameterType="int">
-		delete i_role WHERE r_id=#{rId,jdbcType=INTEGER}
-	</update>
+	
 	<!-- 根据用户编号查询用户的角色编号 rfy -->
 	<select id="getRoleIdByeid" resultType="int" parameterType="int">
 		SELECT re_r_id FROM i_role_employee WHERE re_e_id=#{eid}

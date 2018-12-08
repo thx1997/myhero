@@ -8,12 +8,21 @@ import com.hero.entity.Module;
 import com.hero.entity.ModuleQer;
 
 public interface ModuleMapper {
+	
+	
 	//删除
     int deleteByPrimaryKey(Integer mId);
     //查询该模块能否删除
     int selmodul(Integer mId);
-    //根据parentid查询模块
+    //根据parentid查询模块(rfy&thx)
     List<Module> selmodulByParentid(Integer mId);
+    /**
+     * 根据角色编号查询出所拥有的模块编号
+     * @author thx
+     * @param rid 角色编号集合
+     * @return 模块编号集合
+     */
+  	public List<Integer> selectMidByRid(@Param("list")List<Integer> rid);
     //添加
     int insertSelective(Module record);
     //根据id查询
