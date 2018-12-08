@@ -130,10 +130,10 @@
 
     <!-- 批量插入权限数据(rfy) -->
 	<insert id="batchInsert" parameterType="list">
-		INSERT INTO i_permission(per_value,per_moule,per_name) VALUES
+		INSERT INTO i_permission(per_value,per_moule,per_name,per_createtime) VALUES
 		
 		<foreach collection="list" item="permission" separator=",">
-			(#{permission.perValue},#{permission.perMoule},#{permission.perName})
+			(#{permission.perValue},#{permission.perMoule},#{permission.perName},NOW())
 		</foreach>
 
 	</insert>
