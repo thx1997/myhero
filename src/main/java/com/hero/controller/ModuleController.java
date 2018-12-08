@@ -1,29 +1,21 @@
 package com.hero.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.hero.entity.Module;
-import com.hero.entity.ModuleQer;
-import com.hero.entity.Token;
+
 import com.hero.service.ModuleService;
-import com.hero.service.impl.ModuleServiceImpl;
-import com.hero.util.JwtToken;
+
 /**
  * 
  * @author xkt
@@ -58,172 +50,123 @@ public class ModuleController {
 		System.out.println("mList==>"+mList);
 		return mList;
 	}
-	/**
-	 * localhost:8080/invoicing/module/selall?rownumbers=1 &modulename=员工
-	 * 
-	 * @return
-	 */
-	@RequestMapping("selall")
-	public Object selall(ModuleQer moduleQer,Integer rownumbers) {
-		list.clear();
-		moduleQer.setIndexpage(rownumbers);
-		moduleQer.setRows(10);
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Module> list = new ArrayList<Module>();
-		List<Module> list1 = new ArrayList<Module>();
-		// ModuleListAdd mdao = new ModuleListAdd();
-		// ConcurrentHashMap list2 = new ConcurrentHashMap<>();
-		list = moduleService.selModulByPage(moduleQer);
-		int count = moduleService.selModulCountByPage(moduleQer);
-//		System.out.println(list.size()+"查到的模块"+list);
-		// 遍历查询父节点
-		for (Module module : list) {
-			if (module.getmParentid() != 0) {
-				list1 = this.selparent(module); // this.selparent(module);
-			}
-		}
-//		System.out.println(list1.size()+"所有父模块"+list1);
-		for (Module module : list1) {
-			if (!list.contains(module)) {
-				list.add(module);
-			}
-		}
-		map.put("total", list.size());
-		map.put("rows", list);
-		map.put("count", count);
-		return map;
-	}
-
-	/**
-	 * localhost:8080/invoicing/module/selparent?mParentid=2 遍历查询父节点
-	 * 
-	 * @param module
-	 */
 	
-	public List<Module> selparent(Module module) {
-//		List<Module> list = new ArrayList<Module>();
-		int mid = module.getmParentid();
-//		System.out.println("---------"+module);
-		if (mid != 0) {
-			Module modules = moduleService.selectByPrimaryKey(mid);
-			if(!list.contains(modules)) {
-				list.add(modules);
-			}
-			this.selparent(modules);
-		}
-		return list;
-	}
-
 	/**
-	 * localhost:8080/invoicing/module/delModulById?mid=1
-	 * 
-	 * @param mid
+	 * 查询所有模块信息(rfy)
 	 * @return
 	 */
-	@RequestMapping("delModulById")
-	public Object delModulById(int mid) {
+	@RequestMapping(value="/queryAll")
+	@ResponseBody
+	public Object queryModuleTree(Module m){
 		Map<String, Object> map = new HashMap<String, Object>();
-		int i = moduleService.selmodul(mid);
-		if (i > 0) {
-			map.put("success", false);
-			map.put("message", "该模块已被占用，无法删除");
-		} else {
-			if (this.sel(mid)) {
-				int y = moduleService.deleteByPrimaryKey(mid);
-				if (y > 0) {
-					map.put("success", true);
-					map.put("message", "删除成功");
-				} else {
-					map.put("success", false);
-					map.put("message", "删除时出错");
-				}
-			} else {
-				map.put("success", false);
-				map.put("message", "删除子模块时出错");
-			}
-
+		System.out.println("模块名称>>>>>>>>>>>>>>"+m.getmName());
+		List<Module> mList=new ArrayList<Module>();
+		int total=0;
+		if (m.getmName()==null||m.getmName()=="") {//查询所有模块信息
+			mList=moduleService.queryModuleTree(m);
+			total=moduleService.queryAllCount();
+		} else {//根据名称模糊查询
+			mList=moduleService.queryModuleByName(m);
+			total=moduleService.queryCount(m.getmName());
 		}
+		map.put("total", total);
+		map.put("rows", mList);
 		return map;
+		
 	}
-
+	
+	
 	/**
-	 * 遍历查询子模块
-	 * 
-	 * @param module
+	 * 添加模块(rfy)
+	 * @param m
+	 * @param request
+	 * @return 
 	 */
-	public boolean sel(int mid) {
-		// List<Module> list = null;
-		List<Module> list = moduleService.selmodulByParentid(mid);
-		System.out.println("该模块下的子模块" + list);
-		if (list != null) {
-			for (Module module : list) {
-				int i = module.getmId();
-				int y = moduleService.deleteByPrimaryKey(i);
-				if (y < 0) {
-					return false;
-				}
-				this.sel(i);
-			}
-		}
-		return true;
-
-	}
-
-	/**
-	 * localhost:8080/invoicing/module/insertModul?mName=123&mParentid=0
-	 * 
-	 * @param mid
-	 * @return
-	 */
-	@RequestMapping("insertModul")
-	public Object insertModul(Module module) {
+	@RequestMapping(value="/insert",name="模块新增")
+	@ResponseBody
+	public Object insertModule(Module m){
 		Map<String, Object> map = new HashMap<String, Object>();
-		// SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		// System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
-		module.setmCreatetime(new Date());
-		int i = moduleService.selModuleByParentAndName(module);
-		if (i > 0) {
+		int e=moduleService.isExitByNameAndPid(m.getmName(),m.getmParentid());
+		System.out.println("是否存在"+e);
+		if (e>0) {//判断同一父模块下新添加的模块是否存在
 			map.put("success", false);
-			map.put("message", "父模块下已有同名称模块，无法添加");
+			map.put("message", "该模块已存在");
 		} else {
-			int y = moduleService.insertSelective(module);
-			if (y > 0) {
+			int n=moduleService.insertSelective(m);
+			if (n>0) {
 				map.put("success", true);
 				map.put("message", "添加成功");
 			} else {
 				map.put("success", false);
-				map.put("message", "添加时出错");
+				map.put("message", "添加失败");
 			}
 		}
 		return map;
 	}
-
+	
 	/**
-	 * localhost:8080/invoicing/module/updateModul?mId=4&mName=123&mParentid=0
-	 * 
-	 * @param mid
+	 * 修改模块信息，同一个父节点下节点名称不能相同(rfy)
+	 * @param m
+	 * @param request
 	 * @return
 	 */
-	@RequestMapping("updateModul")
-	public Object updateModul(Module module) {
+	@RequestMapping(value="/update",name="模块修改")
+	@ResponseBody
+	public Object updateModuleById(Module m){
 		Map<String, Object> map = new HashMap<String, Object>();
-		// SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		// System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
-		module.setmUpdatetime(new Date());
-		int i = moduleService.selModuleByParentAndName(module);
-		if (i > 0) {
-			map.put("success", false);
-			map.put("message", "父模块下已有同名称模块，无法修改");
-		} else {
-			int y = moduleService.updateByPrimaryKeySelective(module);
-			if (y > 0) {
+		Module module=moduleService.selectByPrimaryKey(m.getmId());
+		int n=0;
+		if (module.getmName().equals(m.getmName())) {//先判断用户在页面是否修改了名称，若修改名称则需判断修改后的名称在同一父模块下是否存在
+			n=moduleService.updateByPrimaryKeySelective(m);
+			if (n>0) {
 				map.put("success", true);
 				map.put("message", "修改成功");
 			} else {
 				map.put("success", false);
-				map.put("message", "修改时出错");
+				map.put("message", "修改失败");
+			}
+		} else {//若修改名称则需判断修改后的名称在同一父模块下是否存在
+			int e=moduleService.isExitByNameAndPid(m.getmName(),m.getmParentid());
+			System.out.println("是否存在"+e);
+			if (e>0) {
+				map.put("success", false);
+				map.put("message", "该节点已存在，请修改节点名称");
+			} else {
+				n=moduleService.updateByPrimaryKeySelective(m);
+				if (n>0) {
+					map.put("success", true);
+					map.put("message", "修改成功");
+				} else {
+					map.put("success", false);
+					map.put("message", "修改失败");
+				}
 			}
 		}
 		return map;
 	}
+	
+	
+	/**
+	 * 级联删除模块(rfy)
+	 * @param mid
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/delete",name="模块删除")
+	@ResponseBody
+	public Object deleteModuleById(int mid){
+		Map<String, Object> map = new HashMap<String, Object>();		
+			int n=moduleService.delModule(mid);
+			if (n>0) {
+				map.put("success", true);
+				map.put("message", "删除成功");
+			} else {
+				map.put("success", false);
+				map.put("message", "删除失败，模块与其他角色有关联");
+			}
+		return map;
+	}
+	
+	
+	
 }

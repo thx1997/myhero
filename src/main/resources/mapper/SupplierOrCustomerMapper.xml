@@ -232,4 +232,11 @@
 		</foreach>
   	</update>
   
+  <!--根据编号查询供货商客户信息 （rfy） -->
+  	<select id="getSupplierOrCustomerBySid" resultMap="BaseResultMap" parameterType="int">
+  		SELECT * FROM i_supplier_customer where s_id IN
+  		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+  	</select>
 </mapper>

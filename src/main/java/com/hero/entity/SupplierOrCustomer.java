@@ -4,34 +4,38 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.hero.excel.PoiHandler;
 
 public class SupplierOrCustomer {
+	@PoiHandler(excelHeader="编号")
     private Integer sId;
-
+	@PoiHandler(excelHeader="名称")
     private String sName;
-
+	@PoiHandler(excelHeader="传真")
     private String sFax;
-
+	@PoiHandler(excelHeader="类别编号")
     private Integer sScId;
-
+    @PoiHandler(excelHeader="联系人")
     private String sConstacperson;
-
+    @PoiHandler(excelHeader="联系人电话")
     private String sConstacphone;
-
+    @PoiHandler(excelHeader="地址")
     private String sAddress;
-
+    @PoiHandler(excelHeader="描述")
     private String sDescription;
-
+    @PoiHandler(excelIgnore=false)
     private String sIsexit;
-
+    @PoiHandler(excelHeader="税号")
     private String sTallage;
+    @PoiHandler(excelHeader="创建时间")
     @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     private Date sCreatetime;
+    @PoiHandler(excelHeader="最后更新时间")
     @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     private Date sUpdatetime;
-
+    @PoiHandler(excelHeader="备注")
     private String sRemark;
-
+    @PoiHandler(excelIgnore=false)
     private Boolean sType;
     @JsonUnwrapped//rfy
     private SupplierOrCustomerCategory category;

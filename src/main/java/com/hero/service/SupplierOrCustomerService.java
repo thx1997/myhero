@@ -22,4 +22,6 @@ public interface SupplierOrCustomerService {
     public int isExitByName(String name);
     //批量修改供应商、客户的类别（rfy）
     public int updBatch(int cateid,List<Integer> sid);
+    //根据编号查询供货商客户信息（rfy）
+  	public List<SupplierOrCustomer> getSupplierOrCustomerBySid(@Param("list")List<Integer> sList);
 }

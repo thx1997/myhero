@@ -11,72 +11,37 @@
     <result column="m_updatetime" property="mUpdatetime" jdbcType="TIMESTAMP" />
     <result column="m_remark" property="mRemark" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
+   <sql id="Base_Column_List" >
     m_id, m_name, m_parentid, m_path, m_weight, m_createtime, m_updatetime, m_remark
   </sql>
-  <!-- 根据id查询 -->
+  
+  <!-- 根据模块id查询模块信息(rfy) -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from i_module
     where m_id = #{mId,jdbcType=INTEGER}
   </select>
-   <!-- 根据id查询模块是否再用 -->
-  <select id="selmodul" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
-    select COUNT(*)
-    from i_role_module
-    where rm_m_id = #{mId,jdbcType=INTEGER}
-  </select>
-   <!-- 根据父id查询 -->
-  <select id="selmodulByParentid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from i_module
-    where m_parentid = #{mId,jdbcType=INTEGER}
-  </select>
-   <!-- 多条件分页 -->
-  <select id="selModulByPage" resultMap="BaseResultMap" parameterType="com.hero.entity.ModuleQer" >
-    select 
-    <include refid="Base_Column_List" />
-    from i_module
-    <where>
-    	<if test="modulename != null" >
-        and m_name like "%"#{modulename,jdbcType=VARCHAR}"%"
-      </if>
-    </where>
-    limit #{beginpage,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
-  </select>
-   <!-- 多条件分页总记录数 -->
-  <select id="selModulCountByPage" resultType="java.lang.Integer" parameterType="com.hero.entity.ModuleQer" >
-    select count(*)
-    from i_module
-    <where>
-    	<if test="modulename != null" >
-        and m_name like "%"#{modulename,jdbcType=VARCHAR}"%"
-      </if>
-    </where>
-  </select>
-  <!-- 查询相同父id下名称是否重复 -->
-  <select id="selModuleByParentAndName" resultType="java.lang.Integer" parameterType="com.hero.entity.Module" >
-    select count(*)
-    from i_module
-    where
-        m_name like #{mName,jdbcType=VARCHAR}
-      and m_parentid = #{mParentid,jdbcType=INTEGER}
-    
-  </select>
-  
+  <!-- 删除模块(rfy) -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from i_module
     where m_id = #{mId,jdbcType=INTEGER}
   </delete>
-
+  
+  <insert id="insert" parameterType="com.hero.entity.Module" >
+    insert into i_module (m_id, m_name, m_parentid, 
+      m_path, m_weight, m_createtime, 
+      m_updatetime, m_remark)
+    values (#{mId,jdbcType=INTEGER}, #{mName,jdbcType=VARCHAR}, #{mParentid,jdbcType=INTEGER}, 
+      #{mPath,jdbcType=VARCHAR}, #{mWeight,jdbcType=INTEGER}, #{mCreatetime,jdbcType=TIMESTAMP}, 
+      #{mUpdatetime,jdbcType=TIMESTAMP}, #{mRemark,jdbcType=VARCHAR})
+  </insert>
+  
+   <!--  添加模块信息（rfy） -->
   <insert id="insertSelective" parameterType="com.hero.entity.Module" >
     insert into i_module
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="mId != null" >
-        m_id,
-      </if>
+      
       <if test="mName != null" >
         m_name,
       </if>
@@ -88,21 +53,14 @@
       </if>
       <if test="mWeight != null" >
         m_weight,
-      </if>
-      <if test="mCreatetime != null" >
+      </if>  
         m_createtime,
-      </if>
-      <if test="mUpdatetime != null" >
-        m_updatetime,
-      </if>
       <if test="mRemark != null" >
         m_remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="mId != null" >
-        #{mId,jdbcType=INTEGER},
-      </if>
+      
       <if test="mName != null" >
         #{mName,jdbcType=VARCHAR},
       </if>
@@ -114,43 +72,54 @@
       </if>
       <if test="mWeight != null" >
         #{mWeight,jdbcType=INTEGER},
-      </if>
-      <if test="mCreatetime != null" >
-        #{mCreatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="mUpdatetime != null" >
-        #{mUpdatetime,jdbcType=TIMESTAMP},
-      </if>
+      </if>  
+        NOW(),
       <if test="mRemark != null" >
         #{mRemark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
+  
+  <!-- 根据模块名称和父id判断模块是否存在 -->
+  <select id="isExitByNameAndPid" resultType="int">
+		SELECT count(*) FROM i_module WHERE m_name=#{mname} and m_parentid =#{pid}
+  </select>
+  
+  
+  <!--  修改模块信息（rfy）-->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.Module" >
     update i_module
     <set >
       <if test="mName != null" >
         m_name = #{mName,jdbcType=VARCHAR},
       </if>
-      <if test="mParentid != null" >
-        m_parentid = #{mParentid,jdbcType=INTEGER},
-      </if>
       <if test="mPath != null" >
         m_path = #{mPath,jdbcType=VARCHAR},
       </if>
       <if test="mWeight != null" >
         m_weight = #{mWeight,jdbcType=INTEGER},
-      </if>
-      <if test="mUpdatetime != null" >
-        m_updatetime = #{mUpdatetime,jdbcType=TIMESTAMP},
-      </if>
+      </if>  
+        m_updatetime = NOW(),
       <if test="mRemark != null" >
         m_remark = #{mRemark,jdbcType=VARCHAR},
       </if>
     </set>
     where m_id = #{mId,jdbcType=INTEGER}
   </update>
-<!-- 根据父id和角色id查询角色拥有的模块信息 (rfy)-->
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.hero.entity.Module" >
+    update i_module
+    set m_name = #{mName,jdbcType=VARCHAR},
+      m_parentid = #{mParentid,jdbcType=INTEGER},
+      m_path = #{mPath,jdbcType=VARCHAR},
+      m_weight = #{mWeight,jdbcType=INTEGER},
+      m_createtime = #{mCreatetime,jdbcType=TIMESTAMP},
+      m_updatetime = #{mUpdatetime,jdbcType=TIMESTAMP},
+      m_remark = #{mRemark,jdbcType=VARCHAR}
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <!-- 根据父id和角色id查询角色拥有的模块信息 (rfy)-->
   <select id="queryModuleByPidRid" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List" />
      FROM i_module WHERE m_id IN(SELECT rm_m_id FROM i_role_module WHERE rm_r_id IN
@@ -159,4 +128,85 @@
     </foreach>)
     AND m_parentid=#{pid} ORDER BY m_weight DESC
   </select>
+  
+  
+  
+  <!--查询所有模块信息 （rfy） -->
+	<select id="queryChildrenById" parameterType="int" resultMap="BaseResultMap">
+		SELECT * FROM i_module WHERE m_parentid =#{parentId} ORDER BY m_weight DESC
+	</select>
+	<select id="queryParent" parameterType="com.hero.entity.Module" resultMap="BaseResultMap">
+		SELECT * FROM i_module WHERE m_parentid =0 ORDER BY m_weight DESC
+		LIMIT #{startIndex},#{rows}
+	</select>
+	<!--查询总记录数（rfy）  -->
+	<select id="queryAllCount" resultType="int">
+		SELECT count(*) FROM i_module WHERE m_parentid =0
+	</select>
+  
+  
+  
+  
+    <!-- 根据模块id查询模块信息 （rfy）-->
+	<select id="queryTreeGridModuleByIds" resultMap="BaseResultMap">
+		SELECT * FROM i_module 
+		<where>
+		<if test=" rootIds != null ">
+		 m_id IN
+		<foreach item="id" collection="rootIds" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+		</if>
+		</where>
+	</select>
+	<!--根据名称查询模块编号（rfy）  -->
+	<select id="queryModuleIdsByModuleNameLike" parameterType="com.hero.entity.Module" resultType="int" >
+		SELECT m_id FROM i_module
+		<where>
+			<if test=" mName != null and mName != '' ">
+			 m_name LIKE "%"#{mName}"%"
+			</if>
+		</where>
+	</select>
+	<!-- 查询模块的父id （rfy）-->
+	<select id="queryParentIdByModuleId" parameterType="int" resultType="int">
+		SELECT m_parentid FROM i_module
+		<where>
+		<if test=" moduleId != null ">
+		 m_id = #{moduleId}
+		</if>
+		</where>
+	</select>
+	<select id="queryMenuTreeChildrenById" resultMap="BaseResultMap">
+		SELECT * FROM i_module WHERE m_parentid = #{parentId}
+		<if test=" moduleIds != null ">
+			AND m_id IN
+			<foreach item="id" collection="moduleIds" open="("
+				separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+	</select>
+	<!--查询总记录数（rfy）  -->
+	<select id="queryCount" parameterType="String" resultType="int">
+		SELECT count(*) FROM i_module WHERE m_id IN(SELECT m_parentid FROM i_module WHERE m_name LIKE "%"#{name}"%")
+	</select>
+  
+  
+  
+  <!-- 根据模块id查询其子模块 （rfy）-->
+  <select id="selectMoudleByMid" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT * FROM i_module WHERE m_parentid =#{mid}
+  </select>
+  <!--查询模块是否存在角色关联  （rfy）-->
+  <select id="isExitRoleBymid" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM i_role_module WHERE rm_m_id=#{mid}
+  </select>
+  
+  
+  
+  
+  
+  
 </mapper>
