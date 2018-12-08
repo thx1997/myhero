@@ -1,16 +1,16 @@
 package com.hero.repository;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.hero.entity.Module;
-import com.hero.entity.ModuleQer;
 
 public interface ModuleMapper {
 	
-	
 	//删除
+	//删除模块（rfy）
     int deleteByPrimaryKey(Integer mId);
     //查询该模块能否删除
     int selmodul(Integer mId);
@@ -23,20 +23,53 @@ public interface ModuleMapper {
      * @return 模块编号集合
      */
   	public List<Integer> selectMidByRid(@Param("list")List<Integer> rid);
-    //添加
-    int insertSelective(Module record);
-    //根据id查询
-    Module selectByPrimaryKey(Integer mId);
-    //修改
-    int updateByPrimaryKeySelective(Module record);
+
+    int insert(Module record);
     
-    Module selParentById(Integer mid);
-    //多条件分页
-    List<Module> selModulByPage(ModuleQer moduleQer);
-    //多条件分页总记录数
-    int selModulCountByPage(ModuleQer moduleQer);
-    //查询相同父id下名称是否重复
-    int selModuleByParentAndName(Module module);
+    //添加模块信息（rfy）
+    int insertSelective(Module record);
+    //根据模块名称和父id判断模块是否存在
+    public int isExitByNameAndPid(@Param("mname")String mname,@Param("pid")Integer pid);
+    
+    //根据模块id查询模块信息(rfy)
+    Module selectByPrimaryKey(Integer mId);
+
+    //修改模块信息（rfy）
+    int updateByPrimaryKeySelective(Module record);
+
+    int updateByPrimaryKey(Module record);
     //根据父id和角色id查询角色拥有的模块信息(rfy)
     public List<Module> queryModuleByPidRid(@Param("pid") int pid,@Param("rids") List<Integer> rids);
+    
+    
+    
+    //查询出所有父模块（rfy）
+  	public List<Module> queryParent(Module m);
+  	//查询出父模块对应的子模块（rfy）
+  	public List<Module> queryChildrenById(Integer parentId);
+  	//查询总记录数（rfy）
+  	public int queryAllCount();
+    
+    
+  	
+    //根据模块id查询模块信息（rfy）
+  	public List<Module> queryTreeGridModuleByIds(@Param("rootIds") Set<Integer> rootIds);
+  	//根据名称查询模块编号（rfy）
+  	public List<Integer> queryModuleIdsByModuleNameLike(Module m);
+  	//查询模块的父id（rfy）
+  	public Integer queryParentIdByModuleId(@Param("moduleId") Integer moduleId);
+  	//查询总记录数（rfy）
+  	public int queryCount(String name);
+  	public List<Module> queryMenuTreeChildrenById(@Param("parentId") Integer parentId,@Param("moduleIds") List<Integer> moduleIds);
+  	
+  	//根据模块id查询其子模块（rfy）
+  	public List<Module> selectMoudleByMid(Integer mid);
+  	//查询模块是否存在角色关联（rfy）
+  	public int isExitRoleBymid(Integer mid);
+  	
+    
+    
+    
+    
+    
 }

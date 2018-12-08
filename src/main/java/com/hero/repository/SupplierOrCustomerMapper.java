@@ -31,4 +31,7 @@ public interface SupplierOrCustomerMapper {
     //批量修改供应商、客户的类别（rfy）
     public int updBatch(@Param("cateid")int cateid,@Param("list")List<Integer> sid);
     
+    //根据编号查询供货商客户信息（rfy）
+  	public List<SupplierOrCustomer> getSupplierOrCustomerBySid(@Param("list")List<Integer> sList);
+    
 }

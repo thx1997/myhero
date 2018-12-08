@@ -14,7 +14,7 @@ import com.hero.entity.query.SupplierOrCustomerCategoryQuery;
 import com.hero.entity.query.SupplierOrCustomerQuery;
 import com.hero.service.SupplierOrCustomerCategoryService;
 @RestController
-@RequestMapping(value="/scategory",name="供应商客户类别")
+@RequestMapping(value="/scategory",name="供应商客户类别管理")
 public class SupplierOrCustomerCategoryController {
 
 	@Autowired
@@ -36,7 +36,7 @@ public class SupplierOrCustomerCategoryController {
 	 * @param scquery
 	 * @return
 	 */
-	@RequestMapping(value="/queryAllByCount")
+	@RequestMapping(value="/queryAllByCount",name="管理供货商或客户类别")
 	public Object queryAll(SupplierOrCustomerCategoryQuery scquery){
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<SupplierOrCustomerCategory> list=supplierOrCustomerCategoryService.selectAllByCount(scquery);
@@ -50,7 +50,7 @@ public class SupplierOrCustomerCategoryController {
 	 * @param sc
 	 * @return
 	 */
-	@RequestMapping(value="/insert")
+	@RequestMapping(value="/insert",name="新增供应商或客户类别")
 	public Object insert(SupplierOrCustomerCategory sc){
 		Map<String, Object> map = new HashMap<String, Object>();
 		int n=supplierOrCustomerCategoryService.insertSelective(sc);
@@ -69,7 +69,7 @@ public class SupplierOrCustomerCategoryController {
 	 * @param sc
 	 * @return
 	 */
-	@RequestMapping(value="/update")
+	@RequestMapping(value="/update",name="修改供应商或客户类别")
 	public Object update(SupplierOrCustomerCategory sc){
 		System.out.println("参数>>>>>"+sc);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -89,7 +89,7 @@ public class SupplierOrCustomerCategoryController {
 	 * @param sc
 	 * @return
 	 */
-	@RequestMapping(value="/delete")
+	@RequestMapping(value="/delete",name="删除供应商或客户类别")
 	public Object delete(Integer sid){
 		Map<String, Object> map = new HashMap<String, Object>();
 		int n=supplierOrCustomerCategoryService.deleteByPrimaryKey(sid);

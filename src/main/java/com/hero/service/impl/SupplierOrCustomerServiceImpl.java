@@ -55,6 +55,12 @@ public class SupplierOrCustomerServiceImpl implements SupplierOrCustomerService 
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.updBatch(cateid, sid);
 	}
+
+	@Override
+	public List<SupplierOrCustomer> getSupplierOrCustomerBySid(List<Integer> sList) {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.getSupplierOrCustomerBySid(sList);
+	}
 	
 	
 }

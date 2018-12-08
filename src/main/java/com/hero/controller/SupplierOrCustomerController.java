@@ -38,7 +38,7 @@ public class SupplierOrCustomerController {
 	 * @param sc
 	 * @return
 	 */
-	@RequestMapping(value="/insert")
+	@RequestMapping(value="/insert",name="新增供应商或客户")
 	public Object insert(SupplierOrCustomer sc){
 		System.out.println("表单序列化参数>>>>>"+sc);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -65,7 +65,7 @@ public class SupplierOrCustomerController {
 	 * @param sc
 	 * @return
 	 */
-	@RequestMapping(value="/update")
+	@RequestMapping(value="/update",name="修改供应商或客户")
 	public Object update(SupplierOrCustomer sc){
 		System.out.println("表单序列化参数>>>>>"+sc);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -85,7 +85,7 @@ public class SupplierOrCustomerController {
 	 * @param sc
 	 * @return
 	 */
-	@RequestMapping(value="/delete")
+	@RequestMapping(value="/delete",name="删除供应商或客户")
 	public Object delete(Integer sid){
 		Map<String, Object> map = new HashMap<String, Object>();
 		int n=supplierOrCustomerService.updexit(sid);
@@ -106,7 +106,7 @@ public class SupplierOrCustomerController {
 	 * @param stuId
 	 * @return
 	 */
-	@RequestMapping(value="/batch")
+	@RequestMapping(value="/batch",name="批量修改供应商或客户类别")
 	public Object batchStu(int cateId,@RequestParam("sIds")List<Integer> sIds){
 		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println("编号>>>>>>>>>>>>>>>>>>"+sIds);

@@ -3,7 +3,10 @@ package com.hero.entity;
 import java.util.Date;
 import java.util.List;
 
-public class Module {
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hero.entity.query.QueryBase;
+
+public class Module extends QueryBase{
     private Integer mId;
 
     private String mName;
@@ -13,9 +16,9 @@ public class Module {
     private String mPath;
 
     private Integer mWeight;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
     private Date mCreatetime;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
     private Date mUpdatetime;
 
     private String mRemark;
