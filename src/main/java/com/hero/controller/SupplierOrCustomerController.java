@@ -120,4 +120,25 @@ public class SupplierOrCustomerController {
 		}
 		return map;
 	}
+	
+	
+	
+	/**
+	 * 多条件查询供应商客户的编号(rfy)
+	 * @param scquery
+	 * @return
+	 */
+	@RequestMapping(value="/queryIdsByquery")
+	public Object queryIdsByquery(SupplierOrCustomerQuery scquery){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Integer> list=supplierOrCustomerService.getIdsByQuery(scquery);
+		if (list.size()>0&&list!=null) {
+			map.put("success", true);
+			map.put("message", list);
+		}else {
+			map.put("success", false);
+			map.put("emessage", "导出失败");
+		}
+		return map;
+	}
 }

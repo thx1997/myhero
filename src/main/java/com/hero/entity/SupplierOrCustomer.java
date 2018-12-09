@@ -9,35 +9,51 @@ import com.hero.excel.PoiHandler;
 public class SupplierOrCustomer {
 	@PoiHandler(excelHeader="编号")
     private Integer sId;
+	
 	@PoiHandler(excelHeader="名称")
     private String sName;
+	
 	@PoiHandler(excelHeader="传真")
     private String sFax;
+	
 	@PoiHandler(excelHeader="类别编号")
     private Integer sScId;
+	
     @PoiHandler(excelHeader="联系人")
     private String sConstacperson;
+    
     @PoiHandler(excelHeader="联系人电话")
     private String sConstacphone;
+    
     @PoiHandler(excelHeader="地址")
     private String sAddress;
+    
     @PoiHandler(excelHeader="描述")
     private String sDescription;
-    @PoiHandler(excelIgnore=false)
+    
+    @PoiHandler(excelHeader="是否删除")
     private String sIsexit;
+    
     @PoiHandler(excelHeader="税号")
     private String sTallage;
+    
     @PoiHandler(excelHeader="创建时间")
     @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     private Date sCreatetime;
+    
     @PoiHandler(excelHeader="最后更新时间")
     @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     private Date sUpdatetime;
+    
     @PoiHandler(excelHeader="备注")
     private String sRemark;
-    @PoiHandler(excelIgnore=false)
-    private Boolean sType;
+    
+    @PoiHandler(excelHeader="类型")
+    private Integer sType;
+    
     @JsonUnwrapped//rfy
+   // @PoiHandler(excelHeader="类别")
+    @PoiHandler(excelIgnore=false)
     private SupplierOrCustomerCategory category;
    
 	public SupplierOrCustomer() {
@@ -46,7 +62,7 @@ public class SupplierOrCustomer {
 
 	public SupplierOrCustomer(Integer sId, String sName, String sFax, Integer sScId, String sConstacperson,
 			String sConstacphone, String sAddress, String sDescription, String sIsexit, String sTallage,
-			Date sCreatetime, Date sUpdatetime, String sRemark, Boolean sType) {
+			Date sCreatetime, Date sUpdatetime, String sRemark, Integer sType) {
 		super();
 		this.sId = sId;
 		this.sName = sName;
@@ -66,7 +82,7 @@ public class SupplierOrCustomer {
 	
 	public SupplierOrCustomer(Integer sId, String sName, String sFax, Integer sScId, String sConstacperson,
 			String sConstacphone, String sAddress, String sDescription, String sIsexit, String sTallage,
-			Date sCreatetime, Date sUpdatetime, String sRemark, Boolean sType, SupplierOrCustomerCategory category) {
+			Date sCreatetime, Date sUpdatetime, String sRemark, Integer sType, SupplierOrCustomerCategory category) {
 		super();
 		this.sId = sId;
 		this.sName = sName;
@@ -197,11 +213,11 @@ public class SupplierOrCustomer {
         this.sRemark = sRemark == null ? null : sRemark.trim();
     }
 
-    public Boolean getsType() {
+    public Integer getsType() {
         return sType;
     }
 
-    public void setsType(Boolean sType) {
+    public void setsType(Integer sType) {
         this.sType = sType;
     }
 
