@@ -158,6 +158,20 @@
 		SELECT * FROM i_role WHERE r_id IN(SELECT re_r_id FROM i_role_employee WHERE
 		re_e_id=#{eid})
 	</select>
+	<!-- 根据用户编号查询该用户所拥有的角色(thx) -->	
+	<select id="getRoleByEidPage" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		 FROM i_role WHERE r_id IN(SELECT re_r_id FROM i_role_employee WHERE re_e_id=#{eid})
+		 limit #{queryBase.startIndex},#{queryBase.rows}
+	</select>
+	<!--根据用户编号查询角色信息 集合个数(thx)-->
+	<select id="getRoleByEidCountPage" resultType="int" >
+	SELECT count(*)	 FROM i_role WHERE r_id IN(SELECT re_r_id FROM i_role_employee WHERE re_e_id=#{eid})
+	</select>
+	
+	
+	
 		<!--  查询当前用户所没有的角色 -->
 	<select id="queryAllRoles" resultType="role" parameterType="int">
 		SELECT * FROM id_role WHERE r_Id NOT IN

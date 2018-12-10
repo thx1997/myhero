@@ -64,6 +64,23 @@ public interface RoleService {
 
 	// 根据用户编号查询查询用户所拥有的角色(rfy)
 	public List<Role> getRoleByEid(int eid);
+	
+	/**
+	 * 根据用户编号查询该用户所拥有的角色
+	 * @author thx
+	 * @param eid 用户编号
+	 * @param queryBase 分页元素
+	 * @return 角色集合
+	 */
+	public List<Role> getRoleByEidPage(int eid,QueryBase queryBase);
+	/**
+	 * 根据用户编号查询该用户所拥有的角色的个数
+	 * @author thx
+	 * @param eid 用户编号
+	 * @param queryBase 分页元素
+	 * @return 总条数
+	 */
+  	public int getRoleByEidCountPage(int eid);
 
 	/**
 	 * 修改角色

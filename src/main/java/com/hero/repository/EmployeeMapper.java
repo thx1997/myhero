@@ -67,9 +67,10 @@ public interface EmployeeMapper {
     /**
      * 根据员工编号移除他的所有角色(thx)
      * @param eid 员工编号
+     * @param curallrids 删除范围角色编号
      * @return 受影响的行数
      */
-    public int delRE(int eid);
+    public int delRE(int eid,@Param("curallrids") List<Integer> curallrids);
     /**
      * 为某个员工设置角色(thx)
      * @param eid 员工编号

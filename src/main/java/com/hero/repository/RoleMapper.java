@@ -53,6 +53,22 @@ public interface RoleMapper {
   	//根据用户编号查询查询用户所拥有的角色(rfy)
   	public List<Role> getRoleByEid(int eid);
   	/**
+	 * 根据用户编号查询该用户所拥有的角色
+	 * @author thx
+	 * @param eid 用户编号
+	 * @param queryBase 分页元素
+	 * @return 角色集合
+	 */
+	public List<Role> getRoleByEidPage(@Param("eid")int eid,@Param("queryBase")QueryBase queryBase);
+	/**
+	 * 根据用户编号查询该用户所拥有的角色的个数
+	 * @author thx
+	 * @param eid 用户编号
+	 * @param queryBase 分页元素
+	 * @return 总条数
+	 */
+  	public int getRoleByEidCountPage(@Param("eid")int eid);
+  	/**
   	 * 查询所有角色
   	 * @author thx
   	 * @param queryBase 分页条件

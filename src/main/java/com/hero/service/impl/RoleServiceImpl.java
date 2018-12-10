@@ -101,6 +101,15 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.queryAllRoles();
 	}
 
+	@Override//thx
+	public List<Role> getRoleByEidPage(int eid, QueryBase queryBase) {
+		return roleMapper.getRoleByEidPage(eid,queryBase);
+	}
+
+	@Override//thx
+	public int getRoleByEidCountPage(int eid) {
+		return roleMapper.getRoleByEidCountPage(eid);
+	}
 	
 
 }
