@@ -184,20 +184,20 @@
   <!-- rfy -->
   <sql id="CountwhereSQL">
   	<where>
-  		  s_isexit=0
+  		  sc.s_isexit=0
 	      <if test="scname != null and scname!=''" >
-	        and s_name like "%"#{scname}"%"
+	        and sc.s_name like "%"#{scname}"%"
 	      </if>
 	      <if test="cateid != null" >
-	        and s_sc_id=#{cateid}
+	        and sc.s_sc_id=#{cateid}
 	      </if>
 	      <if test="sctype != null" >
-	        and s_type=#{sctype}
+	        and sc.s_type=#{sctype}
 	      </if>
 	      
   	</where>
   	  	  <if test="orderby != null and orderby!=''" >
-	        order by ${orderby} desc
+	        order by ${orderby}
 	      </if>
   </sql>
   <!--多条件分页查询供应商客户信息 (rfy)-->
@@ -224,10 +224,6 @@
   		select count(*) FROM i_supplier_customer where s_name=#{name}
   	</select>
   	
-  	<!--根据名称和类型查询是否已存在(rfy) -->
-  	<select id="isExitByNameAndType" resultType="int">
-  		select count(*) FROM i_supplier_customer where s_name=#{name} and s_type=#{stype}
-  	</select>
   <!-- 批量修改供应商、客户的类别（rfy） -->
   	<update id="updBatch">
   		UPDATE i_supplier_customer SET s_sc_id =#{cateid} WHERE s_id IN
@@ -236,32 +232,11 @@
 		</foreach>
   	</update>
   
-    <!--根据编号查询供货商客户信息 （rfy） -->
+  <!--根据编号查询供货商客户信息 （rfy） -->
   	<select id="getSupplierOrCustomerBySid" resultMap="BaseResultMap" parameterType="int">
-  		SELECT <include refid="Base_Column_List"/> FROM i_supplier_customer where s_id IN
+  		SELECT * FROM i_supplier_customer where s_id IN
   		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
 			#{item}
 		</foreach>
   	</select>
-  	
-  	
-  	
-  	
-  	
-  	
-  	<!-- 多条件查询供应商客户的编号(导出当前加载数据中的所有供应商客户的信息时使用) （rfy）-->
-  	<select id="getIdsByQuery" resultType="int" parameterType="com.hero.entity.query.SupplierOrCustomerQuery">
-  		select s_id from i_supplier_customer 
-  		<include refid="CountwhereSQL"/>
-  	</select>
-  	
-  	
-  	<!-- 导入供货商客户信息（rfy）-->
-  	<insert id="importSupplierOrCustomer" parameterType="com.hero.entity.SupplierOrCustomer">
-  		insert into i_supplier_customer(s_name,s_fax,s_constacperson,s_constacphone,s_address,s_description,s_tallage,s_createtime,s_remark,s_type)
-  		<foreach collection="list" item="scu"  separator="," index="index">
-  		values(#{scu.sName},#{scu.sFax},#{scu.sConstacperson},#{scu.sConstacphone},#{scu.sAddress},#{scu.sDescription},#{scu.sTallage},NOW(),#{scu.sRemark},#{scu.sType})
-  		</foreach>
-  	</insert>
-  	
 </mapper>

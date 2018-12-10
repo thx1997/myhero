@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import com.hero.entity.Permission;
 
 public interface PermissionService {
+	
+	
 	//根据用户Id查询出该用户的所有权限(rfy)
   	public List<String> getPermissionValueByEid(int eid);
     //查询所有权限集合(rfy)

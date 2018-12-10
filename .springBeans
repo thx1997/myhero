@@ -9,7 +9,6 @@
 	<configs>
 	</configs>
 	<autoconfigs>
-		<config>java:com.hero.StartApp</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
