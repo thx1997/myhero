@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hero.entity.ProductCategory;
 import com.hero.entity.SupplierOrCustomer;
 import com.hero.entity.query.SupplierOrCustomerQuery;
 import com.hero.repository.SupplierOrCustomerMapper;
@@ -61,6 +62,6 @@ public class SupplierOrCustomerServiceImpl implements SupplierOrCustomerService 
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.getSupplierOrCustomerBySid(sList);
 	}
-	
+
 	
 }

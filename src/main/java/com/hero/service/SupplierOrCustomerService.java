@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.hero.entity.ProductCategory;
 import com.hero.entity.SupplierOrCustomer;
 import com.hero.entity.query.SupplierOrCustomerQuery;
 
@@ -24,4 +25,7 @@ public interface SupplierOrCustomerService {
     public int updBatch(int cateid,List<Integer> sid);
     //根据编号查询供货商客户信息（rfy）
   	public List<SupplierOrCustomer> getSupplierOrCustomerBySid(@Param("list")List<Integer> sList);
+
+
+
 }

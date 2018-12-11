@@ -7,10 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hero.entity.SupplierOrCustomer;
 import com.hero.entity.query.SupplierOrCustomerQuery;
+import com.hero.service.ProductCategoryService;
 import com.hero.service.SupplierOrCustomerService;
 
 @RestController
@@ -18,7 +20,8 @@ import com.hero.service.SupplierOrCustomerService;
 public class SupplierOrCustomerController {
 	@Autowired
 	private SupplierOrCustomerService supplierOrCustomerService;
-	
+	@Autowired
+	private ProductCategoryService productCategoryService;
 	/**
 	 * 多条件查询供应商客户信息(rfy)
 	 * @param scquery
@@ -120,4 +123,26 @@ public class SupplierOrCustomerController {
 		}
 		return map;
 	}
+	
+	
+	
+	/**
+	 * 给供应商设置供货的商品分类，查询商品分类信息，供应商已拥有分类选中
+	 * @param rId
+	 * @return
+	 */
+	@RequestMapping(value="/queryProCateCheckedBySid")
+	public Object queryModuleChecked(Integer sId){
+		return productCategoryService.queryProCateChecked(sId);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
