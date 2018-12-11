@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hero.entity.Node;
 import com.hero.entity.Role;
 import com.hero.entity.query.QueryBase;
 import com.hero.entity.query.RoleQuery;
@@ -51,19 +52,8 @@ public class RoleServiceImpl implements RoleService {
 	public int addRoleModule(int rid, List<Integer> mids) {
 		return roleMapper.addRoleModule(rid, mids);
 	}
-<<<<<<< HEAD
 
-=======
-	@Override//thx
-	public List<Node> queryRoleSetPermission(List<Integer> roleIds) {
-		System.out.println("serviceImpl参数"+roleIds);
-		List<Integer> permissionIds = permissionMapper.queryPermissionIdsByRoleIds(roleIds);//查询出角色拥有的权限Ids
-		List<Node> permissionTree = permissionMapper.queryNode();//查询出所有的权限树
-		System.out.println("查询出角色拥有的权限Ids===>"+permissionIds+"查询出所有的权限树==>"+permissionTree);
-		//把角色拥有的权限树设置为选中
-		this.setPermissionTreeChecked(permissionTree, permissionIds);
-		return permissionTree;
-	}
+
 	/**
 	 * 把角色拥有的权限树设置为选中
 	 * @author thx
@@ -80,7 +70,7 @@ public class RoleServiceImpl implements RoleService {
 			
 		}
 	}
->>>>>>> branch 'master' of https://github.com/thx1997/myhero.git
+
 	@Override//wxk
 	public int updateByPrimaryKeySelective(Role record) {
 		return roleMapper.updateByPrimaryKeySelective(record);
