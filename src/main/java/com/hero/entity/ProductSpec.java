@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class ProductSpec {
     private Integer psId;
 
-    private String psTexture;
+    private Integer psPId;
 
     private BigDecimal psWeight;
 
@@ -25,36 +25,7 @@ public class ProductSpec {
 
     private String psRemark;
 
-    @Override
-	public String toString() {
-		return "ProductSpec [psId=" + psId + ", psTexture=" + psTexture + ", psWeight=" + psWeight + ", psWeightunit="
-				+ psWeightunit + ", psSize=" + psSize + ", psSizeunit=" + psSizeunit + ", psDia=" + psDia
-				+ ", psDiaunit=" + psDiaunit + ", psDensity=" + psDensity + ", psDensityunit=" + psDensityunit
-				+ ", psRemark=" + psRemark + "]";
-	}
-
-	public ProductSpec() {
-		super();
-	}
-
-	public ProductSpec(Integer psId, String psTexture, BigDecimal psWeight, String psWeightunit, BigDecimal psSize,
-			String psSizeunit, BigDecimal psDia, String psDiaunit, BigDecimal psDensity, Integer psDensityunit,
-			String psRemark) {
-		super();
-		this.psId = psId;
-		this.psTexture = psTexture;
-		this.psWeight = psWeight;
-		this.psWeightunit = psWeightunit;
-		this.psSize = psSize;
-		this.psSizeunit = psSizeunit;
-		this.psDia = psDia;
-		this.psDiaunit = psDiaunit;
-		this.psDensity = psDensity;
-		this.psDensityunit = psDensityunit;
-		this.psRemark = psRemark;
-	}
-
-	public Integer getPsId() {
+    public Integer getPsId() {
         return psId;
     }
 
@@ -62,12 +33,12 @@ public class ProductSpec {
         this.psId = psId;
     }
 
-    public String getPsTexture() {
-        return psTexture;
+    public Integer getPsPId() {
+        return psPId;
     }
 
-    public void setPsTexture(String psTexture) {
-        this.psTexture = psTexture == null ? null : psTexture.trim();
+    public void setPsPId(Integer psPId) {
+        this.psPId = psPId;
     }
 
     public BigDecimal getPsWeight() {
@@ -141,4 +112,34 @@ public class ProductSpec {
     public void setPsRemark(String psRemark) {
         this.psRemark = psRemark == null ? null : psRemark.trim();
     }
+
+	public ProductSpec(Integer psId, Integer psPId, BigDecimal psWeight, String psWeightunit, BigDecimal psSize,
+			String psSizeunit, BigDecimal psDia, String psDiaunit, BigDecimal psDensity, Integer psDensityunit,
+			String psRemark) {
+		super();
+		this.psId = psId;
+		this.psPId = psPId;
+		this.psWeight = psWeight;
+		this.psWeightunit = psWeightunit;
+		this.psSize = psSize;
+		this.psSizeunit = psSizeunit;
+		this.psDia = psDia;
+		this.psDiaunit = psDiaunit;
+		this.psDensity = psDensity;
+		this.psDensityunit = psDensityunit;
+		this.psRemark = psRemark;
+	}
+
+	public ProductSpec() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "ProductSpec [psId=" + psId + ", psPId=" + psPId + ", psWeight=" + psWeight + ", psWeightunit="
+				+ psWeightunit + ", psSize=" + psSize + ", psSizeunit=" + psSizeunit + ", psDia=" + psDia
+				+ ", psDiaunit=" + psDiaunit + ", psDensity=" + psDensity + ", psDensityunit=" + psDensityunit
+				+ ", psRemark=" + psRemark + "]";
+	}
+    
 }

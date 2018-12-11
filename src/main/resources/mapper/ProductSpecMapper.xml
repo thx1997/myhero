@@ -3,7 +3,7 @@
 <mapper namespace="com.hero.repository.ProductSpecMapper" >
   <resultMap id="BaseResultMap" type="com.hero.entity.ProductSpec" >
     <id column="ps_id" property="psId" jdbcType="INTEGER" />
-    <result column="ps_texture" property="psTexture" jdbcType="VARCHAR" />
+    <result column="ps_p_id" property="psPId" jdbcType="INTEGER" />
     <result column="ps_weight" property="psWeight" jdbcType="DECIMAL" />
     <result column="ps_weightunit" property="psWeightunit" jdbcType="VARCHAR" />
     <result column="ps_size" property="psSize" jdbcType="DECIMAL" />
@@ -15,7 +15,7 @@
     <result column="ps_remark" property="psRemark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ps_id, ps_texture, ps_weight, ps_weightunit, ps_size, ps_sizeunit, ps_dia, ps_diaunit, 
+    ps_id, ps_p_id, ps_weight, ps_weightunit, ps_size, ps_sizeunit, ps_dia, ps_diaunit, 
     ps_density, ps_densityunit, ps_remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -29,11 +29,11 @@
     where ps_id = #{psId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.hero.entity.ProductSpec" >
-    insert into i_product_spec (ps_id, ps_texture, ps_weight, 
+    insert into i_product_spec (ps_id, ps_p_id, ps_weight, 
       ps_weightunit, ps_size, ps_sizeunit, 
       ps_dia, ps_diaunit, ps_density, 
       ps_densityunit, ps_remark)
-    values (#{psId,jdbcType=INTEGER}, #{psTexture,jdbcType=VARCHAR}, #{psWeight,jdbcType=DECIMAL}, 
+    values (#{psId,jdbcType=INTEGER}, #{psPId,jdbcType=INTEGER}, #{psWeight,jdbcType=DECIMAL}, 
       #{psWeightunit,jdbcType=VARCHAR}, #{psSize,jdbcType=DECIMAL}, #{psSizeunit,jdbcType=VARCHAR}, 
       #{psDia,jdbcType=DECIMAL}, #{psDiaunit,jdbcType=VARCHAR}, #{psDensity,jdbcType=DECIMAL}, 
       #{psDensityunit,jdbcType=INTEGER}, #{psRemark,jdbcType=VARCHAR})
@@ -44,8 +44,8 @@
       <if test="psId != null" >
         ps_id,
       </if>
-      <if test="psTexture != null" >
-        ps_texture,
+      <if test="psPId != null" >
+        ps_p_id,
       </if>
       <if test="psWeight != null" >
         ps_weight,
@@ -79,8 +79,8 @@
       <if test="psId != null" >
         #{psId,jdbcType=INTEGER},
       </if>
-      <if test="psTexture != null" >
-        #{psTexture,jdbcType=VARCHAR},
+      <if test="psPId != null" >
+        #{psPId,jdbcType=INTEGER},
       </if>
       <if test="psWeight != null" >
         #{psWeight,jdbcType=DECIMAL},
@@ -114,8 +114,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.ProductSpec" >
     update i_product_spec
     <set >
-      <if test="psTexture != null" >
-        ps_texture = #{psTexture,jdbcType=VARCHAR},
+      <if test="psPId != null" >
+        ps_p_id = #{psPId,jdbcType=INTEGER},
       </if>
       <if test="psWeight != null" >
         ps_weight = #{psWeight,jdbcType=DECIMAL},
@@ -149,7 +149,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hero.entity.ProductSpec" >
     update i_product_spec
-    set ps_texture = #{psTexture,jdbcType=VARCHAR},
+    set ps_p_id = #{psPId,jdbcType=INTEGER},
       ps_weight = #{psWeight,jdbcType=DECIMAL},
       ps_weightunit = #{psWeightunit,jdbcType=VARCHAR},
       ps_size = #{psSize,jdbcType=DECIMAL},
