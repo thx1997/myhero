@@ -13,8 +13,7 @@
   <sql id="Base_Column_List" >
     per_id, per_value, per_moule, per_name, per_createtime, per_updatetime, per_remark
   </sql>
-<<<<<<< HEAD
-=======
+
   <!-- 根据角色Ids 查询出权限Ids(thx) -->
   <select id="queryPermissionIdsByRoleIds" parameterType="list"
 		resultType="int">
@@ -42,9 +41,6 @@
 		</collection>			
 	</resultMap>
 	
-  
-  
->>>>>>> branch 'master' of https://github.com/thx1997/myhero.git
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
