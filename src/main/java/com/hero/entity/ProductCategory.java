@@ -15,7 +15,6 @@ public class ProductCategory {
     private Long pcUpdatetime;
 
     private String pcRemark;
-
     private List<ProductCategory> children;
    	public Boolean checked;
     public ProductCategory() {
@@ -23,17 +22,6 @@ public class ProductCategory {
 	}
 
 	
-
-	public ProductCategory(Integer pcId, String pcName, Integer pcParentid, Date pcCreatetime, Long pcUpdatetime,
-			String pcRemark) {
-		super();
-		this.pcId = pcId;
-		this.pcName = pcName;
-		this.pcParentid = pcParentid;
-		this.pcCreatetime = pcCreatetime;
-		this.pcUpdatetime = pcUpdatetime;
-		this.pcRemark = pcRemark;
-	}
 
 	public ProductCategory(Integer pcId, String pcName, Integer pcParentid, Date pcCreatetime, Long pcUpdatetime,
 			String pcRemark, List<ProductCategory> children, Boolean checked) {
@@ -49,6 +37,17 @@ public class ProductCategory {
 	}
 
 
+
+	public ProductCategory(Integer pcId, String pcName, Integer pcParentid, Date pcCreatetime, Long pcUpdatetime,
+			String pcRemark) {
+		super();
+		this.pcId = pcId;
+		this.pcName = pcName;
+		this.pcParentid = pcParentid;
+		this.pcCreatetime = pcCreatetime;
+		this.pcUpdatetime = pcUpdatetime;
+		this.pcRemark = pcRemark;
+	}
 
 	public Integer getPcId() {
         return pcId;
@@ -130,6 +129,5 @@ public class ProductCategory {
 				+ pcCreatetime + ", pcUpdatetime=" + pcUpdatetime + ", pcRemark=" + pcRemark + ", children=" + children
 				+ ", checked=" + checked + "]";
 	}
-    
     
 }

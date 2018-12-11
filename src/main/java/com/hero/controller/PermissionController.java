@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import com.hero.entity.Permission;
 import com.hero.service.PermissionService;
-import com.hero.service.RoleService;
 import com.hero.util.Result;
 
 
@@ -31,9 +29,10 @@ public class PermissionController {
     @Autowired
     private RequestMappingHandlerMapping handlerMapping;//SpringMVC所有控制器中的请求映射集合
 	
-    
 	@Autowired
 	private PermissionService permissionService;
+	
+	
 	
 	
 	
@@ -55,7 +54,7 @@ public class PermissionController {
 		return map;
 	}
 	/**,name="更新系统权限"
-	 *http://localhost:8080/invoicing/permission/updatePermission
+	 *
 	 * 更新系统权限信息(rfy)
 	 */    
 	@RequestMapping(value="/updatePermission")
@@ -99,5 +98,6 @@ public class PermissionController {
 		}		
 		return pList.size()>0?permissionService.batchInsert(pList):0;
 	}
+	
 	
 }
