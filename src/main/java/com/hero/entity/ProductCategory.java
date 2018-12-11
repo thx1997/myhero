@@ -1,6 +1,7 @@
 package com.hero.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class ProductCategory {
     private Integer pcId;
@@ -14,16 +15,28 @@ public class ProductCategory {
     private Long pcUpdatetime;
 
     private String pcRemark;
-
+    private List<ProductCategory> children;
+   	public Boolean checked;
     public ProductCategory() {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "ProductCategory [pcId=" + pcId + ", pcName=" + pcName + ", pcParentid=" + pcParentid + ", pcCreatetime="
-				+ pcCreatetime + ", pcUpdatetime=" + pcUpdatetime + ", pcRemark=" + pcRemark + "]";
+	
+
+	public ProductCategory(Integer pcId, String pcName, Integer pcParentid, Date pcCreatetime, Long pcUpdatetime,
+			String pcRemark, List<ProductCategory> children, Boolean checked) {
+		super();
+		this.pcId = pcId;
+		this.pcName = pcName;
+		this.pcParentid = pcParentid;
+		this.pcCreatetime = pcCreatetime;
+		this.pcUpdatetime = pcUpdatetime;
+		this.pcRemark = pcRemark;
+		this.children = children;
+		this.checked = checked;
 	}
+
+
 
 	public ProductCategory(Integer pcId, String pcName, Integer pcParentid, Date pcCreatetime, Long pcUpdatetime,
 			String pcRemark) {
@@ -83,4 +96,38 @@ public class ProductCategory {
     public void setPcRemark(String pcRemark) {
         this.pcRemark = pcRemark == null ? null : pcRemark.trim();
     }
+
+
+
+	public List<ProductCategory> getChildren() {
+		return children;
+	}
+
+
+
+	public void setChildren(List<ProductCategory> children) {
+		this.children = children;
+	}
+
+
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "ProductCategory [pcId=" + pcId + ", pcName=" + pcName + ", pcParentid=" + pcParentid + ", pcCreatetime="
+				+ pcCreatetime + ", pcUpdatetime=" + pcUpdatetime + ", pcRemark=" + pcRemark + ", children=" + children
+				+ ", checked=" + checked + "]";
+	}
+    
 }

@@ -12,8 +12,8 @@
   <sql id="Base_Column_List" >
     d_id, d_name, d_parentid, d_createtime, d_updatetime, d_remark
   </sql>
-  <sql id="queryWhere">
-     <where>
+  <sql id="queryWhere">       
+       <where>
            <if test="dName != null and dName != ''">
 				and d_name like "%"#{dName}"%"
 			</if>

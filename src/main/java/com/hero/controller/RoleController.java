@@ -24,16 +24,7 @@ import com.hero.util.ResultConst;
 public class RoleController {
 	@Autowired
 	private RoleService roleService;
-	/**  
-	 * 
-	 * @param rId
-	 * @return
-	 */
-	@RequestMapping("/queryNode")
-	public Object queryNode(@RequestParam(value="rId",required=false) List<Integer> rId){
-		System.out.println("rId=>"+rId);
-		return roleService.queryRoleSetPermission(rId);
-	}
+
 	/**
 	 * 多条件分页查询角色
 	 * @param rQuery 条件封装的实体

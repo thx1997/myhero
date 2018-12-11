@@ -103,4 +103,15 @@
       pc_remark = #{pcRemark,jdbcType=VARCHAR}
     where pc_id = #{pcId,jdbcType=INTEGER}
   </update>
+  
+  
+  <!--根据供应商编号查询出所拥有的商品分类编号(rfy)  -->
+	<select id="selectPcidBySid" parameterType="list" resultType="Integer">
+		SELECT sp_pc_id FROM i_supplier_product_category WHERE sp_s_id =#{sid}
+		
+	</select>
+	<!--查询所有模块信息  -->
+	<select id="queryChildrenById" parameterType="int" resultMap="BaseResultMap">
+		SELECT * FROM i_product_category WHERE pc_parentid =#{parentId}
+	</select>
 </mapper>

@@ -14,6 +14,8 @@ public interface ModuleMapper {
     int deleteByPrimaryKey(Integer mId);
     //查询该模块能否删除
     int selmodul(Integer mId);
+    //根据parentid查询模块(rfy&thx)
+    List<Module> selmodulByParentid(Integer mId);
     /**
      * 根据角色编号查询出所拥有的模块编号
      * @author thx
@@ -43,7 +45,7 @@ public interface ModuleMapper {
     
     //查询出所有父模块（rfy）
   	public List<Module> queryParent(Module m);
-  	//查询出父模块对应的子模块（rfy&thx）
+  	//查询出父模块对应的子模块（rfy）
   	public List<Module> queryChildrenById(Integer parentId);
   	//查询总记录数（rfy）
   	public int queryAllCount();

@@ -4,26 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.hero.entity.Node;
 import com.hero.entity.Permission;
 
 public interface PermissionMapper {
-	/**
-	 * 根据角色Ids 查询出权限Ids
-	 * @author thx
-	 * @param roleIds 角色Ids
-	 * @return 权限Ids
-	 */
-	public List<Integer> queryPermissionIdsByRoleIds(@Param("roleIds") List<Integer> roleIds);
-	/**
-	 * 查询所有权限操作
-	 * @author thx
-	 * @return
-	 */
-	public List<Node> queryNode();
-	
-	
-	int deleteByPrimaryKey(Integer perId);
+    int deleteByPrimaryKey(Integer perId);
 
     int insert(Permission record);
 

@@ -61,6 +61,36 @@ public class SupplierOrCustomerServiceImpl implements SupplierOrCustomerService 
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.getSupplierOrCustomerBySid(sList);
 	}
+
+	@Override
+	public List<Integer> getIdsByQuery(SupplierOrCustomerQuery scquery) {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.getIdsByQuery(scquery);
+	}
+
+	@Override
+	public int isExitByNameAndType(String name, Integer stype) {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.isExitByNameAndType(name, stype);
+	}
+
+	@Override
+	public int importSupplierOrCustomer(List<SupplierOrCustomer> scu) {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.importSupplierOrCustomer(scu);
+	}
+
+	@Override
+	public int delProCateBySid(Integer sid) {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.delProCateBySid(sid);
+	}
+
+	@Override
+	public int insertSupplierProCate(Integer sid, List<Integer> pcids) {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.insertSupplierProCate(sid, pcids);
+	}
 	
 	
 }

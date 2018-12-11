@@ -55,16 +55,8 @@ public class RoleServiceImpl implements RoleService {
 	public int addRoleModule(int rid, List<Integer> mids) {
 		return roleMapper.addRoleModule(rid, mids);
 	}
-	@Override//thx
-	public List<Node> queryRoleSetPermission(List<Integer> roleIds) {
-		System.out.println("serviceImpl参数"+roleIds);
-		List<Integer> permissionIds = permissionMapper.queryPermissionIdsByRoleIds(roleIds);//查询出角色拥有的权限Ids
-		List<Node> permissionTree = permissionMapper.queryNode();//查询出所有的权限树
-		System.out.println("查询出角色拥有的权限Ids===>"+permissionIds+"查询出所有的权限树==>"+permissionTree);
-		//把角色拥有的权限树设置为选中
-		this.setPermissionTreeChecked(permissionTree, permissionIds);
-		return permissionTree;
-	}
+
+
 	/**
 	 * 把角色拥有的权限树设置为选中
 	 * @author thx
@@ -81,6 +73,7 @@ public class RoleServiceImpl implements RoleService {
 			
 		}
 	}
+
 	@Override//wxk
 	public int updateByPrimaryKeySelective(Role record) {
 		return roleMapper.updateByPrimaryKeySelective(record);
@@ -103,15 +96,6 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.queryAllRoles();
 	}
 
-	@Override//thx
-	public List<Role> getRoleByEidPage(int eid, QueryBase queryBase) {
-		return roleMapper.getRoleByEidPage(eid,queryBase);
-	}
-
-	@Override//thx
-	public int getRoleByEidCountPage(int eid) {
-		return roleMapper.getRoleByEidCountPage(eid);
-	}
 	
 
 }

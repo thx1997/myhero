@@ -16,11 +16,6 @@ import com.hero.entity.Module;
 
 import com.hero.service.ModuleService;
 
-/**
- * 
- * @author xkt
- *
- */
 @RestController
 @RequestMapping(value="/module",name="模块管理")
 public class ModuleController {
@@ -28,9 +23,6 @@ public class ModuleController {
 	@Autowired
 	private ModuleService moduleService;
 	
-	private List<Module> list = new ArrayList<Module>();
-//	@Autowired
-//	private ModuleServiceImpl moduleService;
 	/**
 	 * 查询角色所拥有的模块,加载左侧菜单树(rfy)
 	 * @param request
