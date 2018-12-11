@@ -13,6 +13,38 @@
   <sql id="Base_Column_List" >
     per_id, per_value, per_moule, per_name, per_createtime, per_updatetime, per_remark
   </sql>
+<<<<<<< HEAD
+=======
+  <!-- 根据角色Ids 查询出权限Ids(thx) -->
+  <select id="queryPermissionIdsByRoleIds" parameterType="list"
+		resultType="int">
+		SELECT rper_per_id FROM i_role_permission
+		<where>
+		<if test="roleIds != null and roleIds != ''">
+		  rper_r_id IN 
+		<foreach item="id" collection="roleIds" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+		</if>
+		</where>		
+	</select>
+	<!-- 查询所有权限操作 (thx)-->
+  <select id="queryNode" resultMap="permissionNodeMap">
+	SELECT * FROM i_permission
+	</select>
+	<!--角色权限关系表与Node实体的映射(thx)  -->
+	<resultMap type="com.hero.entity.Node" id="permissionNodeMap">	
+	    <result property="text" column="per_moule"/>	
+		<collection property="children" ofType="com.hero.entity.Node">		
+			<id property="id" column="per_id" />			
+			<result property="text" column="per_name" />
+		</collection>			
+	</resultMap>
+	
+  
+  
+>>>>>>> branch 'master' of https://github.com/thx1997/myhero.git
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

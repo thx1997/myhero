@@ -51,7 +51,36 @@ public class RoleServiceImpl implements RoleService {
 	public int addRoleModule(int rid, List<Integer> mids) {
 		return roleMapper.addRoleModule(rid, mids);
 	}
+<<<<<<< HEAD
 
+=======
+	@Override//thx
+	public List<Node> queryRoleSetPermission(List<Integer> roleIds) {
+		System.out.println("serviceImpl参数"+roleIds);
+		List<Integer> permissionIds = permissionMapper.queryPermissionIdsByRoleIds(roleIds);//查询出角色拥有的权限Ids
+		List<Node> permissionTree = permissionMapper.queryNode();//查询出所有的权限树
+		System.out.println("查询出角色拥有的权限Ids===>"+permissionIds+"查询出所有的权限树==>"+permissionTree);
+		//把角色拥有的权限树设置为选中
+		this.setPermissionTreeChecked(permissionTree, permissionIds);
+		return permissionTree;
+	}
+	/**
+	 * 把角色拥有的权限树设置为选中
+	 * @author thx
+	 * @param permissionTree
+	 * @param permissionIds
+	 */
+	private void setPermissionTreeChecked(List<Node> permissionTree,List<Integer> permissionIds){
+		for(Node module:permissionTree){//遍历出所有权限所属模块
+			for(Node p:module.getChildren()){//遍历出所有权限节点
+				if(permissionIds.contains(p.getId()))
+					p.setChecked(true);//角色拥有的权限勾选中
+				
+			}
+			
+		}
+	}
+>>>>>>> branch 'master' of https://github.com/thx1997/myhero.git
 	@Override//wxk
 	public int updateByPrimaryKeySelective(Role record) {
 		return roleMapper.updateByPrimaryKeySelective(record);
