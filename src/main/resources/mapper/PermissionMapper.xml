@@ -14,19 +14,16 @@
     per_id, per_value, per_moule, per_name, per_createtime, per_updatetime, per_remark
   </sql>
 
+
   <!-- 根据角色Ids 查询出权限Ids(thx) -->
   <select id="queryPermissionIdsByRoleIds" parameterType="list"
 		resultType="int">
-		SELECT rper_per_id FROM i_role_permission
-		<where>
-		<if test="roleIds != null and roleIds != ''">
+		SELECT rper_per_id FROM i_role_permission where
 		  rper_r_id IN 
 		<foreach item="id" collection="roleIds" open="(" separator=","
 			close=")">
 			#{id}
-		</foreach>
-		</if>
-		</where>		
+		</foreach>	
 	</select>
 	<!-- 查询所有权限操作 (thx)-->
   <select id="queryNode" resultMap="permissionNodeMap">
@@ -40,7 +37,6 @@
 			<result property="text" column="per_name" />
 		</collection>			
 	</resultMap>
-	
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

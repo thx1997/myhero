@@ -9,6 +9,7 @@ import com.hero.entity.Node;
 import com.hero.entity.Role;
 import com.hero.entity.query.QueryBase;
 import com.hero.entity.query.RoleQuery;
+import com.hero.repository.PermissionMapper;
 import com.hero.repository.RoleMapper;
 import com.hero.service.RoleService;
 
@@ -17,6 +18,8 @@ public class RoleServiceImpl implements RoleService {
 
 	@Autowired
 	private RoleMapper roleMapper;
+	@Autowired
+	private PermissionMapper permissionMapper;
 	@Override//thx
 	public List<Role> queryRole(RoleQuery roleQuery) {
 		return roleMapper.queryRole(roleQuery);
