@@ -18,6 +18,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Autowired
 	private RoleMapper roleMapper;
+	@Autowired
 	private PermissionMapper permissionMapper;
 	@Override//thx
 	public List<Role> queryRole(RoleQuery roleQuery) {
