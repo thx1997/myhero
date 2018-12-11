@@ -18,7 +18,7 @@
 		resultType="int">
 		SELECT rper_per_id FROM i_role_permission
 		<where>
-		<if test=" roleIds != null ">
+		<if test="roleIds != null and roleIds != ''">
 		  rper_r_id IN 
 		<foreach item="id" collection="roleIds" open="(" separator=","
 			close=")">

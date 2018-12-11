@@ -59,6 +59,7 @@ public class RoleServiceImpl implements RoleService {
 		System.out.println("serviceImpl参数"+roleIds);
 		List<Integer> permissionIds = permissionMapper.queryPermissionIdsByRoleIds(roleIds);//查询出角色拥有的权限Ids
 		List<Node> permissionTree = permissionMapper.queryNode();//查询出所有的权限树
+		System.out.println("查询出角色拥有的权限Ids===>"+permissionIds+"查询出所有的权限树==>"+permissionTree);
 		//把角色拥有的权限树设置为选中
 		this.setPermissionTreeChecked(permissionTree, permissionIds);
 		return permissionTree;
