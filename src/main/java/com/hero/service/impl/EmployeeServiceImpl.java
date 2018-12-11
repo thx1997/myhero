@@ -49,8 +49,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeMapper.lockEmp(eid, uIsLockout);
 	}
 	@Override//thx
-	public int delRE(int eid) {
-		return employeeMapper.delRE(eid);
+	public int delRE(int eid,List<Integer> rids) {
+		return employeeMapper.delRE(eid,rids);
 	}
 	@Override//thx
 	public int addRe(int eid, List<Integer> rids) {

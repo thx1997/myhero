@@ -300,7 +300,7 @@
     </update>
     <!--根据员工编号移除他的所有角色(thx)  -->
     <delete id="delRE" parameterType="int">
-         DELETE FROM i_role_employee WHERE re_e_id=#{eid}
+         DELETE FROM i_role_employee WHERE re_e_id=#{eid} and re_r_id in(#{rids})
     </delete>
     <!-- 为某个员工设置角色 (thx)-->
     <insert id="addRe">

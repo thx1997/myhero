@@ -92,4 +92,38 @@ public interface RoleService {
 	 * @return Role对象的List集合
 	 */
 	public List<Role> queryAllRoles();
+	
+	
+	  /**
+	   *  根据用户编号查询查询用户所拥有的角色分页
+	   * @author thx
+	   * @param eid 用户编号
+	   * @param queryBase 分页元素
+	   * @return  角色集合
+	   */
+	  	public List<Role> getRoleByEidPage(int eid,QueryBase queryBase);
+	    /**
+	     *  根据用户编号查询查询用户所拥有的角色分页
+	     * @author thx
+	     * @param eid 用户编号
+	     * @param queryBase 分页元素
+	     * @return  角色集合个数
+	     */
+	    public int getRoleByEidCountPage(int eid);
+	    /**
+		 * 根据角色编号删除角色操作的权限
+		 * @author thx
+		 * @param rid 角色编号
+		 * @return 受影响的行数
+		 */
+		public int deletePermission(Integer rid);
+		
+		/**
+		 * 给角色设置操作权限
+		 * @author thx
+		 * @param permissId 权限编号
+		 * @param rid 角色编号
+		 * @return
+		 */
+			public int insertPermissionGiveRole(List<Integer> permissId,Integer rid);
 }

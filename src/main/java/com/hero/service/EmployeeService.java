@@ -64,7 +64,7 @@ public interface EmployeeService {
 	     * @param eid 员工编号
 	     * @return 受影响的行数
 	     */
-	    public int delRE(int eid);
+	    public int delRE(int eid,List<Integer> rids);
 	    /**
 	     * 为某个员工设置角色(thx)
 	     * @param eid 员工编号

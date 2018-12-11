@@ -32,6 +32,26 @@ public class EmployeeController {
 	public EmployeeService employeeService;
 	@Autowired
 	public RoleService RoleService;
+	
+	
+	/**
+	 * 根据用户编号查看该用户所拥有的角色 有分页
+	 * @param eida
+	 * @return
+	 */
+	//@RequestMapping(value="/getRoleByEid",name="根据用户编号查看该用户所拥有的角色")
+	@RequestMapping(value="/getRoleByEid")
+	public Object getRoleByEid(int eida,QueryBase queryBase) {
+		System.out.println("参数啊----"+eida+queryBase.toString());
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Role> roles=RoleService.getRoleByEidPage(eida,queryBase);
+		int total=RoleService.getRoleByEidCountPage(eida);
+		System.out.println("total:"+total+"rows:"+roles);
+		map.put("total", total);
+		map.put("rows", roles);
+		return map;
+	}
+	
 	/**
 	 *分页查询所有角色
 	 *@author thx
@@ -69,19 +89,36 @@ public class EmployeeController {
 	 * @return 
 	 */
     //@RequestMapping(value="setRole",name="给用户设置角色")
-    @RequestMapping(value="setRole")
-	public Object setRole(int eid,@RequestParam("rids[]")String[] rids) {
-		System.out.println("参数>>>>>>>"+rids);
+    @RequestMapping(value="/setRole")
+	public Object setRole(int eid,@RequestParam("rids[]")String[] rids,@RequestParam("curallrids[]")String[] curallrids) {
+		System.out.println("参数rids>>>>>>>"+rids);
+		System.out.println("参数curallrids>>>>>>>"+curallrids);
+		
 		List<String> ridlist = new ArrayList<String>();
 	    for (int i = 0; i < rids.length; i++) {
 	    	ridlist.add(rids[i]);
 	    }
 	    List<Integer> ridslist =ridlist.stream().map(Integer::parseInt).collect(Collectors.toList());
-	    System.out.println("最终参数>>>>>>>"+rids);
+	    
+	    
+	    List<String> curallridlist = new ArrayList<String>();
+	    for (int i = 0; i < curallrids.length; i++) {
+	    	curallridlist.add(curallrids[i]);
+	    }
+	    List<Integer> curallridslist =curallridlist.stream().map(Integer::parseInt).collect(Collectors.toList());
+	    System.out.println("最终参数rids>>>>>>>"+ridslist);
+	    System.out.println("最终参数curallrids>>>>>>>"+curallridslist);
+	    
 	    Map<String, Object> map = new HashMap<String, Object>();
+	    try {
+			employeeService.delRE(eid,curallridslist);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			//e1.printStackTrace();
+		}
 	    //清除所有角色
 	    try {
-			employeeService.delRE(eid);
+			
 			int n=employeeService.addRe(eid, ridslist);
 			if(n>0) {
 				map.put("success", true);

@@ -3,6 +3,7 @@ package com.hero.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.junit.runners.Parameterized.Parameters;
 
 import com.hero.entity.Employee;
 import com.hero.entity.Role;
@@ -69,7 +70,7 @@ public interface EmployeeMapper {
      * @param eid 员工编号
      * @return 受影响的行数
      */
-    public int delRE(int eid);
+    public int delRE(@Param("eid")int eid,@Param("rids")List<Integer> rids);
     /**
      * 为某个员工设置角色(thx)
      * @param eid 员工编号

@@ -14,8 +14,6 @@ public interface ModuleMapper {
     int deleteByPrimaryKey(Integer mId);
     //查询该模块能否删除
     int selmodul(Integer mId);
-    //根据parentid查询模块(rfy&thx)
-    List<Module> selmodulByParentid(Integer mId);
     /**
      * 根据角色编号查询出所拥有的模块编号
      * @author thx

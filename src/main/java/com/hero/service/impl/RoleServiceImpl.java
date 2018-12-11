@@ -96,6 +96,26 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.queryAllRoles();
 	}
 
+	@Override//thx
+	public List<Role> getRoleByEidPage(int eid, QueryBase queryBase) {
+		return roleMapper.getRoleByEidPage(eid, queryBase);
+	}
+
+	@Override//thx
+	public int getRoleByEidCountPage(int eid) {
+		return roleMapper.getRoleByEidCountPage(eid);
+	}
+
+	@Override//thx
+	public int deletePermission(Integer rid) {
+		return roleMapper.deletePermission(rid);
+	}
+
+	@Override//thx
+	public int insertPermissionGiveRole(List<Integer> permissId, Integer rid) {
+		return roleMapper.insertPermissionGiveRole(permissId, rid);
+	}
+
 	
 
 }

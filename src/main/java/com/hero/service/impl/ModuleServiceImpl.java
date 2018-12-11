@@ -295,7 +295,7 @@ public class ModuleServiceImpl implements ModuleService {
 		@Override//thx
 		public List<Module> queryModuleChecked(List<Integer> rid) {
 			//查询出所有根菜单
-			List<Module> rootList = moduleMapper.selmodulByParentid(0);
+			List<Module> rootList = moduleMapper.queryChildrenById(0);
 			//查询出角色已拥有的模块的编号
 			List<Integer> midList=moduleMapper.selectMidByRid(rid);
 			//递归设置子菜单

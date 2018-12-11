@@ -52,6 +52,27 @@ public interface RoleMapper {
   	public List<Integer> getRoleIdByeid(int eid);
   	//根据用户编号查询查询用户所拥有的角色(rfy)
   	public List<Role> getRoleByEid(int eid);
+  	
+  	
+  	
+ 
+  /**
+   *  根据用户编号查询查询用户所拥有的角色分页
+   * @author thx
+   * @param eid 用户编号
+   * @param queryBase 分页元素
+   * @return  角色集合
+   */
+  	public List<Role> getRoleByEidPage(@Param("eid")int eid,@Param("queryBase")QueryBase queryBase);
+    /**
+     *  根据用户编号查询查询用户所拥有的角色分页
+     * @author thx
+     * @param eid 用户编号
+     * @param queryBase 分页元素
+     * @return  角色集合个数
+     */
+    public int getRoleByEidCountPage(@Param("eid")int eid);
+    	
   	/**
   	 * 查询所有角色
   	 * @author thx
@@ -83,4 +104,22 @@ public interface RoleMapper {
      */
     public int delRoleByrid(int rid);
 	List<Role> queryAllRoles();
+	
+	
+	/**
+	 * 根据角色编号删除角色操作的权限
+	 * @author thx
+	 * @param rid 角色编号
+	 * @return 受影响的行数
+	 */
+	public int deletePermission(Integer rid);
+	
+	/**
+	 * 给角色设置操作权限
+	 * @author thx
+	 * @param permissId 权限编号
+	 * @param rid 角色编号
+	 * @return
+	 */
+		public int insertPermissionGiveRole(@Param("list")List<Integer> permissId,@Param("rid")Integer rid);
 }

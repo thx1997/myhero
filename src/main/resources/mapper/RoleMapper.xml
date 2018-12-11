@@ -30,6 +30,26 @@
 			</if>
 		</where>
   </sql>
+  
+  
+  <!--根据用户编号查询角色信息,有分页(thx) -->
+	<select id="getRoleByEidPage" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM i_role WHERE r_id IN(SELECT re_r_id FROM i_role_employee WHERE
+		re_e_id=#{eid})		
+        limit #{queryBase.startIndex},#{queryBase.rows}
+	</select>
+	<!--根据用户编号查询角色信息,有分页(thx) -->
+	<select id="getRoleByEidCountPage" resultType="int">
+		SELECT 
+		count(*)
+		FROM i_role WHERE r_id IN(SELECT re_r_id FROM i_role_employee WHERE
+		re_e_id=#{eid})
+	</select>
+	
+	
+	
  <!--  移除指定角色管理的所有模块（操作中间表而已）(thx) -->
   <delete id="delRoleModule" parameterType="int">
       DELETE FROM i_role_module WHERE rm_r_id=#{rid}
@@ -158,9 +178,24 @@
 		SELECT * FROM i_role WHERE r_id IN(SELECT re_r_id FROM i_role_employee WHERE
 		re_e_id=#{eid})
 	</select>
+	
 		<!--  查询当前用户所没有的角色 -->
 	<select id="queryAllRoles" resultType="role" parameterType="int">
 		SELECT * FROM id_role WHERE r_Id NOT IN
 	 ( SELECT  re_r_id FROM i_role_employee WHERE re_e_id=#{0})
 	</select>
+	
+	<!--根据角色编号删除角色操作的权限（thx）  -->
+	<delete id="deletePermission" parameterType="int">
+    DELETE FROM i_role_permission WHERE rper_r_id=#{rid}
+    </delete>
+    
+    <insert id="insertPermissionGiveRole">
+           INSERT INTO i_role_permission(rper_per_id,rper_r_id)
+           VALUES
+           <foreach collection="list" item="aa" separator=",">
+               (#{aa},#{rid})
+           </foreach>
+    </insert>
+    
 </mapper>
