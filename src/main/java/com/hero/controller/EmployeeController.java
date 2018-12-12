@@ -91,7 +91,8 @@ public class EmployeeController {
     //@RequestMapping(value="setRole",name="给用户设置角色")
     @RequestMapping(value="/setRole")
 	public Object setRole(int eid,@RequestParam("rids[]")String[] rids,@RequestParam("curallrids[]")String[] curallrids) {
-		System.out.println("参数rids>>>>>>>"+rids);
+    	System.out.println("参数eid>>>>>>>"+eid);
+    	System.out.println("参数rids>>>>>>>"+rids);
 		System.out.println("参数curallrids>>>>>>>"+curallrids);
 		
 		List<String> ridlist = new ArrayList<String>();

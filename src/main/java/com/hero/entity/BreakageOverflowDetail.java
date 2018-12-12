@@ -11,29 +11,11 @@ public class BreakageOverflowDetail {
 
     private Date bodCreatetime;
 
-    private String bobRemark;
+    private Integer bodNumber;
 
-    @Override
-	public String toString() {
-		return "BreakageOverflowDetail [bodId=" + bodId + ", bodPId=" + bodPId + ", bodType=" + bodType
-				+ ", bodCreatetime=" + bodCreatetime + ", bobRemark=" + bobRemark + "]";
-	}
+    private String bodRemark;
 
-	public BreakageOverflowDetail() {
-		super();
-	}
-
-	public BreakageOverflowDetail(Integer bodId, Integer bodPId, Boolean bodType, Date bodCreatetime,
-			String bobRemark) {
-		super();
-		this.bodId = bodId;
-		this.bodPId = bodPId;
-		this.bodType = bodType;
-		this.bodCreatetime = bodCreatetime;
-		this.bobRemark = bobRemark;
-	}
-
-	public Integer getBodId() {
+    public Integer getBodId() {
         return bodId;
     }
 
@@ -65,11 +47,19 @@ public class BreakageOverflowDetail {
         this.bodCreatetime = bodCreatetime;
     }
 
-    public String getBobRemark() {
-        return bobRemark;
+    public Integer getBodNumber() {
+        return bodNumber;
     }
 
-    public void setBobRemark(String bobRemark) {
-        this.bobRemark = bobRemark == null ? null : bobRemark.trim();
+    public void setBodNumber(Integer bodNumber) {
+        this.bodNumber = bodNumber;
+    }
+
+    public String getBodRemark() {
+        return bodRemark;
+    }
+
+    public void setBodRemark(String bodRemark) {
+        this.bodRemark = bodRemark == null ? null : bodRemark.trim();
     }
 }
