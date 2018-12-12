@@ -5,12 +5,11 @@
     <id column="bo_id" property="boId" jdbcType="INTEGER" />
     <result column="bo_e_id" property="boEId" jdbcType="INTEGER" />
     <result column="bo_createtime" property="boCreatetime" jdbcType="TIMESTAMP" />
-    <result column="bo_s_id" property="boSId" jdbcType="INTEGER" />
     <result column="bo_number" property="boNumber" jdbcType="INTEGER" />
     <result column="bo_remark" property="boRemark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    bo_id, bo_e_id, bo_createtime, bo_s_id, bo_number, bo_remark
+    bo_id, bo_e_id, bo_createtime, bo_number, bo_remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,11 +23,9 @@
   </delete>
   <insert id="insert" parameterType="com.hero.entity.BreakageOverflow" >
     insert into i_breakage_overflow (bo_id, bo_e_id, bo_createtime, 
-      bo_s_id, bo_number, bo_remark
-      )
+      bo_number, bo_remark)
     values (#{boId,jdbcType=INTEGER}, #{boEId,jdbcType=INTEGER}, #{boCreatetime,jdbcType=TIMESTAMP}, 
-      #{boSId,jdbcType=INTEGER}, #{boNumber,jdbcType=INTEGER}, #{boRemark,jdbcType=VARCHAR}
-      )
+      #{boNumber,jdbcType=INTEGER}, #{boRemark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hero.entity.BreakageOverflow" >
     insert into i_breakage_overflow
@@ -41,9 +38,6 @@
       </if>
       <if test="boCreatetime != null" >
         bo_createtime,
-      </if>
-      <if test="boSId != null" >
-        bo_s_id,
       </if>
       <if test="boNumber != null" >
         bo_number,
@@ -62,9 +56,6 @@
       <if test="boCreatetime != null" >
         #{boCreatetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="boSId != null" >
-        #{boSId,jdbcType=INTEGER},
-      </if>
       <if test="boNumber != null" >
         #{boNumber,jdbcType=INTEGER},
       </if>
@@ -82,9 +73,6 @@
       <if test="boCreatetime != null" >
         bo_createtime = #{boCreatetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="boSId != null" >
-        bo_s_id = #{boSId,jdbcType=INTEGER},
-      </if>
       <if test="boNumber != null" >
         bo_number = #{boNumber,jdbcType=INTEGER},
       </if>
@@ -98,7 +86,6 @@
     update i_breakage_overflow
     set bo_e_id = #{boEId,jdbcType=INTEGER},
       bo_createtime = #{boCreatetime,jdbcType=TIMESTAMP},
-      bo_s_id = #{boSId,jdbcType=INTEGER},
       bo_number = #{boNumber,jdbcType=INTEGER},
       bo_remark = #{boRemark,jdbcType=VARCHAR}
     where bo_id = #{boId,jdbcType=INTEGER}

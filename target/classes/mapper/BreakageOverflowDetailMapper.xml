@@ -5,12 +5,13 @@
     <id column="bod_id" property="bodId" jdbcType="INTEGER" />
     <result column="bod_p_id" property="bodPId" jdbcType="INTEGER" />
     <result column="bod_type" property="bodType" jdbcType="BIT" />
+    <result column="bod_s_id" property="bodSId" jdbcType="INTEGER" />
     <result column="bod_createtime" property="bodCreatetime" jdbcType="TIMESTAMP" />
     <result column="bod_number" property="bodNumber" jdbcType="INTEGER" />
     <result column="bod_remark" property="bodRemark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    bod_id, bod_p_id, bod_type, bod_createtime, bod_number, bod_remark
+    bod_id, bod_p_id, bod_type, bod_s_id, bod_createtime, bod_number, bod_remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,11 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.hero.entity.BreakageOverflowDetail" >
     insert into i_breakage_overflow_detail (bod_id, bod_p_id, bod_type, 
-      bod_createtime, bod_number, bod_remark
-      )
+      bod_s_id, bod_createtime, bod_number, 
+      bod_remark)
     values (#{bodId,jdbcType=INTEGER}, #{bodPId,jdbcType=INTEGER}, #{bodType,jdbcType=BIT}, 
-      #{bodCreatetime,jdbcType=TIMESTAMP}, #{bodNumber,jdbcType=INTEGER}, #{bodRemark,jdbcType=VARCHAR}
-      )
+      #{bodSId,jdbcType=INTEGER}, #{bodCreatetime,jdbcType=TIMESTAMP}, #{bodNumber,jdbcType=INTEGER}, 
+      #{bodRemark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hero.entity.BreakageOverflowDetail" >
     insert into i_breakage_overflow_detail
@@ -41,6 +42,9 @@
       </if>
       <if test="bodType != null" >
         bod_type,
+      </if>
+      <if test="bodSId != null" >
+        bod_s_id,
       </if>
       <if test="bodCreatetime != null" >
         bod_createtime,
@@ -62,6 +66,9 @@
       <if test="bodType != null" >
         #{bodType,jdbcType=BIT},
       </if>
+      <if test="bodSId != null" >
+        #{bodSId,jdbcType=INTEGER},
+      </if>
       <if test="bodCreatetime != null" >
         #{bodCreatetime,jdbcType=TIMESTAMP},
       </if>
@@ -82,6 +89,9 @@
       <if test="bodType != null" >
         bod_type = #{bodType,jdbcType=BIT},
       </if>
+      <if test="bodSId != null" >
+        bod_s_id = #{bodSId,jdbcType=INTEGER},
+      </if>
       <if test="bodCreatetime != null" >
         bod_createtime = #{bodCreatetime,jdbcType=TIMESTAMP},
       </if>
@@ -98,6 +108,7 @@
     update i_breakage_overflow_detail
     set bod_p_id = #{bodPId,jdbcType=INTEGER},
       bod_type = #{bodType,jdbcType=BIT},
+      bod_s_id = #{bodSId,jdbcType=INTEGER},
       bod_createtime = #{bodCreatetime,jdbcType=TIMESTAMP},
       bod_number = #{bodNumber,jdbcType=INTEGER},
       bod_remark = #{bodRemark,jdbcType=VARCHAR}
