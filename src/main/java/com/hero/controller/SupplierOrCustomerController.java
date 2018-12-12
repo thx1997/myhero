@@ -169,7 +169,7 @@ public class SupplierOrCustomerController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println("procateIds>>>>"+procateIds);
 		int d=0;
-		if (procateIds=="") {
+		if (procateIds==""||procateIds==null) {
 			//如果不给供应商设置任何供货的商品类别，只执行删除功能
 			d=supplierOrCustomerService.delProCateBySid(sId);
 			if (d>0) {

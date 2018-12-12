@@ -2,13 +2,15 @@ package com.hero.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ProductBrand {
     private Integer pbId;
 
     private String pbName;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
     private Date pbCreatetime;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
     private Date pbUpdatetime;
 
     private String pbRemark;

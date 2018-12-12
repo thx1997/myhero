@@ -2,6 +2,11 @@ package com.hero.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.hero.excel.PoiHandler;
 
 public class Product {
     private Integer pId;
@@ -19,23 +24,23 @@ public class Product {
     private BigDecimal pOyaltyrate;
 
     private Boolean pState;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
     private Date pCreatetime;
-
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
     private Date pUpdatetime;
 
     private String pRemark;
 
+    @JsonUnwrapped//rfy
+    private ProductCategory category;//商品类别
+    
+    @JsonUnwrapped//rfy
+    private ProductBrand brand;
     public Product() {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "Product [pId=" + pId + ", pName=" + pName + ", pPsId=" + pPsId + ", pPcId=" + pPcId + ", pPbId=" + pPbId
-				+ ", pSalemoney=" + pSalemoney + ", pOyaltyrate=" + pOyaltyrate + ", pState=" + pState
-				+ ", pCreatetime=" + pCreatetime + ", pUpdatetime=" + pUpdatetime + ", pRemark=" + pRemark + "]";
-	}
+
 
 	public Product(Integer pId, String pName, Integer pPsId, Integer pPcId, Integer pPbId, BigDecimal pSalemoney,
 			BigDecimal pOyaltyrate, Boolean pState, Date pCreatetime, Date pUpdatetime, String pRemark) {
@@ -52,6 +57,28 @@ public class Product {
 		this.pUpdatetime = pUpdatetime;
 		this.pRemark = pRemark;
 	}
+
+	
+	public Product(Integer pId, String pName, Integer pPsId, Integer pPcId, Integer pPbId, BigDecimal pSalemoney,
+			BigDecimal pOyaltyrate, Boolean pState, Date pCreatetime, Date pUpdatetime, String pRemark,
+			ProductCategory category, ProductBrand brand) {
+		super();
+		this.pId = pId;
+		this.pName = pName;
+		this.pPsId = pPsId;
+		this.pPcId = pPcId;
+		this.pPbId = pPbId;
+		this.pSalemoney = pSalemoney;
+		this.pOyaltyrate = pOyaltyrate;
+		this.pState = pState;
+		this.pCreatetime = pCreatetime;
+		this.pUpdatetime = pUpdatetime;
+		this.pRemark = pRemark;
+		this.category = category;
+		this.brand = brand;
+	}
+
+
 
 	public Integer getpId() {
         return pId;
@@ -140,4 +167,44 @@ public class Product {
     public void setpRemark(String pRemark) {
         this.pRemark = pRemark == null ? null : pRemark.trim();
     }
+
+
+
+	public ProductCategory getCategory() {
+		return category;
+	}
+
+
+
+	public void setCategory(ProductCategory category) {
+		this.category = category;
+	}
+
+
+
+	public ProductBrand getBrand() {
+		return brand;
+	}
+
+
+
+	public void setBrand(ProductBrand brand) {
+		this.brand = brand;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Product [pId=" + pId + ", pName=" + pName + ", pPsId=" + pPsId + ", pPcId=" + pPcId + ", pPbId=" + pPbId
+				+ ", pSalemoney=" + pSalemoney + ", pOyaltyrate=" + pOyaltyrate + ", pState=" + pState
+				+ ", pCreatetime=" + pCreatetime + ", pUpdatetime=" + pUpdatetime + ", pRemark=" + pRemark
+				+ ", category=" + category + ", brand=" + brand + "]";
+	}
+
+
+
+	
+
+	
 }

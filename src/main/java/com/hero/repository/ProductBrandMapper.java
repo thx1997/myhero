@@ -1,5 +1,7 @@
 package com.hero.repository;
 
+import java.util.List;
+
 import com.hero.entity.ProductBrand;
 
 public interface ProductBrandMapper {
@@ -14,4 +16,6 @@ public interface ProductBrandMapper {
     int updateByPrimaryKeySelective(ProductBrand record);
 
     int updateByPrimaryKey(ProductBrand record);
+    //查询所有品牌(rfy)
+    public List<ProductBrand> queryAll();
 }

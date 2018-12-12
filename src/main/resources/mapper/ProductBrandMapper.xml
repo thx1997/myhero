@@ -90,4 +90,12 @@
       pb_remark = #{pbRemark,jdbcType=VARCHAR}
     where pb_id = #{pbId,jdbcType=INTEGER}
   </update>
+  <!-- 查询所有品牌(rfy) -->
+  <select id="queryAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from i_product_brand
+  </select>
+  
+  
 </mapper>

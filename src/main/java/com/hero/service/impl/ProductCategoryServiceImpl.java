@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hero.entity.Module;
 import com.hero.entity.ProductCategory;
 import com.hero.repository.ProductCategoryMapper;
 import com.hero.service.ProductCategoryService;
@@ -65,7 +66,35 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 			}
 		}
 	}
+
 	
+	/*********************************树形显示所有商品类别*****************************************/
+	@Override//(rfy)
+	public List<ProductCategory> queryAllProCate() {
+		//查询出所有根菜单
+		List<ProductCategory> rootList = this.queryChildrenById(0);
+		//递归设置子菜单
+		this.setChildren(rootList);
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^最终得到的菜单列表=>"+rootList);
+		return rootList;
+	}
+	//(rfy)
+	private void setChildren(List<ProductCategory> parentList){
+		for(ProductCategory p:parentList){
+			//mids.contains(m.getmid);
+			//查询出子菜单
+			List<ProductCategory> childrenList = this.queryChildrenById(p.getPcId());
+			System.out.println("*****************************************************设置子菜单=>"+p.getPcName());
+			//如果没有子菜单则递归结束
+			if( childrenList !=null && !childrenList.isEmpty() ){//有子菜单
+				//设置子菜单
+				System.out.println("设置的子菜单是=>"+childrenList);
+				p.setChildren(childrenList);
+				//如果有子菜单则继续递归设置子菜单
+				this.setChildren(childrenList);
+			}
+		}
+	}
 	
 	
 

@@ -8,8 +8,6 @@ import org.apache.ibatis.annotations.Param;
 import com.hero.entity.Module;
 
 public interface ModuleMapper {
-	
-	//删除
 	//删除模块（rfy）
     int deleteByPrimaryKey(Integer mId);
     //查询该模块能否删除

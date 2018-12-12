@@ -144,6 +144,7 @@
 	<select id="queryChildrenById" parameterType="int" resultMap="BaseResultMap">
 		SELECT * FROM i_module WHERE m_parentid =#{parentId} ORDER BY m_weight DESC
 	</select>
+	<!--分页查询所有父模块  -->
 	<select id="queryParent" parameterType="com.hero.entity.Module" resultMap="BaseResultMap">
 		SELECT * FROM i_module WHERE m_parentid =0 ORDER BY m_weight DESC
 		LIMIT #{startIndex},#{rows}

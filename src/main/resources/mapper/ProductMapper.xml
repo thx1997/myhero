@@ -13,6 +13,10 @@
     <result column="p_createtime" property="pCreatetime" jdbcType="TIMESTAMP" />
     <result column="p_updatetime" property="pUpdatetime" jdbcType="TIMESTAMP" />
     <result column="p_remark" property="pRemark" jdbcType="VARCHAR" />
+    <!--商品类别映射设置(rfy) -->
+	<association property="category" resultMap="com.hero.repository.ProductCategoryMapper.BaseResultMap"></association>
+	<!--商品品牌映射设置(rfy) -->
+	<association property="brand" resultMap="com.hero.repository.ProductBrandMapper.BaseResultMap"></association>
   </resultMap>
   <sql id="Base_Column_List" >
     p_id, p_name, p_ps_id, p_pc_id, p_pb_id, p_salemoney, p_oyaltyrate, p_state, p_createtime, 
@@ -161,4 +165,39 @@
       p_remark = #{pRemark,jdbcType=VARCHAR}
     where p_id = #{pId,jdbcType=INTEGER}
   </update>
+  
+  <!-- rfy -->
+  <sql id="CountwhereSQL">
+  	<where>
+	      <if test="spname != null and spname!=''" >
+	        and p_name like "%"#{spname}"%"
+	      </if>
+	      <if test="spcid != null" >
+	        and p_pc_id=#{spcid}
+	      </if>
+	      <if test="spbid != null" >
+	        and p_pb_id=#{spbid}
+	      </if>
+	      
+  	</where>
+  	  	  <if test="orderby != null and orderby!=''" >
+	        order by ${orderby} desc
+	      </if>
+  </sql>
+  <!-- 多条件分页查询商品(rfy) -->
+  <select id="selectProByQuery" resultMap="BaseResultMap" parameterType="com.hero.entity.query.ProductQuery" >
+    SELECT * FROM i_product p LEFT JOIN i_product_category pc ON p.p_pc_id=pc.pc_id JOIN i_product_brand pb ON p.p_pb_id=pb.pb_id
+    <include refid="CountwhereSQL"/>
+  	LIMIT #{startIndex},#{rows}
+  </select>
+  <!--查询分页总记录数(rfy) -->
+  <select id="selectCountByQuery" resultType="int" parameterType="com.hero.entity.query.ProductQuery">
+  	SELECT count(*) FROM i_product p LEFT JOIN i_product_category pc ON p.p_pc_id=pc.pc_id JOIN i_product_brand pb ON p.p_pb_id=pb.pb_id
+    <include refid="CountwhereSQL"/>
+  </select>
+  
+  
+  
+  
+  
 </mapper>

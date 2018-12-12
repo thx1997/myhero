@@ -11,4 +11,6 @@ public interface ProductCategoryService {
   	public List<Integer> selectPcidBySid(Integer sid);
     //查询出父模块对应的子模块(rfy)
   	public List<ProductCategory> queryChildrenById(Integer parentId);
+  	//查询所有商品类别(rfy)
+  	public List<ProductCategory> queryAllProCate();
 }
