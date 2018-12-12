@@ -44,7 +44,7 @@ public class RoleController {
 	    List<Integer> mids =midlist.stream().map(Integer::parseInt).collect(Collectors.toList());
 	    System.out.println("最终参数>>>>>>>"+mids);*/
 		
-		if(premisstionis==null) {
+		if(premisstionis==null||premisstionis=="") {
 			//清空该角色的所有权限
 			 try {
 				int c=roleService.deletePermission(rId);
@@ -216,7 +216,7 @@ public class RoleController {
 	public Object setRoleModule(String moduleIds,int rId){
 		System.out.println("参数>>>>>>>"+moduleIds+":"+rId);
 	    Map<String, Object> map = new HashMap<String, Object>();
-	   if (moduleIds==null) {
+	   if (moduleIds==""||moduleIds==null||moduleIds=="null") {
 			//如果不给角色设置任何模块，只执行删除功能
 			int d;
 			try {
@@ -232,13 +232,13 @@ public class RoleController {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				map.put("success", false);
-				map.put("message", "清空失败");
+				map.put("message", "操作失败");
 			}
 			
 		}else{
 			
 			String arr[]=moduleIds.split(",");//把String类型的数据转成数组
-			
+			System.out.println(arr[0]);
 			List<String> midlist = new ArrayList<String>();
 		    for (int i = 0; i < arr.length; i++) {
 		    	midlist.add(arr[i]);

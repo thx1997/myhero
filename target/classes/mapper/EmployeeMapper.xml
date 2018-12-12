@@ -299,8 +299,13 @@
         UPDATE i_employee SET e_islockout=#{uIsLockout},e_lockouttime=now() WHERE e_id=#{eid}
     </update>
     <!--根据员工编号移除他的所有角色(thx)  -->
-    <delete id="delRE" parameterType="int">
-         DELETE FROM i_role_employee WHERE re_e_id=#{eid} and re_r_id in(#{rids})
+    <delete id="delRE">
+         DELETE FROM i_role_employee WHERE re_e_id=#{eid} and re_r_id in
+         (
+          <foreach collection="rids" item="rids" separator="," index="index">
+            #{rids}
+          </foreach>
+         )
     </delete>
     <!-- 为某个员工设置角色 (thx)-->
     <insert id="addRe">
