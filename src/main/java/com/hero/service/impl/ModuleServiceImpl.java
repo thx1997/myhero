@@ -235,16 +235,11 @@ public class ModuleServiceImpl implements ModuleService {
 		
 		
 		/******************************级联删除************************/
-		@Override//rfy
-		public List<Module> selectMoudleByMid(Integer mid) {
-			// TODO Auto-generated method stub
-			return moduleMapper.selectMoudleByMid(mid);
-		}
 
 		@Override//rfy
 		public int delModule(Integer mid) {
 			//根据模块id查询子模块
-			List<Module> childList=this.selectMoudleByMid(mid);
+			List<Module> childList=this.queryChildrenById(mid);
 			
 			if (childList!=null && !childList.isEmpty()) {
 				this.delChildrens(childList);
@@ -264,7 +259,7 @@ public class ModuleServiceImpl implements ModuleService {
 			for(Module m:parentList){
 				
 				//查询出子菜单
-				List<Module> childrenList = this.selectMoudleByMid(m.getmId());
+				List<Module> childrenList = this.queryChildrenById(m.getmId());
 //				System.out.println("*****************************************************设置子菜单=>"+m.getModuleName());
 				//如果没有子菜单则递归结束
 				if( childrenList !=null && !childrenList.isEmpty() ){//有子菜单

@@ -57,9 +57,7 @@ public interface ModuleMapper {
   	//查询总记录数（rfy）
   	public int queryCount(String name);
   	public List<Module> queryMenuTreeChildrenById(@Param("parentId") Integer parentId,@Param("moduleIds") List<Integer> moduleIds);
-  	
-  	//根据模块id查询其子模块（rfy）
-  	public List<Module> selectMoudleByMid(Integer mid);
+
   	//查询模块是否存在角色关联（rfy）
   	public int isExitRoleBymid(Integer mid);
   	

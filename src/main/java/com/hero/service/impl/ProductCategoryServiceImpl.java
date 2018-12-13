@@ -95,7 +95,121 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 			}
 		}
 	}
-	
+
+	@Override//(rfy)
+	public int insertSelective(ProductCategory record) {
+		// TODO Auto-generated method stub
+		return productCategoryMapper.insertSelective(record);
+	}
+
+	@Override//(rfy)
+	public int isExitByPcnameAndPid(String pcname, Integer pid) {
+		// TODO Auto-generated method stub
+		return productCategoryMapper.isExitByPcnameAndPid(pcname, pid);
+	}
+
+	@Override//(rfy)
+	public ProductCategory selectByPrimaryKey(Integer pcId) {
+		// TODO Auto-generated method stub
+		return productCategoryMapper.selectByPrimaryKey(pcId);
+	}
+
+	@Override//(rfy)
+	public int updateByPrimaryKeySelective(ProductCategory record) {
+		// TODO Auto-generated method stub
+		return productCategoryMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Override//(rfy)
+	public int deleteByPrimaryKey(Integer pcId) {
+		// TODO Auto-generated method stub
+		return productCategoryMapper.deleteByPrimaryKey(pcId);
+	}
+
+	@Override//(rfy)
+	public int isExitProById(Integer pcId) {
+		// TODO Auto-generated method stub
+		return productCategoryMapper.isExitProById(pcId);
+	}
+
+	@Override//(rfy)
+	public List<Integer> getChildrenIdByPid(Integer pid) {
+		// TODO Auto-generated method stub
+		return productCategoryMapper.getChildrenIdByPid(pid);
+	}
+
+	@Override//(rfy)
+	public int delProCate(Integer pcId) {
+		int n=0;
+		 int e=this.isExitProById(pcId);//判断是否存在角色关联
+			if (e>0) {
+				System.out.println("当前类别被引用");
+			} else {
+				System.out.println("当前类mei别被引用");
+				//根据模块id查询子模块
+				List<ProductCategory> childList=this.queryChildrenById(pcId);
+				System.out.println("孩子>>>>>"+childList);
+				if (childList!=null && !childList.isEmpty()) {
+					n=this.delChildrens(childList);	
+					//再次判断当前类别有无子类别
+					List<ProductCategory> childList1=this.queryChildrenById(pcId);
+					if(childList1==null ||childList1.isEmpty()) {
+						System.out.println("hhhhhhhhhhhhhhhhhhhhhh");
+						n=this.deleteByPrimaryKey(pcId);//直接删除
+					}
+				}else {
+					System.out.println("无关联无孩子");
+					n=this.deleteByPrimaryKey(pcId);//直接删除
+				}		
+			}
+		
+			return n;
+	}
+	private int delChildrens(List<ProductCategory> parentList){
+		int n=0;
+		for(ProductCategory m:parentList){
+			
+			//查询出子菜单
+			List<ProductCategory> childrenList = this.queryChildrenById(m.getPcId());
+//			System.out.println("*****************************************************设置子菜单=>"+m.getModuleName());
+			//如果没有子菜单则递归结束
+			if( childrenList !=null && !childrenList.isEmpty() ){//有子菜单
+				int e=this.isExitProById(m.getPcId());//判断是否存在角色关联
+				if (e>0) {
+					System.out.println("子zi类被引用");
+				} else {
+					System.out.println("子zi类mei被引用");
+					n=this.deleteByPrimaryKey(m.getPcId());//直接删除
+					//this.delChildrens(childrenList);
+				}
+				this.delChildrens(childrenList);
+			}else {
+				int e=this.isExitProById(m.getPcId());//判断是否存在角色关联
+				if (e>0) {
+					System.out.println("子类被引用");
+				} else {
+					System.out.println("子类mei被引用");
+					try {
+						n=this.deleteByPrimaryKey(m.getPcId());//直接删除
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						this.delSuProCateByPCid(m.getPcId());
+						n=this.deleteByPrimaryKey(m.getPcId());//再删除
+					}
+					
+					//this.delChildrens(childrenList);
+				}
+			}
+			
+		}
+		return n;
+	}
+
+	@Override//(rfy)
+	public int delSuProCateByPCid(Integer pcid) {
+		// TODO Auto-generated method stub
+		return productCategoryMapper.delSuProCateByPCid(pcid);
+	}
 	
 
 }

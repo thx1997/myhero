@@ -12,16 +12,23 @@
   <sql id="Base_Column_List" >
     pc_id, pc_name, pc_parentid, pc_createtime, pc_updatetime, pc_remark
   </sql>
+  <!-- 根据id查询商品类别信息(rfy) -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from i_product_category
     where pc_id = #{pcId,jdbcType=INTEGER}
   </select>
+  
+  <!-- 根据id删除商品类别(rfy) -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from i_product_category
     where pc_id = #{pcId,jdbcType=INTEGER}
   </delete>
+  
+  
+  
+  
   <insert id="insert" parameterType="com.hero.entity.ProductCategory" >
     insert into i_product_category (pc_id, pc_name, pc_parentid, 
       pc_createtime, pc_updatetime, pc_remark
@@ -30,49 +37,38 @@
       #{pcCreatetime,jdbcType=TIMESTAMP}, #{pcUpdatetime,jdbcType=DECIMAL}, #{pcRemark,jdbcType=VARCHAR}
       )
   </insert>
+  
+  <!--添加商品类别(rfy)  -->
   <insert id="insertSelective" parameterType="com.hero.entity.ProductCategory" >
     insert into i_product_category
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="pcId != null" >
-        pc_id,
-      </if>
       <if test="pcName != null" >
         pc_name,
       </if>
       <if test="pcParentid != null" >
         pc_parentid,
-      </if>
-      <if test="pcCreatetime != null" >
+      </if>  
         pc_createtime,
-      </if>
-      <if test="pcUpdatetime != null" >
-        pc_updatetime,
-      </if>
       <if test="pcRemark != null" >
         pc_remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="pcId != null" >
-        #{pcId,jdbcType=INTEGER},
-      </if>
       <if test="pcName != null" >
         #{pcName,jdbcType=VARCHAR},
       </if>
       <if test="pcParentid != null" >
         #{pcParentid,jdbcType=INTEGER},
       </if>
-      <if test="pcCreatetime != null" >
-        #{pcCreatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="pcUpdatetime != null" >
-        #{pcUpdatetime,jdbcType=DECIMAL},
-      </if>
+        NOW(),
       <if test="pcRemark != null" >
         #{pcRemark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
+  
+  
+  <!--  修改商品类别信息(rfy)-->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.ProductCategory" >
     update i_product_category
     <set >
@@ -81,19 +77,16 @@
       </if>
       <if test="pcParentid != null" >
         pc_parentid = #{pcParentid,jdbcType=INTEGER},
-      </if>
-      <if test="pcCreatetime != null" >
-        pc_createtime = #{pcCreatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="pcUpdatetime != null" >
-        pc_updatetime = #{pcUpdatetime,jdbcType=DECIMAL},
-      </if>
+      </if>     
+        pc_updatetime = NOW(),
+
       <if test="pcRemark != null" >
         pc_remark = #{pcRemark,jdbcType=VARCHAR},
       </if>
     </set>
     where pc_id = #{pcId,jdbcType=INTEGER}
   </update>
+  
   <update id="updateByPrimaryKey" parameterType="com.hero.entity.ProductCategory" >
     update i_product_category
     set pc_name = #{pcName,jdbcType=VARCHAR},
@@ -105,13 +98,37 @@
   </update>
   
   
-  <!--根据供应商编号查询出所拥有的商品分类编号(rfy)  -->
+    <!--根据供应商编号查询出所拥有的商品分类编号(rfy)  -->
 	<select id="selectPcidBySid" parameterType="list" resultType="Integer">
 		SELECT sp_pc_id FROM i_supplier_product_category WHERE sp_s_id =#{sid}
 		
 	</select>
-	<!--查询所有模块信息  -->
+	
+	<!--查询所有模块信息 (rfy)  -->
 	<select id="queryChildrenById" parameterType="int" resultMap="BaseResultMap">
 		SELECT * FROM i_product_category WHERE pc_parentid =#{parentId}
 	</select>
+	
+	
+	<!--根据类别名称和父id查询类别是否存在(rfy)  -->
+	<select id="isExitByPcnameAndPid"  resultType="int">
+		SELECT count(*) FROM i_product_category WHERE pc_name=#{pcname} and pc_parentid =#{pid}
+	</select>
+	
+	<!--判断商品类别是否存在商品关联(rfy) -->
+	<select id="isExitProById"  resultType="int">
+		SELECT count(*) FROM i_product WHERE p_pc_id=#{pcId}
+	</select>
+	
+	<!-- 根据父id查询其孩子的编号(rfy) -->
+	<select id="getChildrenIdByPid"  resultType="int">
+		SELECT pc_id FROM i_product_category WHERE pc_parentid=#{pid}
+	</select>
+	
+	<!-- 根据商品类别编号删除供应商商品类别中间表(rfy) -->
+  <delete id="delSuProCateByPCid" parameterType="java.lang.Integer" >
+    DELETE FROM i_supplier_product_category WHERE sp_pc_id= #{pcid,jdbcType=INTEGER}
+  </delete>
+	
+	
 </mapper>

@@ -2,13 +2,15 @@ package com.hero.entity.query;
 
 public class ProductQuery extends QueryBase{
 	private String spname;//名称
-	private Integer spcid;//类别id
+	private String spcid;//类别id
 	private Integer spbid;//品牌id
 	private String orderby;//排序方式
 	
 	
 	
-	public ProductQuery(String spname, Integer spcid, Integer spbid, String orderby) {
+	
+
+	public ProductQuery(String spname, String spcid, Integer spbid, String orderby) {
 		super();
 		this.spname = spname;
 		this.spcid = spcid;
@@ -26,10 +28,10 @@ public class ProductQuery extends QueryBase{
 	public void setSpname(String spname) {
 		this.spname = spname;
 	}
-	public Integer getSpcid() {
+	public String getSpcid() {
 		return spcid;
 	}
-	public void setSpcid(Integer spcid) {
+	public void setSpcid(String spcid) {
 		this.spcid = spcid;
 	}
 	public String getOrderby() {

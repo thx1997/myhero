@@ -69,8 +69,6 @@ public interface ModuleService {
 	
     
     
-    //根据模块id查询其子模块（rfy）
-  	public List<Module> selectMoudleByMid(Integer mid);
   	//级联删除模块（rfy）
   	public int delModule(Integer mid);
     //查询模块是否存在角色关联（rfy）

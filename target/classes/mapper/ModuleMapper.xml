@@ -203,12 +203,6 @@
 		SELECT count(*) FROM i_module WHERE m_id IN(SELECT m_parentid FROM i_module WHERE m_name LIKE "%"#{name}"%")
 	</select>
   
-  
-  
-  <!-- 根据模块id查询其子模块 （rfy）-->
-  <select id="selectMoudleByMid" parameterType="Integer" resultMap="BaseResultMap">
-		SELECT * FROM i_module WHERE m_parentid =#{mid}
-  </select>
   <!--查询模块是否存在角色关联  （rfy）-->
   <select id="isExitRoleBymid" parameterType="int" resultType="int">
 		SELECT COUNT(*) FROM i_role_module WHERE rm_m_id=#{mid}

@@ -156,7 +156,6 @@ public class ModuleController {
 	 * @return
 	 */
 	@RequestMapping(value="/delete",name="模块删除")
-	@ResponseBody
 	public Object deleteModuleById(int mid){
 		Map<String, Object> map = new HashMap<String, Object>();		
 			int n=moduleService.delModule(mid);

@@ -172,8 +172,8 @@
 	      <if test="spname != null and spname!=''" >
 	        and p_name like "%"#{spname}"%"
 	      </if>
-	      <if test="spcid != null" >
-	        and p_pc_id=#{spcid}
+	      <if test="spcid != null and spcid!=''" >
+	        and p_pc_id in(${spcid})
 	      </if>
 	      <if test="spbid != null" >
 	        and p_pb_id=#{spbid}
