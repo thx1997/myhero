@@ -15,6 +15,14 @@
   <sql id="Base_Column_List" >
     s_id, s_name, s_e_id, s_address, s_phone, s_createtime, s_status, s_updatetime, s_remark
   </sql>
+   <!-- 查询所有正常的仓库（除去停用的）thx -->
+   <select id="queryAllInvoicing" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from i_storehouse
+    where s_status=0
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -7,6 +7,8 @@ public class BreakageOverflowDetail {
 
     private Integer bodPId;
 
+    private Integer bodBoId;
+
     private Boolean bodType;
 
     private Integer bodSId;
@@ -31,6 +33,14 @@ public class BreakageOverflowDetail {
 
     public void setBodPId(Integer bodPId) {
         this.bodPId = bodPId;
+    }
+
+    public Integer getBodBoId() {
+        return bodBoId;
+    }
+
+    public void setBodBoId(Integer bodBoId) {
+        this.bodBoId = bodBoId;
     }
 
     public Boolean getBodType() {

@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.hero.entity.BreakageOverflowDetail" >
     <id column="bod_id" property="bodId" jdbcType="INTEGER" />
     <result column="bod_p_id" property="bodPId" jdbcType="INTEGER" />
+    <result column="bod_bo_id" property="bodBoId" jdbcType="INTEGER" />
     <result column="bod_type" property="bodType" jdbcType="BIT" />
     <result column="bod_s_id" property="bodSId" jdbcType="INTEGER" />
     <result column="bod_createtime" property="bodCreatetime" jdbcType="TIMESTAMP" />
@@ -11,7 +12,7 @@
     <result column="bod_remark" property="bodRemark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    bod_id, bod_p_id, bod_type, bod_s_id, bod_createtime, bod_number, bod_remark
+    bod_id, bod_p_id, bod_bo_id, bod_type, bod_s_id, bod_createtime, bod_number, bod_remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,12 +25,12 @@
     where bod_id = #{bodId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.hero.entity.BreakageOverflowDetail" >
-    insert into i_breakage_overflow_detail (bod_id, bod_p_id, bod_type, 
-      bod_s_id, bod_createtime, bod_number, 
-      bod_remark)
-    values (#{bodId,jdbcType=INTEGER}, #{bodPId,jdbcType=INTEGER}, #{bodType,jdbcType=BIT}, 
-      #{bodSId,jdbcType=INTEGER}, #{bodCreatetime,jdbcType=TIMESTAMP}, #{bodNumber,jdbcType=INTEGER}, 
-      #{bodRemark,jdbcType=VARCHAR})
+    insert into i_breakage_overflow_detail (bod_id, bod_p_id, bod_bo_id, 
+      bod_type, bod_s_id, bod_createtime, 
+      bod_number, bod_remark)
+    values (#{bodId,jdbcType=INTEGER}, #{bodPId,jdbcType=INTEGER}, #{bodBoId,jdbcType=INTEGER}, 
+      #{bodType,jdbcType=BIT}, #{bodSId,jdbcType=INTEGER}, #{bodCreatetime,jdbcType=TIMESTAMP}, 
+      #{bodNumber,jdbcType=INTEGER}, #{bodRemark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hero.entity.BreakageOverflowDetail" >
     insert into i_breakage_overflow_detail
@@ -39,6 +40,9 @@
       </if>
       <if test="bodPId != null" >
         bod_p_id,
+      </if>
+      <if test="bodBoId != null" >
+        bod_bo_id,
       </if>
       <if test="bodType != null" >
         bod_type,
@@ -63,6 +67,9 @@
       <if test="bodPId != null" >
         #{bodPId,jdbcType=INTEGER},
       </if>
+      <if test="bodBoId != null" >
+        #{bodBoId,jdbcType=INTEGER},
+      </if>
       <if test="bodType != null" >
         #{bodType,jdbcType=BIT},
       </if>
@@ -86,6 +93,9 @@
       <if test="bodPId != null" >
         bod_p_id = #{bodPId,jdbcType=INTEGER},
       </if>
+      <if test="bodBoId != null" >
+        bod_bo_id = #{bodBoId,jdbcType=INTEGER},
+      </if>
       <if test="bodType != null" >
         bod_type = #{bodType,jdbcType=BIT},
       </if>
@@ -107,6 +117,7 @@
   <update id="updateByPrimaryKey" parameterType="com.hero.entity.BreakageOverflowDetail" >
     update i_breakage_overflow_detail
     set bod_p_id = #{bodPId,jdbcType=INTEGER},
+      bod_bo_id = #{bodBoId,jdbcType=INTEGER},
       bod_type = #{bodType,jdbcType=BIT},
       bod_s_id = #{bodSId,jdbcType=INTEGER},
       bod_createtime = #{bodCreatetime,jdbcType=TIMESTAMP},

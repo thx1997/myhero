@@ -2,6 +2,8 @@ package com.hero.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 public class StorehouseDetail {
     private Integer sdId;
 
@@ -9,31 +11,22 @@ public class StorehouseDetail {
 
     private Integer sdPId;
 
+    private Integer sdSspId;
+
     private Integer sdNumber;
 
     private Date sdUpdatetime;
 
     private String sdRemark;
-
-    @Override
-	public String toString() {
-		return "StorehouseDetail [sdId=" + sdId + ", sdSId=" + sdSId + ", sdPId=" + sdPId + ", sdNumber=" + sdNumber
-				+ ", sdUpdatetime=" + sdUpdatetime + ", sdRemark=" + sdRemark + "]";
+    @JsonUnwrapped
+    private  Product product;
+    
+    public Product getProduct() {
+		return product;
 	}
 
-	public StorehouseDetail() {
-		super();
-	}
-
-	public StorehouseDetail(Integer sdId, Integer sdSId, Integer sdPId, Integer sdNumber, Date sdUpdatetime,
-			String sdRemark) {
-		super();
-		this.sdId = sdId;
-		this.sdSId = sdSId;
-		this.sdPId = sdPId;
-		this.sdNumber = sdNumber;
-		this.sdUpdatetime = sdUpdatetime;
-		this.sdRemark = sdRemark;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public Integer getSdId() {
@@ -60,6 +53,14 @@ public class StorehouseDetail {
         this.sdPId = sdPId;
     }
 
+    public Integer getSdSspId() {
+        return sdSspId;
+    }
+
+    public void setSdSspId(Integer sdSspId) {
+        this.sdSspId = sdSspId;
+    }
+
     public Integer getSdNumber() {
         return sdNumber;
     }
@@ -83,4 +84,29 @@ public class StorehouseDetail {
     public void setSdRemark(String sdRemark) {
         this.sdRemark = sdRemark == null ? null : sdRemark.trim();
     }
+
+	public StorehouseDetail(Integer sdId, Integer sdSId, Integer sdPId, Integer sdSspId, Integer sdNumber,
+			Date sdUpdatetime, String sdRemark) {
+		super();
+		this.sdId = sdId;
+		this.sdSId = sdSId;
+		this.sdPId = sdPId;
+		this.sdSspId = sdSspId;
+		this.sdNumber = sdNumber;
+		this.sdUpdatetime = sdUpdatetime;
+		this.sdRemark = sdRemark;
+	}
+
+	public StorehouseDetail() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "StorehouseDetail [sdId=" + sdId + ", sdSId=" + sdSId + ", sdPId=" + sdPId + ", sdSspId=" + sdSspId
+				+ ", sdNumber=" + sdNumber + ", sdUpdatetime=" + sdUpdatetime + ", sdRemark=" + sdRemark + ", product="
+				+ product + "]";
+	}
+	
+    
 }
