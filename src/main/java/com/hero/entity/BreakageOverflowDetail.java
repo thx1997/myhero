@@ -7,7 +7,11 @@ public class BreakageOverflowDetail {
 
     private Integer bodPId;
 
+    private Integer bodBoId;
+
     private Boolean bodType;
+
+    private Integer bodSId;
 
     private Date bodCreatetime;
 
@@ -31,12 +35,28 @@ public class BreakageOverflowDetail {
         this.bodPId = bodPId;
     }
 
+    public Integer getBodBoId() {
+        return bodBoId;
+    }
+
+    public void setBodBoId(Integer bodBoId) {
+        this.bodBoId = bodBoId;
+    }
+
     public Boolean getBodType() {
         return bodType;
     }
 
     public void setBodType(Boolean bodType) {
         this.bodType = bodType;
+    }
+
+    public Integer getBodSId() {
+        return bodSId;
+    }
+
+    public void setBodSId(Integer bodSId) {
+        this.bodSId = bodSId;
     }
 
     public Date getBodCreatetime() {

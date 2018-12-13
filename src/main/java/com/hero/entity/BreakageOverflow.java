@@ -9,34 +9,11 @@ public class BreakageOverflow {
 
     private Date boCreatetime;
 
-    private Integer boSId;
-
     private Integer boNumber;
 
     private String boRemark;
 
-    @Override
-	public String toString() {
-		return "BreakageOverflow [boId=" + boId + ", boEId=" + boEId + ", boCreatetime=" + boCreatetime + ", boSId="
-				+ boSId + ", boNumber=" + boNumber + ", boRemark=" + boRemark + "]";
-	}
-
-	public BreakageOverflow(Integer boId, Integer boEId, Date boCreatetime, Integer boSId, Integer boNumber,
-			String boRemark) {
-		super();
-		this.boId = boId;
-		this.boEId = boEId;
-		this.boCreatetime = boCreatetime;
-		this.boSId = boSId;
-		this.boNumber = boNumber;
-		this.boRemark = boRemark;
-	}
-
-	public BreakageOverflow() {
-		super();
-	}
-
-	public Integer getBoId() {
+    public Integer getBoId() {
         return boId;
     }
 
@@ -58,14 +35,6 @@ public class BreakageOverflow {
 
     public void setBoCreatetime(Date boCreatetime) {
         this.boCreatetime = boCreatetime;
-    }
-
-    public Integer getBoSId() {
-        return boSId;
-    }
-
-    public void setBoSId(Integer boSId) {
-        this.boSId = boSId;
     }
 
     public Integer getBoNumber() {
