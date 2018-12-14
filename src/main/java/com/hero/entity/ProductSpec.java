@@ -9,15 +9,15 @@ public class ProductSpec {
 
     private BigDecimal psWeight;
 
-    private String psWeightunit;
+    private Integer psWeightunit;
 
-    private BigDecimal psSize;
+    private String psSize;
 
-    private String psSizeunit;
+    private Integer psSizeunit;
 
     private BigDecimal psDia;
 
-    private String psDiaunit;
+    private Integer psDiaunit;
 
     private BigDecimal psDensity;
 
@@ -49,28 +49,28 @@ public class ProductSpec {
         this.psWeight = psWeight;
     }
 
-    public String getPsWeightunit() {
+    public Integer getPsWeightunit() {
         return psWeightunit;
     }
 
-    public void setPsWeightunit(String psWeightunit) {
-        this.psWeightunit = psWeightunit == null ? null : psWeightunit.trim();
+    public void setPsWeightunit(Integer psWeightunit) {
+        this.psWeightunit = psWeightunit;
     }
 
-    public BigDecimal getPsSize() {
+    public String getPsSize() {
         return psSize;
     }
 
-    public void setPsSize(BigDecimal psSize) {
-        this.psSize = psSize;
+    public void setPsSize(String psSize) {
+        this.psSize = psSize == null ? null : psSize.trim();
     }
 
-    public String getPsSizeunit() {
+    public Integer getPsSizeunit() {
         return psSizeunit;
     }
 
-    public void setPsSizeunit(String psSizeunit) {
-        this.psSizeunit = psSizeunit == null ? null : psSizeunit.trim();
+    public void setPsSizeunit(Integer psSizeunit) {
+        this.psSizeunit = psSizeunit;
     }
 
     public BigDecimal getPsDia() {
@@ -81,12 +81,12 @@ public class ProductSpec {
         this.psDia = psDia;
     }
 
-    public String getPsDiaunit() {
+    public Integer getPsDiaunit() {
         return psDiaunit;
     }
 
-    public void setPsDiaunit(String psDiaunit) {
-        this.psDiaunit = psDiaunit == null ? null : psDiaunit.trim();
+    public void setPsDiaunit(Integer psDiaunit) {
+        this.psDiaunit = psDiaunit;
     }
 
     public BigDecimal getPsDensity() {
@@ -113,8 +113,8 @@ public class ProductSpec {
         this.psRemark = psRemark == null ? null : psRemark.trim();
     }
 
-	public ProductSpec(Integer psId, Integer psPId, BigDecimal psWeight, String psWeightunit, BigDecimal psSize,
-			String psSizeunit, BigDecimal psDia, String psDiaunit, BigDecimal psDensity, Integer psDensityunit,
+	public ProductSpec(Integer psId, Integer psPId, BigDecimal psWeight, Integer psWeightunit, String psSize,
+			Integer psSizeunit, BigDecimal psDia, Integer psDiaunit, BigDecimal psDensity, Integer psDensityunit,
 			String psRemark) {
 		super();
 		this.psId = psId;

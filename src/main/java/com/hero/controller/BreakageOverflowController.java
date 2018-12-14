@@ -1,5 +1,7 @@
 package com.hero.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hero.entity.Product;
+import com.hero.entity.ProductCategory;
+import com.hero.entity.ProductSpec;
 import com.hero.entity.StoreHouse;
+import com.hero.entity.query.ProductQuery;
+import com.hero.entity.query.StorehousePro;
 import com.hero.service.BreakageOverflowServer;
+import com.hero.service.ProductService;
+import com.hero.service.ProductSpecService;
 import com.hero.service.StoreHouseServer;
 
 @RestController
@@ -19,6 +28,10 @@ public class BreakageOverflowController {
 	BreakageOverflowServer breakageOverflowServer;
 	@Autowired
 	StoreHouseServer storeHouseServer;
+	@Autowired
+	ProductService productService;
+	@Autowired	
+	ProductSpecService productSpecService;
 	
 	/**
 	 * 添加报损报溢单
@@ -49,6 +62,34 @@ public class BreakageOverflowController {
 		List<StoreHouse> shlist=storeHouseServer.queryAllInvoicing();			
 		return shlist;
 	}
+	/**
+	 * 根据仓库编号和商品类别编号查询商品
+	 * @author thx
+	 * @param storehousePro 条件封装的实体类
+	 * @return
+	 */
+	@RequestMapping(value="/queryProBYPcidAndSid")
+	public Object queryProBYPcidAndSid(StorehousePro storehousePro) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Product> list=productService.queryProBYPcidAndSid(storehousePro);
+		int total=productService.queryProBYPcidAndSidCount(storehousePro);
+		map.put("total", total);
+		map.put("rows",list);
+		System.out.println("11111111111111111111"+list);
+		return map;
+	}
+	/**
+	 * 根据商品编号查询规格
+	 * @author thx
+	 * @param pid 商品编号
+	 * @return
+	 */
+	@RequestMapping(value="/querySpecBypid")
+	public Object querySpecBySid(int pid) {
+		ProductSpec ps=productSpecService.selectBypid(pid);		
+		return ps;
+	}
+	
 	
 	
 	

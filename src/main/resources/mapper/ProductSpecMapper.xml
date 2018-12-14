@@ -5,11 +5,11 @@
     <id column="ps_id" property="psId" jdbcType="INTEGER" />
     <result column="ps_p_id" property="psPId" jdbcType="INTEGER" />
     <result column="ps_weight" property="psWeight" jdbcType="DECIMAL" />
-    <result column="ps_weightunit" property="psWeightunit" jdbcType="VARCHAR" />
-    <result column="ps_size" property="psSize" jdbcType="DECIMAL" />
-    <result column="ps_sizeunit" property="psSizeunit" jdbcType="VARCHAR" />
+    <result column="ps_weightunit" property="psWeightunit" jdbcType="INTEGER" />
+    <result column="ps_size" property="psSize" jdbcType="VARCHAR" />
+    <result column="ps_sizeunit" property="psSizeunit" jdbcType="INTEGER" />
     <result column="ps_dia" property="psDia" jdbcType="DECIMAL" />
-    <result column="ps_diaunit" property="psDiaunit" jdbcType="VARCHAR" />
+    <result column="ps_diaunit" property="psDiaunit" jdbcType="INTEGER" />
     <result column="ps_density" property="psDensity" jdbcType="DECIMAL" />
     <result column="ps_densityunit" property="psDensityunit" jdbcType="INTEGER" />
     <result column="ps_remark" property="psRemark" jdbcType="VARCHAR" />
@@ -18,6 +18,14 @@
     ps_id, ps_p_id, ps_weight, ps_weightunit, ps_size, ps_sizeunit, ps_dia, ps_diaunit, 
     ps_density, ps_densityunit, ps_remark
   </sql>
+   <!--根据商品编号查询规格(thx)  -->
+  <select id="selectBypid" parameterType="int" resultMap="BaseResultMap">
+        SELECT  
+        <include refid="Base_Column_List"/>
+        FROM i_product_spec WHERE ps_p_id=#{pid}
+  </select>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -34,8 +42,8 @@
       ps_dia, ps_diaunit, ps_density, 
       ps_densityunit, ps_remark)
     values (#{psId,jdbcType=INTEGER}, #{psPId,jdbcType=INTEGER}, #{psWeight,jdbcType=DECIMAL}, 
-      #{psWeightunit,jdbcType=VARCHAR}, #{psSize,jdbcType=DECIMAL}, #{psSizeunit,jdbcType=VARCHAR}, 
-      #{psDia,jdbcType=DECIMAL}, #{psDiaunit,jdbcType=VARCHAR}, #{psDensity,jdbcType=DECIMAL}, 
+      #{psWeightunit,jdbcType=INTEGER}, #{psSize,jdbcType=VARCHAR}, #{psSizeunit,jdbcType=INTEGER}, 
+      #{psDia,jdbcType=DECIMAL}, #{psDiaunit,jdbcType=INTEGER}, #{psDensity,jdbcType=DECIMAL}, 
       #{psDensityunit,jdbcType=INTEGER}, #{psRemark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hero.entity.ProductSpec" >
@@ -86,19 +94,19 @@
         #{psWeight,jdbcType=DECIMAL},
       </if>
       <if test="psWeightunit != null" >
-        #{psWeightunit,jdbcType=VARCHAR},
+        #{psWeightunit,jdbcType=INTEGER},
       </if>
       <if test="psSize != null" >
-        #{psSize,jdbcType=DECIMAL},
+        #{psSize,jdbcType=VARCHAR},
       </if>
       <if test="psSizeunit != null" >
-        #{psSizeunit,jdbcType=VARCHAR},
+        #{psSizeunit,jdbcType=INTEGER},
       </if>
       <if test="psDia != null" >
         #{psDia,jdbcType=DECIMAL},
       </if>
       <if test="psDiaunit != null" >
-        #{psDiaunit,jdbcType=VARCHAR},
+        #{psDiaunit,jdbcType=INTEGER},
       </if>
       <if test="psDensity != null" >
         #{psDensity,jdbcType=DECIMAL},
@@ -121,19 +129,19 @@
         ps_weight = #{psWeight,jdbcType=DECIMAL},
       </if>
       <if test="psWeightunit != null" >
-        ps_weightunit = #{psWeightunit,jdbcType=VARCHAR},
+        ps_weightunit = #{psWeightunit,jdbcType=INTEGER},
       </if>
       <if test="psSize != null" >
-        ps_size = #{psSize,jdbcType=DECIMAL},
+        ps_size = #{psSize,jdbcType=VARCHAR},
       </if>
       <if test="psSizeunit != null" >
-        ps_sizeunit = #{psSizeunit,jdbcType=VARCHAR},
+        ps_sizeunit = #{psSizeunit,jdbcType=INTEGER},
       </if>
       <if test="psDia != null" >
         ps_dia = #{psDia,jdbcType=DECIMAL},
       </if>
       <if test="psDiaunit != null" >
-        ps_diaunit = #{psDiaunit,jdbcType=VARCHAR},
+        ps_diaunit = #{psDiaunit,jdbcType=INTEGER},
       </if>
       <if test="psDensity != null" >
         ps_density = #{psDensity,jdbcType=DECIMAL},
@@ -151,11 +159,11 @@
     update i_product_spec
     set ps_p_id = #{psPId,jdbcType=INTEGER},
       ps_weight = #{psWeight,jdbcType=DECIMAL},
-      ps_weightunit = #{psWeightunit,jdbcType=VARCHAR},
-      ps_size = #{psSize,jdbcType=DECIMAL},
-      ps_sizeunit = #{psSizeunit,jdbcType=VARCHAR},
+      ps_weightunit = #{psWeightunit,jdbcType=INTEGER},
+      ps_size = #{psSize,jdbcType=VARCHAR},
+      ps_sizeunit = #{psSizeunit,jdbcType=INTEGER},
       ps_dia = #{psDia,jdbcType=DECIMAL},
-      ps_diaunit = #{psDiaunit,jdbcType=VARCHAR},
+      ps_diaunit = #{psDiaunit,jdbcType=INTEGER},
       ps_density = #{psDensity,jdbcType=DECIMAL},
       ps_densityunit = #{psDensityunit,jdbcType=INTEGER},
       ps_remark = #{psRemark,jdbcType=VARCHAR}

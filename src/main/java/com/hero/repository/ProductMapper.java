@@ -5,8 +5,25 @@ import java.util.List;
 import com.hero.entity.Module;
 import com.hero.entity.Product;
 import com.hero.entity.query.ProductQuery;
+import com.hero.entity.query.StorehousePro;
 
 public interface ProductMapper {
+	/**
+	 * 根据仓库编号和商品类别编号查询商品
+	 * @author thx
+	 * @param storehousePro 条件封装的实体类
+	 * @return 商品集合
+	 */
+	List<Product> queryProBYPcidAndSid(StorehousePro storehousePro);
+	/**
+	 * 根据仓库编号和商品类别编号查询商品
+	 * @author thx
+	 * @param storehousePro 条件封装的实体类
+	 * @return 商品集合的总条数
+	 */
+	int queryProBYPcidAndSidCount(StorehousePro storehousePro);
+	
+	
     int deleteByPrimaryKey(Integer pId);
 
     int insert(Product record);

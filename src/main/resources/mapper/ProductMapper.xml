@@ -22,6 +22,27 @@
     p_id, p_name, p_ps_id, p_pc_id, p_pb_id, p_salemoney, p_oyaltyrate, p_state, p_createtime, 
     p_updatetime, p_remark
   </sql>
+  
+  <!-- 根据仓库编号和商品类别编号查询商品(thx) -->
+  <select id="queryProBYPcidAndSid" parameterType="com.hero.entity.query.StorehousePro" resultMap="BaseResultMap">
+	  SELECT *
+	  FROM i_product p LEFT JOIN i_product_category pc ON p.p_pc_id=pc.pc_id JOIN i_product_brand pb ON p.p_pb_id=pb.pb_id
+	  
+	  
+	   WHERE p.p_id IN (SELECT sd_p_id FROM  i_storehousedetail WHERE sd_s_id=#{sdsid}) AND p.p_pc_id=#{spcid} 
+    limit #{startIndex},#{rows}
+  </select>
+  
+  <!-- 根据仓库编号和商品类别编号查询商品,返回总条数(thx) -->
+  <select id="queryProBYPcidAndSidCount" parameterType="com.hero.entity.query.StorehousePro" resultType="int">
+	  SELECT 
+	 count(*)
+	  FROM i_product p LEFT JOIN i_product_category pc ON p.p_pc_id=pc.pc_id JOIN i_product_brand pb ON p.p_pb_id=pb.pb_id
+	  
+	  
+	   WHERE p.p_id IN (SELECT sd_p_id FROM  i_storehousedetail WHERE sd_s_id=#{sdsid}) AND p.p_pc_id=#{spcid} 
+    
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
