@@ -13,16 +13,27 @@
     <result column="ps_density" property="psDensity" jdbcType="DECIMAL" />
     <result column="ps_densityunit" property="psDensityunit" jdbcType="INTEGER" />
     <result column="ps_remark" property="psRemark" jdbcType="VARCHAR" />
+    
+    <!--商品规格与商品规格单位映射设置(thx) -->
+		<association property="productUnit"
+			resultMap="com.hero.repository.ProductUnitMapper.BaseResultMap"></association>
+    
   </resultMap>
   <sql id="Base_Column_List" >
     ps_id, ps_p_id, ps_weight, ps_weightunit, ps_size, ps_sizeunit, ps_dia, ps_diaunit, 
     ps_density, ps_densityunit, ps_remark
   </sql>
+  <sql id="Base_ProSpecUnit_List">
+         pu_id,pu_name,pu_type,pu_remark
+  </sql>
    <!--根据商品编号查询规格(thx)  -->
   <select id="selectBypid" parameterType="int" resultMap="BaseResultMap">
         SELECT  
-        <include refid="Base_Column_List"/>
-        FROM i_product_spec WHERE ps_p_id=#{pid}
+        <include refid="Base_Column_List"/>,
+        <include refid="Base_ProSpecUnit_List"/>
+        FROM i_product_spec JOIN i_product_unit ON ps_weightunit=pu_id
+        
+         WHERE ps_p_id=#{pid}
   </select>
   
   

@@ -2,6 +2,8 @@ package com.hero.entity;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 public class ProductSpec {
     private Integer psId;
 
@@ -25,7 +27,19 @@ public class ProductSpec {
 
     private String psRemark;
 
-    public Integer getPsId() {
+    
+    @JsonUnwrapped
+    private ProductUnit productUnit;
+    
+    public ProductUnit getProductUnit() {
+		return productUnit;
+	}
+
+	public void setProductUnit(ProductUnit productUnit) {
+		this.productUnit = productUnit;
+	}
+
+	public Integer getPsId() {
         return psId;
     }
 
@@ -139,7 +153,9 @@ public class ProductSpec {
 		return "ProductSpec [psId=" + psId + ", psPId=" + psPId + ", psWeight=" + psWeight + ", psWeightunit="
 				+ psWeightunit + ", psSize=" + psSize + ", psSizeunit=" + psSizeunit + ", psDia=" + psDia
 				+ ", psDiaunit=" + psDiaunit + ", psDensity=" + psDensity + ", psDensityunit=" + psDensityunit
-				+ ", psRemark=" + psRemark + "]";
+				+ ", psRemark=" + psRemark + ", productUnit=" + productUnit + "]";
 	}
+
+	
     
 }
