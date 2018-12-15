@@ -21,10 +21,17 @@
     from i_purchasenote
     where pn_id = #{pnId,jdbcType=VARCHAR}
   </select>
+  
+  
+  <!-- 删除采购单(rfy) -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from i_purchasenote
     where pn_id = #{pnId,jdbcType=VARCHAR}
   </delete>
+  
+  
+  
+  
   <insert id="insert" parameterType="com.hero.entity.PurchaseNote" >
     insert into i_purchasenote (pn_id, pn_createtime, pn_e_id, 
       pn_status, pn_accountantid, pn_warehousepersonid, 
@@ -33,6 +40,7 @@
       #{pnStatus,jdbcType=INTEGER}, #{pnAccountantid,jdbcType=INTEGER}, #{pnWarehousepersonid,jdbcType=INTEGER}, 
       #{pnTotalmoney,jdbcType=DECIMAL}, #{pnRemark,jdbcType=VARCHAR})
   </insert>
+ <!--  新增订单(rfy) -->
   <insert id="insertSelective" parameterType="com.hero.entity.PurchaseNote" >
     insert into i_purchasenote
     <trim prefix="(" suffix=")" suffixOverrides="," >

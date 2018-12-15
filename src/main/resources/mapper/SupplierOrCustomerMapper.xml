@@ -269,7 +269,7 @@
     delete from i_supplier_product_category
     where sp_s_id = #{sid}
   </delete>
-  	<!-- 为供货商设置商品类别 -->
+  	<!-- 为供货商设置商品类别（rfy） -->
   <insert id="insertSupplierProCate">
     INSERT INTO i_supplier_product_category(sp_s_id,sp_pc_id) VALUES 
     <foreach collection="pcids" item="pcids" separator="," index="index">
@@ -279,4 +279,20 @@
     )
     </foreach>    
     </insert>
+    
+    <!-- 查询所有供应商信息（rfy） -->
+    <select id="getAllSupplier" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from i_supplier_customer
+    where s_type=1
+    </select>
+    
+    
+    
+    
+    
+    
+    
+    
 </mapper>

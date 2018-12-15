@@ -14,82 +14,88 @@ public class SupplierOrCustomerServiceImpl implements SupplierOrCustomerService 
 	@Autowired
 	private SupplierOrCustomerMapper supplierOrCustomerMapper;
 
-	@Override
+	@Override//(rfy)
 	public List<SupplierOrCustomer> selectAllByCount(SupplierOrCustomerQuery scquery) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.selectAllByCount(scquery);
 	}
 
-	@Override
+	@Override//(rfy)
 	public int selectCount(SupplierOrCustomerQuery scquery) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.selectCount(scquery);
 	}
 
-	@Override
+	@Override//(rfy)
 	public int insertSelective(SupplierOrCustomer record) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.insertSelective(record);
 	}
 
-	@Override
+	@Override//(rfy)
 	public int updateByPrimaryKeySelective(SupplierOrCustomer record) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.updateByPrimaryKeySelective(record);
 	}
 
-	@Override
+	@Override//(rfy)
 	public int updexit(Integer sId) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.updexit(sId);
 	}
 
-	@Override
+	@Override//(rfy)
 	public int isExitByName(String name) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.isExitByName(name);
 	}
 
-	@Override
+	@Override//(rfy)
 	public int updBatch(int cateid, List<Integer> sid) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.updBatch(cateid, sid);
 	}
 
-	@Override
+	@Override//(rfy)
 	public List<SupplierOrCustomer> getSupplierOrCustomerBySid(List<Integer> sList) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.getSupplierOrCustomerBySid(sList);
 	}
 
-	@Override
+	@Override//(rfy)
 	public List<Integer> getIdsByQuery(SupplierOrCustomerQuery scquery) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.getIdsByQuery(scquery);
 	}
 
-	@Override
+	@Override//(rfy)
 	public int isExitByNameAndType(String name, Integer stype) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.isExitByNameAndType(name, stype);
 	}
 
-	@Override
+	@Override//(rfy)
 	public int importSupplierOrCustomer(List<SupplierOrCustomer> scu) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.importSupplierOrCustomer(scu);
 	}
 
-	@Override
+	@Override//(rfy)
 	public int delProCateBySid(Integer sid) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.delProCateBySid(sid);
 	}
 
-	@Override
+	@Override//(rfy)
 	public int insertSupplierProCate(Integer sid, List<Integer> pcids) {
 		// TODO Auto-generated method stub
 		return supplierOrCustomerMapper.insertSupplierProCate(sid, pcids);
+	}
+
+	@Override//(rfy)
+	public List<SupplierOrCustomer> getAllSupplier() {
+		// TODO Auto-generated method stub
+		return supplierOrCustomerMapper.getAllSupplier();
 	}
 	
 	

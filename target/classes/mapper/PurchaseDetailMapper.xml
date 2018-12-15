@@ -5,13 +5,21 @@
     <id column="pd_id" property="pdId" jdbcType="INTEGER" />
     <result column="pd_pn_id" property="pdPnId" jdbcType="VARCHAR" />
     <result column="pd_p_id" property="pdPId" jdbcType="INTEGER" />
+    <result column="pd_ps_id" property="pdPsId" jdbcType="INTEGER" />
     <result column="pd_quantity" property="pdQuantity" jdbcType="INTEGER" />
     <result column="pd_unitprice" property="pdUnitprice" jdbcType="DECIMAL" />
     <result column="pd_s_id" property="pdSId" jdbcType="INTEGER" />
     <result column="pd_amount" property="pdAmount" jdbcType="DECIMAL" />
+    <!--商品信息映射设置(rfy) -->
+	<association property="product" resultMap="com.hero.repository.ProductMapper.BaseResultMap"></association>
+    <!--供应商信息映射设置(rfy) -->
+	<association property="supplier" resultMap="com.hero.repository.SupplierOrCustomerMapper.BaseResultMap"></association>
+	<!--商品规格映射设置(rfy) -->
+	<association property="productspec" resultMap="com.hero.repository.ProductSpecMapper.BaseResultMap"></association>
+	
   </resultMap>
   <sql id="Base_Column_List" >
-    pd_id, pd_pn_id, pd_p_id, pd_quantity, pd_unitprice, pd_s_id, pd_amount
+    pd_id, pd_pn_id, pd_p_id, pd_ps_id,pd_quantity, pd_unitprice, pd_s_id, pd_amount
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -31,17 +39,20 @@
       #{pdQuantity,jdbcType=INTEGER}, #{pdUnitprice,jdbcType=DECIMAL}, #{pdSId,jdbcType=INTEGER}, 
       #{pdAmount,jdbcType=DECIMAL})
   </insert>
+  
+  <!-- 添加采购详情(rfy) -->
   <insert id="insertSelective" parameterType="com.hero.entity.PurchaseDetail" >
     insert into i_purchasedetail
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="pdId != null" >
-        pd_id,
-      </if>
+     
       <if test="pdPnId != null" >
         pd_pn_id,
       </if>
       <if test="pdPId != null" >
         pd_p_id,
+      </if>
+      <if test="pdPsId != null" >
+        pd_ps_id,
       </if>
       <if test="pdQuantity != null" >
         pd_quantity,
@@ -57,14 +68,15 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="pdId != null" >
-        #{pdId,jdbcType=INTEGER},
-      </if>
+      
       <if test="pdPnId != null" >
         #{pdPnId,jdbcType=VARCHAR},
       </if>
       <if test="pdPId != null" >
         #{pdPId,jdbcType=INTEGER},
+      </if>
+      <if test="pdPsId != null" >
+        #{pdPsId,jdbcType=INTEGER},
       </if>
       <if test="pdQuantity != null" >
         #{pdQuantity,jdbcType=INTEGER},
@@ -80,6 +92,7 @@
       </if>
     </trim>
   </insert>
+  <!-- 修改采购详情(rfy) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.PurchaseDetail" >
     update i_purchasedetail
     <set >
@@ -114,4 +127,37 @@
       pd_amount = #{pdAmount,jdbcType=DECIMAL}
     where pd_id = #{pdId,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  <!-- 根据采购单号查询是否包含商品详情(rfy) -->
+  <select id="selDetailByPid" resultType="int" parameterType="java.lang.String" >
+    select count(*)
+    from i_purchasedetail
+    where pd_pn_id = #{pid}
+  </select>
+  <!--根据采购单号删除详情信息(rfy)  -->
+  <delete id="delDtailByPid" parameterType="java.lang.String" >
+    delete from i_purchasedetail
+    where pd_pn_id = #{pid}
+  </delete>
+  
+  <!-- 根据采购单号、商品编号、商品规格编号查询该条详情记录(rfy)-->
+  <select id="queryByPurIdAndPid" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from i_purchasedetail
+    where pd_pn_id = #{pnid} and pd_p_id=#{pid} and pd_ps_id=#{psid}
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </mapper>

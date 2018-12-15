@@ -105,7 +105,7 @@ public class SupplierOrCustomerController {
 	
 	
 	/**
-	 * 批量修改供应商、客户的类别
+	 * 批量修改供应商、客户的类别（rfy）
 	 * @param askerId
 	 * @param stuId
 	 * @return
@@ -159,7 +159,7 @@ public class SupplierOrCustomerController {
 	
 	
 	/**
-	 * 给供应商设置供货的商品类别
+	 * 给供应商设置供货的商品类别（rfy）
 	 * @param 
 	 * @param rId
 	 * @return
@@ -203,10 +203,23 @@ public class SupplierOrCustomerController {
 			}
 			
 		}
-		
-		
-		
-			
 		return map;
 	}
+	
+	
+	
+	/**
+	 * 查询所有供应商(rfy)
+	 * @return
+	 */
+	@RequestMapping(value="/queryAllSupplier")
+	public Object queryAllSupplier(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<SupplierOrCustomer> list=supplierOrCustomerService.getAllSupplier();
+		return list;
+	}
+	
+	
+	
+	
 }

@@ -2,6 +2,8 @@ package com.hero.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 public class StoreHouse {
     private Integer sId;
 
@@ -15,25 +17,16 @@ public class StoreHouse {
 
     private Date sCreatetime;
 
-    private Boolean sStatus;
+    private Integer sStatus;
 
     private Date sUpdatetime;
 
     private String sRemark;
-
-    @Override
-	public String toString() {
-		return "StoreHouse [sId=" + sId + ", sName=" + sName + ", sEId=" + sEId + ", sAddress=" + sAddress + ", sPhone="
-				+ sPhone + ", sCreatetime=" + sCreatetime + ", sStatus=" + sStatus + ", sUpdatetime=" + sUpdatetime
-				+ ", sRemark=" + sRemark + "]";
-	}
-
-	public StoreHouse() {
-		super();
-	}
+    @JsonUnwrapped
+    private Employee employee;
 
 	public StoreHouse(Integer sId, String sName, Integer sEId, String sAddress, String sPhone, Date sCreatetime,
-			Boolean sStatus, Date sUpdatetime, String sRemark) {
+			Integer sStatus, Date sUpdatetime, String sRemark) {
 		super();
 		this.sId = sId;
 		this.sName = sName;
@@ -46,75 +39,96 @@ public class StoreHouse {
 		this.sRemark = sRemark;
 	}
 
+	public StoreHouse() {
+		super();
+	}
+
 	public Integer getsId() {
-        return sId;
-    }
+		return sId;
+	}
 
-    public void setsId(Integer sId) {
-        this.sId = sId;
-    }
+	public void setsId(Integer sId) {
+		this.sId = sId;
+	}
 
-    public String getsName() {
-        return sName;
-    }
+	public String getsName() {
+		return sName;
+	}
 
-    public void setsName(String sName) {
-        this.sName = sName == null ? null : sName.trim();
-    }
+	public void setsName(String sName) {
+		this.sName = sName;
+	}
 
-    public Integer getsEId() {
-        return sEId;
-    }
+	public Integer getsEId() {
+		return sEId;
+	}
 
-    public void setsEId(Integer sEId) {
-        this.sEId = sEId;
-    }
+	public void setsEId(Integer sEId) {
+		this.sEId = sEId;
+	}
 
-    public String getsAddress() {
-        return sAddress;
-    }
+	public String getsAddress() {
+		return sAddress;
+	}
 
-    public void setsAddress(String sAddress) {
-        this.sAddress = sAddress == null ? null : sAddress.trim();
-    }
+	public void setsAddress(String sAddress) {
+		this.sAddress = sAddress;
+	}
 
-    public String getsPhone() {
-        return sPhone;
-    }
+	public String getsPhone() {
+		return sPhone;
+	}
 
-    public void setsPhone(String sPhone) {
-        this.sPhone = sPhone == null ? null : sPhone.trim();
-    }
+	public void setsPhone(String sPhone) {
+		this.sPhone = sPhone;
+	}
 
-    public Date getsCreatetime() {
-        return sCreatetime;
-    }
+	public Date getsCreatetime() {
+		return sCreatetime;
+	}
 
-    public void setsCreatetime(Date sCreatetime) {
-        this.sCreatetime = sCreatetime;
-    }
+	public void setsCreatetime(Date sCreatetime) {
+		this.sCreatetime = sCreatetime;
+	}
 
-    public Boolean getsStatus() {
-        return sStatus;
-    }
+	public Integer getsStatus() {
+		return sStatus;
+	}
 
-    public void setsStatus(Boolean sStatus) {
-        this.sStatus = sStatus;
-    }
+	public void setsStatus(Integer sStatus) {
+		this.sStatus = sStatus;
+	}
 
-    public Date getsUpdatetime() {
-        return sUpdatetime;
-    }
+	public Date getsUpdatetime() {
+		return sUpdatetime;
+	}
 
-    public void setsUpdatetime(Date sUpdatetime) {
-        this.sUpdatetime = sUpdatetime;
-    }
+	public void setsUpdatetime(Date sUpdatetime) {
+		this.sUpdatetime = sUpdatetime;
+	}
 
-    public String getsRemark() {
-        return sRemark;
-    }
+	public String getsRemark() {
+		return sRemark;
+	}
 
-    public void setsRemark(String sRemark) {
-        this.sRemark = sRemark == null ? null : sRemark.trim();
-    }
+	public void setsRemark(String sRemark) {
+		this.sRemark = sRemark;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	@Override
+	public String toString() {
+		return "StoreHouse [sId=" + sId + ", sName=" + sName + ", sEId=" + sEId + ", sAddress=" + sAddress + ", sPhone="
+				+ sPhone + ", sCreatetime=" + sCreatetime + ", sStatus=" + sStatus + ", sUpdatetime=" + sUpdatetime
+				+ ", sRemark=" + sRemark + "]";
+	}
+
+    
 }

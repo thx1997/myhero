@@ -34,11 +34,12 @@ public interface SupplierOrCustomerService {
 
   	//删除供货商的商品类别（rfy）
   	public int delProCateBySid(Integer sid);
-    //添加供货商的商品类别
+    //添加供货商的商品类别（rfy）
   	public int insertSupplierProCate(Integer sid,List<Integer> pcids);
 
 
-
+    //查询所有供应商信息（rfy）
+  	public List<SupplierOrCustomer> getAllSupplier();
 
 
 

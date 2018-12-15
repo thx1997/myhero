@@ -2,7 +2,9 @@ package com.hero.service;
 
 import java.util.List;
 
+import com.hero.entity.Employee;
 import com.hero.entity.StoreHouse;
+import com.hero.entity.query.StoreHouseQuery;
 
 public interface StoreHouseServer {
 	/**
@@ -10,4 +12,20 @@ public interface StoreHouseServer {
 	 * @return 可用仓库集合
 	 */
 	List<StoreHouse> queryAllInvoicing();
+	
+	int deleteByPrimaryKey(Integer sId);
+
+    int insertSelective(StoreHouse record);
+
+    StoreHouse selectByPrimaryKey(Integer sId);
+
+    int updateByPrimaryKeySelective(StoreHouse record);
+
+    List<StoreHouse> selectByStoreHouseQuery(StoreHouseQuery storeHouseQuery);
+    
+    int selectCountByStoreHouseQuery(StoreHouseQuery storeHouseQuery);
+    
+    List<Employee> selEctemplByStoreHouse();
+    
+    int lockStoreHouse(int sid,int status);
 }

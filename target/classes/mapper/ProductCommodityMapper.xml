@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.ProductCommodityMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.ProductCommodity" >
+    <id column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="p_state" property="pState" jdbcType="INTEGER" />
+    <result column="p_createtime" property="pCreatetime" jdbcType="TIMESTAMP" />
+    <result column="pc_id" property="pcId" jdbcType="INTEGER" />
+    <result column="pc_name" property="pcName" jdbcType="VARCHAR" />
+    <result column="pb_id" property="pbId" jdbcType="INTEGER" />
+    <result column="pb_name" property="pbName" jdbcType="VARCHAR" />
+    <result column="pu_name" property="puName" jdbcType="VARCHAR" />
+    <result column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+    
+    <result column="sc_id" property="scId" jdbcType="INTEGER" />
+    <result column="sc_name" property="scName" jdbcType="VARCHAR" />
+    <result column="sc_type" property="scType" jdbcType="BIT" />
+    
+    
+    <result column="ps_id" property="psId" jdbcType="INTEGER" />
+    <result column="ps_weight" property="psWeight" jdbcType="DECIMAL" />
+    <result column="weight_name" property="weightName" jdbcType="VARCHAR" />
+    <result column="ps_size" property="psSize" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="ps_dia" property="psDia" jdbcType="DECIMAL" />
+    <result column="dia_name" property="diaName" jdbcType="VARCHAR" />
+    <result column="ps_density" property="psDensity" jdbcType="DECIMAL" />
+    <result column="density_name" property="densityName" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <!-- <sql id="Base_Column_List" >
+    p_id,p_name,p_state,p_createtime,pc_id,pc_name,pb_id,pb_name,pu_name,s_id,s_name,sc_id,sc_name,sc_type,
+    ps_id, ps_weight, weight_name, ps_size, size_name, ps_dia, dia_name, 
+    ps_density, density_name
+  </sql> -->
+  
+  
+  <!--多条件参数 rfy -->
+  <sql id="CountwhereSQL">
+  	<where>
+	      <if test="pname != null and pname!=''" >
+	        and p_name like "%"#{pname}"%"
+	      </if>
+	      <if test="pcid != null and pcid!=''" >
+	        and pc_id in(${pcid})
+	      </if>
+	      <if test="pbid != null" >
+	        and pb_id=#{pbid}
+	      </if>
+	      <if test="sid != null" >
+	        and s_id=#{sid}
+	      </if>
+	      <if test="scid != null" >
+	        and sc_id=#{scid}
+	      </if>
+	      and p_state=0
+  	</where>
+  	
+  </sql>
+  
+  <!-- 多条件分页查询商品属性(rfy) -->
+  <select id="queryAllByQuery" resultMap="BaseResultMap" parameterType="com.hero.entity.query.ProductCommodityQuery" >
+    SELECT * FROM view_product_commodity_spec
+    <include refid="CountwhereSQL"/>
+    order by p_createtime desc
+  	LIMIT #{startIndex},#{rows}
+  </select>
+  <!--查询分页总记录数(rfy) -->
+  <select id="queryCountByQuery" resultType="int" parameterType="com.hero.entity.query.ProductCommodityQuery">
+  	SELECT count(*) FROM view_product_commodity_spec
+    <include refid="CountwhereSQL"/>
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</mapper>

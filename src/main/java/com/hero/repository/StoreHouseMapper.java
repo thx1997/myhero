@@ -2,7 +2,11 @@ package com.hero.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.hero.entity.Employee;
 import com.hero.entity.StoreHouse;
+import com.hero.entity.query.StoreHouseQuery;
 
 public interface StoreHouseMapper {
 	/**
@@ -11,11 +15,7 @@ public interface StoreHouseMapper {
 	 */
 	List<StoreHouse> queryAllInvoicing();
 	
-	
-	
     int deleteByPrimaryKey(Integer sId);
-
-    int insert(StoreHouse record);
 
     int insertSelective(StoreHouse record);
 
@@ -23,5 +23,11 @@ public interface StoreHouseMapper {
 
     int updateByPrimaryKeySelective(StoreHouse record);
 
-    int updateByPrimaryKey(StoreHouse record);
+    List<StoreHouse> selectByStoreHouseQuery(StoreHouseQuery storeHouseQuery);
+    
+    int selectCountByStoreHouseQuery(StoreHouseQuery storeHouseQuery);
+    
+    List<Employee> selEctemplByStoreHouse();
+    
+    int lockStoreHouse(@Param("sid")int sid,@Param("status")int status);
 }

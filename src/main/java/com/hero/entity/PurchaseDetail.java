@@ -2,13 +2,17 @@ package com.hero.entity;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 public class PurchaseDetail {
     private Integer pdId;
 
     private String pdPnId;
 
     private Integer pdPId;
-
+    
+    private Integer pdPsId;
+    
     private Integer pdQuantity;
 
     private BigDecimal pdUnitprice;
@@ -17,26 +21,59 @@ public class PurchaseDetail {
 
     private BigDecimal pdAmount;
 
-    @Override
+    @JsonUnwrapped//rfy
+    private Product product;
+    @JsonUnwrapped//rfy
+    private SupplierOrCustomer supplier;
+    @JsonUnwrapped//rfy
+    private ProductSpec productspec;
+	
+	
+	@Override
 	public String toString() {
-		return "PurchaseDetail [pdId=" + pdId + ", pdPnId=" + pdPnId + ", pdPId=" + pdPId + ", pdQuantity=" + pdQuantity
-				+ ", pdUnitprice=" + pdUnitprice + ", pdSId=" + pdSId + ", pdAmount=" + pdAmount + "]";
+		return "PurchaseDetail [pdId=" + pdId + ", pdPnId=" + pdPnId + ", pdPId=" + pdPId + ", pdPsId=" + pdPsId
+				+ ", pdQuantity=" + pdQuantity + ", pdUnitprice=" + pdUnitprice + ", pdSId=" + pdSId + ", pdAmount="
+				+ pdAmount + ", product=" + product + ", supplier=" + supplier + "]";
 	}
 
 	public PurchaseDetail() {
 		super();
 	}
 
-	public PurchaseDetail(Integer pdId, String pdPnId, Integer pdPId, Integer pdQuantity, BigDecimal pdUnitprice,
-			Integer pdSId, BigDecimal pdAmount) {
+	
+	
+
+	
+	
+	public PurchaseDetail(Integer pdId, String pdPnId, Integer pdPId, Integer pdPsId, Integer pdQuantity,
+			BigDecimal pdUnitprice, Integer pdSId, BigDecimal pdAmount, Product product, SupplierOrCustomer supplier) {
 		super();
 		this.pdId = pdId;
 		this.pdPnId = pdPnId;
 		this.pdPId = pdPId;
+		this.pdPsId = pdPsId;
 		this.pdQuantity = pdQuantity;
 		this.pdUnitprice = pdUnitprice;
 		this.pdSId = pdSId;
 		this.pdAmount = pdAmount;
+		this.product = product;
+		this.supplier = supplier;
+	}
+
+	public SupplierOrCustomer getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(SupplierOrCustomer supplier) {
+		this.supplier = supplier;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public Integer getPdId() {
@@ -94,4 +131,14 @@ public class PurchaseDetail {
     public void setPdAmount(BigDecimal pdAmount) {
         this.pdAmount = pdAmount;
     }
+
+	public Integer getPdPsId() {
+		return pdPsId;
+	}
+
+	public void setPdPsId(Integer pdPsId) {
+		this.pdPsId = pdPsId;
+	}
+    
+    
 }

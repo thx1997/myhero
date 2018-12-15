@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.PurchaseDetailSpecMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.PurchaseDetailSpec" >
+    <result column="pd_id" property="pdId" jdbcType="INTEGER" />
+    <result column="pd_pn_id" property="pdPnId" jdbcType="VARCHAR" />
+    <result column="pd_p_id" property="pdPId" jdbcType="INTEGER" />
+    <result column="pd_ps_id" property="pdPsId" jdbcType="INTEGER" />
+    <result column="pd_quantity" property="pdQuantity" jdbcType="INTEGER" />
+    <result column="pd_unitprice" property="pdUnitprice" jdbcType="DECIMAL" />
+    <result column="pd_s_id" property="pdSId" jdbcType="INTEGER" />
+    <result column="pd_amount" property="pdAmount" jdbcType="DECIMAL" />
+    <result column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+    <result column="pc_name" property="pcName" jdbcType="VARCHAR" />
+    <result column="pb_name" property="pbName" jdbcType="VARCHAR" />
+    <result column="ps_weight" property="psWeight" jdbcType="DECIMAL" />
+    <result column="weight_name" property="weightName" jdbcType="VARCHAR" />
+    <result column="ps_size" property="psSize" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="ps_dia" property="psDia" jdbcType="DECIMAL" />
+    <result column="dia_name" property="diaName" jdbcType="VARCHAR" />
+    <result column="ps_density" property="psDensity" jdbcType="DECIMAL" />
+    <result column="density_name" property="densityName" jdbcType="VARCHAR" />
+  </resultMap>
+<!--   <sql id="Base_Column_List" >
+	    pd_id, pd_pn_id, pd_p_id, pd_ps_id,pd_quantity, pd_unitprice, pd_s_id, pd_amount
+	   ,p.p_id,p.p_name,sc.s_name,pc.pc_name,pb.pb_name,
+		ps.ps_weight,weight_name,ps.ps_size,
+		size_name,ps.ps_dia,dia_name,
+		ps.ps_density,density_name
+   </sql> -->
+ 
+ 
+ 
+  <!-- 根据采购单号查询采购详情(rfy) -->
+  <select id="queryByPurId" resultMap="BaseResultMap">
+    select * from view_purchasedetail_spec
+    where pd_pn_id = #{pnid}
+  </select>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</mapper>
