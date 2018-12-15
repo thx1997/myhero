@@ -14,6 +14,11 @@
   <sql id="Base_Column_List" >
     bod_id, bod_p_id, bod_bo_id, bod_type, bod_s_id, bod_createtime, bod_number, bod_remark
   </sql>
+  
+  <!-- 根据库存编号和商品编号查询该商品的库存量（thx） -->
+  <select id="selectSdnumberBypuid" resultType="int">
+       SELECT sd_number FROM i_storehousedetail WHERE sd_p_id=#{sdpid} AND sd_s_id=#{sdsid} 
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

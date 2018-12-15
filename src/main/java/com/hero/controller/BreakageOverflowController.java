@@ -16,9 +16,11 @@ import com.hero.entity.ProductSpec;
 import com.hero.entity.StoreHouse;
 import com.hero.entity.query.ProductQuery;
 import com.hero.entity.query.StorehousePro;
+import com.hero.service.BreakageOverflowDetailService;
 import com.hero.service.BreakageOverflowServer;
 import com.hero.service.ProductService;
 import com.hero.service.ProductSpecService;
+import com.hero.service.ProductUnitService;
 import com.hero.service.StoreHouseServer;
 
 @RestController
@@ -32,7 +34,10 @@ public class BreakageOverflowController {
 	ProductService productService;
 	@Autowired	
 	ProductSpecService productSpecService;
-	
+	@Autowired
+	ProductUnitService productUnitService;
+	@Autowired
+	BreakageOverflowDetailService breakageOverflowDetailService;
 	/**
 	 * 添加报损报溢单
 	 * @author thx
@@ -91,6 +96,45 @@ public class BreakageOverflowController {
 	}
 	
 	
+	/**
+	 * 跟据规格单位编号查询规格单位名
+	 * @author thx
+	 * @param puid 规格单位编号
+	 * @return
+	 */
+	@RequestMapping(value="/selectPuNameBypuid")
+	public Object selectPuNameBypuid(int puid) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String PuName=productUnitService.selectPuNameBypuid(puid);	
+		if(PuName != null || PuName != "") {
+			map.put("success", true);
+			map.put("value", PuName);
+		}else {
+			map.put("success",false);
+		}
+		
+		System.out.println("单位名称```````````````"+PuName);
+		return map;
+	}
+	/**
+	 * 根据库存编号和商品编号查询该商品的库存量
+	 * @param sdpid 商品编号
+	 * @param sdsid 仓库编号
+	 * @return
+	 */
+	@RequestMapping(value="/selectSdnumberBypuid")
+	public Object selectSdnumberBypuid(int sdpid,int sdsid) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int sdnumber=breakageOverflowDetailService.selectSdnumberBypuid(sdpid, sdsid);
+		if(sdnumber>0) {
+			map.put("value", sdnumber);
+		}else {
+			map.put("value", "缺货");
+		}
+		
+		System.out.println("库存量```````````````"+sdnumber);
+		return map;
+	}
 	
 	
 }

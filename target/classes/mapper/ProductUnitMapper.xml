@@ -10,6 +10,12 @@
   <sql id="Base_Column_List" >
     pu_id, pu_name, pu_type, pu_remark
   </sql>
+  <!--  跟据规格单位编号查询规格单位名(thx)-->
+  <select id="selectPuNameBypuid" parameterType="int" resultType="string">
+        SELECT pu_name FROM i_product_unit WHERE pu_id=#{puId}
+  </select>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
