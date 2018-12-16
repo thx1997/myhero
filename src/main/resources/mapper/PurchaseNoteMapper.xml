@@ -96,6 +96,7 @@
       </if>
     </trim>
   </insert>
+  <!-- 修改采购单(rfy) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.PurchaseNote" >
     update i_purchasenote
     <set >
@@ -134,4 +135,14 @@
       pn_remark = #{pnRemark,jdbcType=VARCHAR}
     where pn_id = #{pnId,jdbcType=VARCHAR}
   </update>
+  
+  
+  <!-- 修改总金额(rfy) -->
+  <update id="updateTotalMoney" parameterType="java.lang.String" >
+    update i_purchasenote
+    set pn_totalmoney = (SELECT SUM(pd_amount) FROM i_purchasedetail WHERE pd_pn_id=#{pnid})
+    where pn_id = #{pnid,jdbcType=VARCHAR}
+  </update>
+  
+  
 </mapper>

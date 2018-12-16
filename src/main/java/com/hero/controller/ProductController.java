@@ -101,4 +101,23 @@ public class ProductController {
 		return map;
 	}
 	
+	/**
+	 * 设置商品的类别(rfy)
+	 * @param product
+	 * @return
+	 */
+	@RequestMapping(value="/updateProCate")
+	public Object updateProCate(Product product) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int n=productService.updateByPrimaryKeySelective(product);
+		if (n>0) {
+			map.put("success", true);
+			map.put("message", "修改成功");
+		} else {
+			map.put("success", false);
+			map.put("message", "修改失败");
+		}
+		return map;
+	}
+	
 }

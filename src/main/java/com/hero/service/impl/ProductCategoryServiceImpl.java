@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.hero.entity.Module;
 import com.hero.entity.ProductCategory;
 import com.hero.repository.ProductCategoryMapper;
+import com.hero.repository.ProductMapper;
 import com.hero.service.ProductCategoryService;
 @Service
 public class ProductCategoryServiceImpl implements ProductCategoryService {
@@ -210,6 +211,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		// TODO Auto-generated method stub
 		return productCategoryMapper.delSuProCateByPCid(pcid);
 	}
+
+	
+	
 	
 
 }

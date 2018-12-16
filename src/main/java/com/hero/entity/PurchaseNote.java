@@ -3,9 +3,13 @@ package com.hero.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class PurchaseNote {
     private String pnId;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date pnCreatetime;
 
     private Integer pnEId;

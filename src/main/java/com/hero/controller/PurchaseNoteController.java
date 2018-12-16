@@ -56,7 +56,25 @@ public class PurchaseNoteController {
 		}
 	}
 	
-	
+	/**
+	 * 保存采购单时，修改响应的信息和总金额
+	 * @param note
+	 * @return
+	 */
+	@RequestMapping("/updateAny")
+	public Object updateAny(PurchaseNote note) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int n=purchaseNoteService.updateByPrimaryKeySelective(note);
+		int u=purchaseNoteService.updateTotalMoney(note.getPnId());
+		if (n>0&&u>0) {
+			map.put("success", true);
+			map.put("message", "保存成功");
+		} else {
+			map.put("success", false);
+			map.put("message", "保存失败");
+		}
+		return map;
+	}
 	
 	
 }

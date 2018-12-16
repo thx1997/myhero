@@ -38,4 +38,6 @@ public interface ProductCategoryService {
   	
     //根据商品类别编号删除供应商商品类别中间表(rfy)
   	public int delSuProCateByPCid(Integer pcid);
+  	
+  
 }
