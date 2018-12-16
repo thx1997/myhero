@@ -6,15 +6,17 @@ public class ProductCommodityQuery extends QueryBase{
 	private Integer pbid;//品牌编号
 	private Integer sid;//供应商编号
 	private Integer scid;//供应商类别编号
+	private String orderby;//排序方式
 	
 	
-	public ProductCommodityQuery(String pname, String pcid, Integer pbid, Integer sid, Integer scid) {
+	public ProductCommodityQuery(String pname, String pcid, Integer pbid, Integer sid, Integer scid, String orderby) {
 		super();
 		this.pname = pname;
 		this.pcid = pcid;
 		this.pbid = pbid;
 		this.sid = sid;
 		this.scid = scid;
+		this.orderby = orderby;
 	}
 	public ProductCommodityQuery() {
 		super();
@@ -48,6 +50,12 @@ public class ProductCommodityQuery extends QueryBase{
 	}
 	public void setScid(Integer scid) {
 		this.scid = scid;
+	}
+	public String getOrderby() {
+		return orderby;
+	}
+	public void setOrderby(String orderby) {
+		this.orderby = orderby;
 	}
 	
 	

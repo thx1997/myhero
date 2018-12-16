@@ -38,4 +38,22 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.queryProBYPcidAndSidCount(storehousePro);
 	}
 
+	@Override//(rfy)
+	public int updateByPrimaryKeySelective(Product record) {
+		// TODO Auto-generated method stub
+		return productMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Override//(rfy)
+	public int insertProSupplier(Integer sid, Integer pid) {
+		// TODO Auto-generated method stub
+		return productMapper.insertProSupplier(sid, pid);
+	}
+
+	@Override//(rfy)
+	public int updProSupplier(Integer sid, Integer spid) {
+		// TODO Auto-generated method stub
+		return productMapper.updProSupplier(sid, spid);
+	}
+
 }

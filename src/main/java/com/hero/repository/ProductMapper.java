@@ -2,6 +2,8 @@ package com.hero.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hero.entity.Module;
 import com.hero.entity.Product;
 import com.hero.entity.query.ProductQuery;
@@ -28,10 +30,12 @@ public interface ProductMapper {
 
     int insert(Product record);
 
+    
     int insertSelective(Product record);
 
     Product selectByPrimaryKey(Integer pId);
 
+    //修改商品信息(rfy)
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
@@ -39,5 +43,11 @@ public interface ProductMapper {
     public List<Product> selectProByQuery(ProductQuery pquery);
     //查询总条数(rfy)
     public int selectCountByQuery(ProductQuery pquery);
+    
+    //添加商品的供货商(rfy)
+    public int insertProSupplier(@Param("sid")Integer sid,@Param("pid")Integer pid);
+    //修改商品的供货商(rfy)
+    public int updProSupplier(@Param("sid")Integer sid,@Param("spid")Integer spid);
+    
     
 }

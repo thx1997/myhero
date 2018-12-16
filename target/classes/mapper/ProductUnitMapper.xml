@@ -85,4 +85,34 @@
       pu_remark = #{puRemark,jdbcType=VARCHAR}
     where pu_id = #{puId,jdbcType=INTEGER}
   </update>
+  <!-- 查询所有单位(rfy) -->
+  <select id="queryAllUnit" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from i_product_unit
+  </select>
+  <!-- 多条件分页查询(rfy) -->
+   <select id="queryByNamePage" resultMap="BaseResultMap" parameterType="com.hero.entity.ProductUnit">
+    select 
+    <include refid="Base_Column_List" />
+    from i_product_unit
+    <where>
+    	<if test="puName != null and puName!=''" >
+        pu_name = "%"#{puName}"%",
+      </if>
+    </where>
+    LIMIT #{startIndex},#{rows}
+  </select>
+  <!-- 查询总条数(rfy) -->
+  <select id="queryCountByName" resultType="int" parameterType="com.hero.entity.ProductUnit">
+    select count(*)
+    from i_product_unit
+    <where>
+    	<if test="puName != null and puName!=''" >
+        pu_name = "%"#{puName}"%",
+      </if>
+    </where>
+  </select>
+  
+  
 </mapper>

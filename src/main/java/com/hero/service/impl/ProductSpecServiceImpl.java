@@ -14,5 +14,15 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 	public ProductSpec selectBypid(Integer pid) {
 		return productSpecMapper.selectBypid(pid);
 	}
+	@Override//(rfy)
+	public int insertSelective(ProductSpec record) {
+		// TODO Auto-generated method stub
+		return productSpecMapper.insertSelective(record);
+	}
+	@Override//(rfy)
+	public int updateByPrimaryKeySelective(ProductSpec record) {
+		// TODO Auto-generated method stub
+		return productSpecMapper.updateByPrimaryKeySelective(record);
+	}
 
 }

@@ -2,15 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hero.repository.ProductCommodityMapper" >
   <resultMap id="BaseResultMap" type="com.hero.entity.ProductCommodity" >
+    
     <id column="p_id" property="pId" jdbcType="INTEGER" />
     <result column="p_name" property="pName" jdbcType="VARCHAR" />
-    <result column="p_state" property="pState" jdbcType="INTEGER" />
+    <result column="p_ps_id" property="pPsId" jdbcType="INTEGER" />
+    <result column="p_pc_id" property="pPcId" jdbcType="INTEGER" />
+    <result column="p_pb_id" property="pPbId" jdbcType="INTEGER" />
+    <result column="p_salemoney" property="pSalemoney" jdbcType="DECIMAL" />
+    <result column="p_oyaltyrate" property="pOyaltyrate" jdbcType="DECIMAL" />
+    <result column="p_state" property="pState" jdbcType="BIT" />
     <result column="p_createtime" property="pCreatetime" jdbcType="TIMESTAMP" />
+    <result column="p_updatetime" property="pUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="p_remark" property="pRemark" jdbcType="VARCHAR" />
+    
+    
+    
     <result column="pc_id" property="pcId" jdbcType="INTEGER" />
     <result column="pc_name" property="pcName" jdbcType="VARCHAR" />
     <result column="pb_id" property="pbId" jdbcType="INTEGER" />
     <result column="pb_name" property="pbName" jdbcType="VARCHAR" />
+    <result column="pu_id" property="puId" jdbcType="INTEGER" />
     <result column="pu_name" property="puName" jdbcType="VARCHAR" />
+    <result column="spp_id" property="spId" jdbcType="INTEGER" />
     <result column="s_id" property="sId" jdbcType="INTEGER" />
     <result column="s_name" property="sName" jdbcType="VARCHAR" />
     
@@ -21,12 +34,19 @@
     
     <result column="ps_id" property="psId" jdbcType="INTEGER" />
     <result column="ps_weight" property="psWeight" jdbcType="DECIMAL" />
+    <result column="weight_id" property="weightId" jdbcType="INTEGER" />
     <result column="weight_name" property="weightName" jdbcType="VARCHAR" />
+    
     <result column="ps_size" property="psSize" jdbcType="VARCHAR" />
+    <result column="size_id" property="sizeId" jdbcType="INTEGER" />
     <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    
     <result column="ps_dia" property="psDia" jdbcType="DECIMAL" />
+    <result column="dia_id" property="diaId" jdbcType="INTEGER" />
     <result column="dia_name" property="diaName" jdbcType="VARCHAR" />
+    
     <result column="ps_density" property="psDensity" jdbcType="DECIMAL" />
+    <result column="density_id" property="densityId" jdbcType="INTEGER" />
     <result column="density_name" property="densityName" jdbcType="VARCHAR" />
     
   </resultMap>
@@ -57,14 +77,15 @@
 	      </if>
 	      and p_state=0
   	</where>
-  	
+  		<if test="orderby != null and orderby!=''" >
+	        order by ${orderby} desc
+	      </if>
   </sql>
   
   <!-- 多条件分页查询商品属性(rfy) -->
   <select id="queryAllByQuery" resultMap="BaseResultMap" parameterType="com.hero.entity.query.ProductCommodityQuery" >
     SELECT * FROM view_product_commodity_spec
     <include refid="CountwhereSQL"/>
-    order by p_createtime desc
   	LIMIT #{startIndex},#{rows}
   </select>
   <!--查询分页总记录数(rfy) -->

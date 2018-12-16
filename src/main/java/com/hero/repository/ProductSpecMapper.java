@@ -14,12 +14,14 @@ public interface ProductSpecMapper {
     int deleteByPrimaryKey(Integer psId);
 
     int insert(ProductSpec record);
-
+    //添加商品规格(rfy)
     int insertSelective(ProductSpec record);
     
     ProductSpec selectByPrimaryKey(Integer psId);
-
+    //修改商品规格(rfy)
     int updateByPrimaryKeySelective(ProductSpec record);
 
     int updateByPrimaryKey(ProductSpec record);
+    
+    
 }
