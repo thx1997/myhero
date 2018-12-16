@@ -1,5 +1,9 @@
 package com.hero.service;
 
+import java.util.List;
+
+import com.hero.entity.ProductUnit;
+
 public interface ProductUnitService {
 	/**
 	 * 跟据规格单位编号查询规格单位名
@@ -8,4 +12,17 @@ public interface ProductUnitService {
 	 * @return
 	 */	
 	String selectPuNameBypuid(Integer puId);
+	//查询所有单位(rfy)
+    public List<ProductUnit> queryAllUnit();
+  //多条件分页查询(rfy)
+    public List<ProductUnit> queryByNamePage(ProductUnit record);
+    //查询总条数(rfy)
+    public int queryCountByName(ProductUnit record);
+    
+    //删除单位(rfy)
+    int deleteByPrimaryKey(Integer puId);
+    //添加单位(rfy)
+    int insertSelective(ProductUnit record);
+    //修改单位(rfy)
+    int updateByPrimaryKeySelective(ProductUnit record);
 }

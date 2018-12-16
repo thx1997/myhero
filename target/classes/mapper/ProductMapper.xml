@@ -17,6 +17,8 @@
 	<association property="category" resultMap="com.hero.repository.ProductCategoryMapper.BaseResultMap"></association>
 	<!--商品品牌映射设置(rfy) -->
 	<association property="brand" resultMap="com.hero.repository.ProductBrandMapper.BaseResultMap"></association>
+  	<!--商品单位映射设置(rfy) -->
+	<association property="unit" resultMap="com.hero.repository.ProductUnitMapper.BaseResultMap"></association>
   </resultMap>
   <sql id="Base_Column_List" >
     p_id, p_name, p_ps_id, p_pc_id, p_pb_id, p_salemoney, p_oyaltyrate, p_state, p_createtime, 
@@ -136,6 +138,8 @@
       </if>
     </trim>
   </insert>
+  
+  <!-- 修改商品信息(rfy) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.Product" >
     update i_product
     <set >
@@ -163,9 +167,9 @@
       <if test="pCreatetime != null" >
         p_createtime = #{pCreatetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="pUpdatetime != null" >
-        p_updatetime = #{pUpdatetime,jdbcType=TIMESTAMP},
-      </if>
+     
+        p_updatetime = NOW(),
+   
       <if test="pRemark != null" >
         p_remark = #{pRemark,jdbcType=VARCHAR},
       </if>
@@ -207,17 +211,32 @@
   </sql>
   <!-- 多条件分页查询商品(rfy) -->
   <select id="selectProByQuery" resultMap="BaseResultMap" parameterType="com.hero.entity.query.ProductQuery" >
-    SELECT * FROM i_product p LEFT JOIN i_product_category pc ON p.p_pc_id=pc.pc_id JOIN i_product_brand pb ON p.p_pb_id=pb.pb_id
+    SELECT * FROM i_product p 
+    LEFT JOIN i_product_category pc ON p.p_pc_id=pc.pc_id 
+    LEFT JOIN i_product_brand pb ON p.p_pb_id=pb.pb_id
+    LEFT JOIN i_product_unit pu ON p.p_ps_id=pu.pu_id
     <include refid="CountwhereSQL"/>
   	LIMIT #{startIndex},#{rows}
   </select>
   <!--查询分页总记录数(rfy) -->
   <select id="selectCountByQuery" resultType="int" parameterType="com.hero.entity.query.ProductQuery">
-  	SELECT count(*) FROM i_product p LEFT JOIN i_product_category pc ON p.p_pc_id=pc.pc_id JOIN i_product_brand pb ON p.p_pb_id=pb.pb_id
+  	SELECT count(*) FROM i_product p 
+    LEFT JOIN i_product_category pc ON p.p_pc_id=pc.pc_id 
+    LEFT JOIN i_product_brand pb ON p.p_pb_id=pb.pb_id
+    LEFT JOIN i_product_unit pu ON p.p_ps_id=pu.pu_id
     <include refid="CountwhereSQL"/>
   </select>
   
+  <!-- 添加商品的供货商(rfy) -->
+  <insert id="insertProSupplier">
+  	insert into i_supplier_product(spp_p_id,spp_s_id) values(#{pid},#{sid})
+  </insert>
   
+  <update id="updProSupplier"> 
+    update i_supplier_product
+    set spp_s_id=#{sid}
+    where spp_id=#{spid}
+  </update>
   
   
   

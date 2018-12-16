@@ -57,12 +57,12 @@
       #{psDia,jdbcType=DECIMAL}, #{psDiaunit,jdbcType=INTEGER}, #{psDensity,jdbcType=DECIMAL}, 
       #{psDensityunit,jdbcType=INTEGER}, #{psRemark,jdbcType=VARCHAR})
   </insert>
+  
+  <!-- 添加商品规格(rfy) -->
   <insert id="insertSelective" parameterType="com.hero.entity.ProductSpec" >
     insert into i_product_spec
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="psId != null" >
-        ps_id,
-      </if>
+      
       <if test="psPId != null" >
         ps_p_id,
       </if>
@@ -95,9 +95,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="psId != null" >
-        #{psId,jdbcType=INTEGER},
-      </if>
+      
       <if test="psPId != null" >
         #{psPId,jdbcType=INTEGER},
       </if>
@@ -130,6 +128,8 @@
       </if>
     </trim>
   </insert>
+  
+  <!-- 修改商品规格(rfy) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.ProductSpec" >
     update i_product_spec
     <set >

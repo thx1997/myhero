@@ -35,33 +35,21 @@ public class Product {
     private ProductCategory category;//商品类别
     
     @JsonUnwrapped//rfy
-    private ProductBrand brand;
+    private ProductBrand brand;//商品品牌
+    
+    @JsonUnwrapped//rfy
+    private ProductUnit unit;//商品单位
     public Product() {
 		super();
 	}
 
 
 
-	public Product(Integer pId, String pName, Integer pPsId, Integer pPcId, Integer pPbId, BigDecimal pSalemoney,
-			BigDecimal pOyaltyrate, Boolean pState, Date pCreatetime, Date pUpdatetime, String pRemark) {
-		super();
-		this.pId = pId;
-		this.pName = pName;
-		this.pPsId = pPsId;
-		this.pPcId = pPcId;
-		this.pPbId = pPbId;
-		this.pSalemoney = pSalemoney;
-		this.pOyaltyrate = pOyaltyrate;
-		this.pState = pState;
-		this.pCreatetime = pCreatetime;
-		this.pUpdatetime = pUpdatetime;
-		this.pRemark = pRemark;
-	}
 
-	
+
 	public Product(Integer pId, String pName, Integer pPsId, Integer pPcId, Integer pPbId, BigDecimal pSalemoney,
 			BigDecimal pOyaltyrate, Boolean pState, Date pCreatetime, Date pUpdatetime, String pRemark,
-			ProductCategory category, ProductBrand brand) {
+			ProductCategory category, ProductBrand brand, ProductUnit unit) {
 		super();
 		this.pId = pId;
 		this.pName = pName;
@@ -76,7 +64,9 @@ public class Product {
 		this.pRemark = pRemark;
 		this.category = category;
 		this.brand = brand;
+		this.unit = unit;
 	}
+
 
 
 
@@ -194,13 +184,34 @@ public class Product {
 
 
 
+	public ProductUnit getUnit() {
+		return unit;
+	}
+
+
+
+
+
+	public void setUnit(ProductUnit unit) {
+		this.unit = unit;
+	}
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "Product [pId=" + pId + ", pName=" + pName + ", pPsId=" + pPsId + ", pPcId=" + pPcId + ", pPbId=" + pPbId
 				+ ", pSalemoney=" + pSalemoney + ", pOyaltyrate=" + pOyaltyrate + ", pState=" + pState
 				+ ", pCreatetime=" + pCreatetime + ", pUpdatetime=" + pUpdatetime + ", pRemark=" + pRemark
-				+ ", category=" + category + ", brand=" + brand + "]";
+				+ ", category=" + category + ", brand=" + brand + ", unit=" + unit + "]";
 	}
+
+
+
+
+
 
 
 

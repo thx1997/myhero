@@ -1,6 +1,8 @@
 package com.hero.entity;
 
-public class ProductUnit {
+import com.hero.entity.query.QueryBase;
+
+public class ProductUnit extends QueryBase{
     private Integer puId;
 
     private String puName;

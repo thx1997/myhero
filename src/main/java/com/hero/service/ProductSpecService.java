@@ -10,4 +10,8 @@ public interface ProductSpecService {
 	 * @return 规格对象
 	 */
 	ProductSpec selectBypid(Integer pid);
+	//添加商品规格(rfy)
+    int insertSelective(ProductSpec record);
+    //修改商品规格(rfy)
+    int updateByPrimaryKeySelective(ProductSpec record);
 }

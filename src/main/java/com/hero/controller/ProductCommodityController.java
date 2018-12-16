@@ -32,7 +32,7 @@ public class ProductCommodityController {
 	 */
 	@RequestMapping(value="/queryAllByQuery")
 	public Object queryAllByQuery(ProductCommodityQuery pcquery,Integer pcid) {
-		System.out.println("初次条件参数>>>>>>>"+pcquery);
+		System.out.println("初次条件参数>>>>>>>"+pcquery.toString()+"leibie>>>>"+pcid);
 		Map<String, Object> map = new HashMap<String, Object>();
 		String str="";
 		ProductCategory cate=productCategoryService.selectByPrimaryKey(pcid);
@@ -52,7 +52,7 @@ public class ProductCommodityController {
 			} 
 		}
 		
-		System.out.println("放入sql里的条件参数>>>>>>>"+pcquery);
+		System.out.println("放入sql里的条件参数>>>>>>>"+pcquery.toString());
 		
 		List<ProductCommodity> list=productCommodityService.queryAllByQuery(pcquery);
 		int total=productCommodityService.queryCountByQuery(pcquery);
