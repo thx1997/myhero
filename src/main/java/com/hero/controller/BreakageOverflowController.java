@@ -7,14 +7,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hero.entity.BreakageOverflow;
+import com.hero.entity.BreakageOverflowDetail;
 import com.hero.entity.Product;
 import com.hero.entity.ProductCategory;
 import com.hero.entity.ProductSpec;
 import com.hero.entity.StoreHouse;
-import com.hero.entity.query.ProductQuery;
+import com.hero.entity.query.BreakageOverflowQuery;
 import com.hero.entity.query.StorehousePro;
 import com.hero.service.BreakageOverflowDetailService;
 import com.hero.service.BreakageOverflowServer;
@@ -38,6 +41,31 @@ public class BreakageOverflowController {
 	ProductUnitService productUnitService;
 	@Autowired
 	BreakageOverflowDetailService breakageOverflowDetailService;
+	/**
+	 * 多条件分页查询损益单
+	 * @param bofQuery 条件封装的实体
+	 * @author thx
+	 * @return 
+	 */
+	//@RequestMapping(value = "/getreakageOverflows",name="多条件查询")
+	@RequestMapping(value = "/getreakageOverflows")
+	public Object getreakageOverflows(BreakageOverflowQuery bofQuery,BindingResult bindingResult){
+		System.out.println("查询参数"+bofQuery.toString());
+		List<BreakageOverflow> rows = breakageOverflowServer.querybof(bofQuery);
+		int total = breakageOverflowServer.querybofCount(bofQuery);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("total", total);
+		map.put("rows", rows);
+		System.out.println(rows);
+		return map;
+	}
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 添加报损报溢单
 	 * @author thx
@@ -135,6 +163,33 @@ public class BreakageOverflowController {
 		System.out.println("库存量```````````````"+sdnumber);
 		return map;
 	}
-	
+	/**
+	 * 添加报损报溢详情
+	 * @param BOfDetail 详情实体
+	 * @return
+	 */
+	@RequestMapping(value="/addbreakageOverflowDetail")
+	public Object addbreakageOverflowDetail(BreakageOverflowDetail BOfDetail) {
+		System.out.println("参数"+BOfDetail.toString());
+		Map<String, Object> map = new HashMap<String, Object>();
+		//添加详情
+		int n=breakageOverflowDetailService.insertSelective(BOfDetail);
+		
+		//更新单子上报总数
+		int updateNumber=BOfDetail.getBodNumber()+breakageOverflowServer.selectBoNumber(BOfDetail.getBodBoId());
+		breakageOverflowServer.updateBoNumber(BOfDetail.getBodBoId(), updateNumber);
+		
+		
+		
+		if(n>0) {
+			map.put("success", true);
+			map.put("message", "提交成功");
+		}else {
+			map.put("success", false);
+			map.put("message", "提交失败");
+		}
+		
+		return map;
+	}
 	
 }

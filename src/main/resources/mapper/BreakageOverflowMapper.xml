@@ -6,20 +6,73 @@
     <result column="bo_e_id" property="boEId" jdbcType="INTEGER" />
     <result column="bo_createtime" property="boCreatetime" jdbcType="TIMESTAMP" />
     <result column="bo_number" property="boNumber" jdbcType="INTEGER" />
+    <result column="bo_state" property="boState" jdbcType="INTEGER" />
     <result column="bo_remark" property="boRemark" jdbcType="VARCHAR" />
+    <!--报损溢单详情(盘点员)映射设置(thx) -->
+		<association property="employee"
+			resultMap="com.hero.repository.EmployeeMapper.BaseResultMap"></association>
+    
   </resultMap>
   <sql id="Base_Column_List" >
-    bo_id, bo_e_id, bo_createtime, bo_number, bo_remark
+    bo_id, bo_e_id, bo_createtime, bo_number, bo_state, bo_remark
   </sql>
-  <!--添加报损报溢单(thx)  -->
+  <sql id="emp_Column_list">
+      e_id,e_name,e_sex,e_idcard,e_birthday,e_email,e_telphone
+  </sql>
+  <sql id="queryWhere">
+     <where>
+           <if test="boEId != null">
+				and bo_e_id=#{boEId}
+			</if>
+			<if test="beginCreatetime != null">
+				and bo_createtime &gt; #{beginCreatetime}
+			</if>
+			<if test="endCreatetime != null">
+				and bo_createtime &lt; #{endCreatetime}
+			</if>
+			  <if test="boState != null">
+				and bo_state=#{boState}
+			</if>
+			
+		</where>
+  </sql>
+   <!--多条件分页查询损益单,返回满足条件的集合(thx) -->
+	<select id="querybof" parameterType="com.hero.entity.query.BreakageOverflowQuery" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />,
+		<include refid="emp_Column_list" />
+				
+		from i_breakage_overflow bof  JOIN i_employee e ON e.e_id=bof.bo_e_id
+		<include refid="queryWhere" />
+		limit #{startIndex},#{rows}
+	</select>
+	<!--多条件分页查询损益单,返回满足条件的集合的总条数(thx) -->
+	<select id="querybofCount"  parameterType="com.hero.entity.query.BreakageOverflowQuery" resultType="int">
+		select count(*) from i_breakage_overflow bof  JOIN i_employee e ON e.e_id=bof.bo_e_id
+		<include refid="queryWhere" />
+	</select>
+	
+	
+	
+    <!--添加报损报溢单(thx)  -->
   <insert id="insertBreakageOverflow" parameterType="int" >
    INSERT INTO i_breakage_overflow(bo_e_id,bo_createtime)
       VALUES(#{eid},NOW())
   </insert>
-  <!--查询上次执行报损报报溢自增值(thx)  -->
+   <!--查询上次执行报损报报溢自增值(thx)  -->
   <select id="selectMaxboid" resultType="java.lang.Integer" parameterType="java.lang.Integer">
     SELECT MAX(bo_id) FROM i_breakage_overflow where bo_e_id=#{eid}
    </select>
+   <!-- 根据单子编号查询单子的上报总数量(thx) -->
+  <select id="selectBoNumber" parameterType="int" resultType="int">
+        SELECT bo_number FROM i_breakage_overflow WHERE bo_id=#{boId}   
+  </select>
+  <!--根据单子编号更新单子的上报总数量  -->
+  <update id="updateBoNumber">
+         UPDATE i_breakage_overflow SET bo_number=#{number}  WHERE bo_id=#{boId}  
+  </update>
+  
+  
   
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -34,12 +87,12 @@
   </delete>
   <insert id="insert" parameterType="com.hero.entity.BreakageOverflow" >
     insert into i_breakage_overflow (bo_id, bo_e_id, bo_createtime, 
-      bo_number, bo_remark)
+      bo_number, bo_state, bo_remark
+      )
     values (#{boId,jdbcType=INTEGER}, #{boEId,jdbcType=INTEGER}, #{boCreatetime,jdbcType=TIMESTAMP}, 
-      #{boNumber,jdbcType=INTEGER}, #{boRemark,jdbcType=VARCHAR})
+      #{boNumber,jdbcType=INTEGER}, #{boState,jdbcType=INTEGER}, #{boRemark,jdbcType=VARCHAR}
+      )
   </insert>
-  
-  
   <insert id="insertSelective" parameterType="com.hero.entity.BreakageOverflow" >
     insert into i_breakage_overflow
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -54,6 +107,9 @@
       </if>
       <if test="boNumber != null" >
         bo_number,
+      </if>
+      <if test="boState != null" >
+        bo_state,
       </if>
       <if test="boRemark != null" >
         bo_remark,
@@ -72,6 +128,9 @@
       <if test="boNumber != null" >
         #{boNumber,jdbcType=INTEGER},
       </if>
+      <if test="boState != null" >
+        #{boState,jdbcType=INTEGER},
+      </if>
       <if test="boRemark != null" >
         #{boRemark,jdbcType=VARCHAR},
       </if>
@@ -89,6 +148,9 @@
       <if test="boNumber != null" >
         bo_number = #{boNumber,jdbcType=INTEGER},
       </if>
+      <if test="boState != null" >
+        bo_state = #{boState,jdbcType=INTEGER},
+      </if>
       <if test="boRemark != null" >
         bo_remark = #{boRemark,jdbcType=VARCHAR},
       </if>
@@ -100,6 +162,7 @@
     set bo_e_id = #{boEId,jdbcType=INTEGER},
       bo_createtime = #{boCreatetime,jdbcType=TIMESTAMP},
       bo_number = #{boNumber,jdbcType=INTEGER},
+      bo_state = #{boState,jdbcType=INTEGER},
       bo_remark = #{boRemark,jdbcType=VARCHAR}
     where bo_id = #{boId,jdbcType=INTEGER}
   </update>

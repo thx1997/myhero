@@ -9,16 +9,68 @@
     <result column="bod_s_id" property="bodSId" jdbcType="INTEGER" />
     <result column="bod_createtime" property="bodCreatetime" jdbcType="TIMESTAMP" />
     <result column="bod_number" property="bodNumber" jdbcType="INTEGER" />
+    <result column="bod_state" property="bodState" jdbcType="INTEGER" />
     <result column="bod_remark" property="bodRemark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    bod_id, bod_p_id, bod_bo_id, bod_type, bod_s_id, bod_createtime, bod_number, bod_remark
+    bod_id, bod_p_id, bod_bo_id, bod_type, bod_s_id, bod_createtime, bod_number, bod_state, 
+    bod_remark
   </sql>
+  
   
   <!-- 根据库存编号和商品编号查询该商品的库存量（thx） -->
   <select id="selectSdnumberBypuid" resultType="int">
        SELECT sd_number FROM i_storehousedetail WHERE sd_p_id=#{sdpid} AND sd_s_id=#{sdsid} 
   </select>
+  
+  
+  <!--添加报损报溢详情(thx)  -->
+  <insert id="insertSelective" parameterType="com.hero.entity.BreakageOverflowDetail" >
+    insert into i_breakage_overflow_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+     
+      <if test="bodPId != null" >
+        bod_p_id,
+      </if>
+      <if test="bodBoId != null" >
+        bod_bo_id,
+      </if>
+      <if test="bodType != null" >
+        bod_type,
+      </if>
+      <if test="bodSId != null" >
+        bod_s_id,
+      </if>
+      <if test="1==1" >
+        bod_createtime,
+      </if>
+      <if test="bodNumber != null" >
+        bod_number
+      </if>
+     
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     
+      <if test="bodPId != null" >
+        #{bodPId,jdbcType=INTEGER},
+      </if>
+      <if test="bodBoId != null" >
+        #{bodBoId,jdbcType=INTEGER},
+      </if>
+      <if test="bodType != null" >
+        #{bodType,jdbcType=BIT},
+      </if>
+      <if test="bodSId != null" >
+        #{bodSId,jdbcType=INTEGER},
+      </if>
+      <if test="1==1" >
+        now(),
+      </if>
+      <if test="bodNumber != null" >
+        #{bodNumber,jdbcType=INTEGER}
+      </if>
+    </trim>
+  </insert>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -32,66 +84,14 @@
   <insert id="insert" parameterType="com.hero.entity.BreakageOverflowDetail" >
     insert into i_breakage_overflow_detail (bod_id, bod_p_id, bod_bo_id, 
       bod_type, bod_s_id, bod_createtime, 
-      bod_number, bod_remark)
+      bod_number, bod_state, bod_remark
+      )
     values (#{bodId,jdbcType=INTEGER}, #{bodPId,jdbcType=INTEGER}, #{bodBoId,jdbcType=INTEGER}, 
       #{bodType,jdbcType=BIT}, #{bodSId,jdbcType=INTEGER}, #{bodCreatetime,jdbcType=TIMESTAMP}, 
-      #{bodNumber,jdbcType=INTEGER}, #{bodRemark,jdbcType=VARCHAR})
+      #{bodNumber,jdbcType=INTEGER}, #{bodState,jdbcType=INTEGER}, #{bodRemark,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.hero.entity.BreakageOverflowDetail" >
-    insert into i_breakage_overflow_detail
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="bodId != null" >
-        bod_id,
-      </if>
-      <if test="bodPId != null" >
-        bod_p_id,
-      </if>
-      <if test="bodBoId != null" >
-        bod_bo_id,
-      </if>
-      <if test="bodType != null" >
-        bod_type,
-      </if>
-      <if test="bodSId != null" >
-        bod_s_id,
-      </if>
-      <if test="bodCreatetime != null" >
-        bod_createtime,
-      </if>
-      <if test="bodNumber != null" >
-        bod_number,
-      </if>
-      <if test="bodRemark != null" >
-        bod_remark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="bodId != null" >
-        #{bodId,jdbcType=INTEGER},
-      </if>
-      <if test="bodPId != null" >
-        #{bodPId,jdbcType=INTEGER},
-      </if>
-      <if test="bodBoId != null" >
-        #{bodBoId,jdbcType=INTEGER},
-      </if>
-      <if test="bodType != null" >
-        #{bodType,jdbcType=BIT},
-      </if>
-      <if test="bodSId != null" >
-        #{bodSId,jdbcType=INTEGER},
-      </if>
-      <if test="bodCreatetime != null" >
-        #{bodCreatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bodNumber != null" >
-        #{bodNumber,jdbcType=INTEGER},
-      </if>
-      <if test="bodRemark != null" >
-        #{bodRemark,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.BreakageOverflowDetail" >
     update i_breakage_overflow_detail
     <set >
@@ -113,6 +113,9 @@
       <if test="bodNumber != null" >
         bod_number = #{bodNumber,jdbcType=INTEGER},
       </if>
+      <if test="bodState != null" >
+        bod_state = #{bodState,jdbcType=INTEGER},
+      </if>
       <if test="bodRemark != null" >
         bod_remark = #{bodRemark,jdbcType=VARCHAR},
       </if>
@@ -127,6 +130,7 @@
       bod_s_id = #{bodSId,jdbcType=INTEGER},
       bod_createtime = #{bodCreatetime,jdbcType=TIMESTAMP},
       bod_number = #{bodNumber,jdbcType=INTEGER},
+      bod_state = #{bodState,jdbcType=INTEGER},
       bod_remark = #{bodRemark,jdbcType=VARCHAR}
     where bod_id = #{bodId,jdbcType=INTEGER}
   </update>

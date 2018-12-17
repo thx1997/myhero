@@ -17,6 +17,8 @@ public class BreakageOverflowDetail {
 
     private Integer bodNumber;
 
+    private Integer bodState;
+
     private String bodRemark;
 
     public Integer getBodId() {
@@ -75,6 +77,14 @@ public class BreakageOverflowDetail {
         this.bodNumber = bodNumber;
     }
 
+    public Integer getBodState() {
+        return bodState;
+    }
+
+    public void setBodState(Integer bodState) {
+        this.bodState = bodState;
+    }
+
     public String getBodRemark() {
         return bodRemark;
     }
@@ -82,4 +92,31 @@ public class BreakageOverflowDetail {
     public void setBodRemark(String bodRemark) {
         this.bodRemark = bodRemark == null ? null : bodRemark.trim();
     }
+
+	public BreakageOverflowDetail(Integer bodId, Integer bodPId, Integer bodBoId, Boolean bodType, Integer bodSId,
+			Date bodCreatetime, Integer bodNumber, Integer bodState, String bodRemark) {
+		super();
+		this.bodId = bodId;
+		this.bodPId = bodPId;
+		this.bodBoId = bodBoId;
+		this.bodType = bodType;
+		this.bodSId = bodSId;
+		this.bodCreatetime = bodCreatetime;
+		this.bodNumber = bodNumber;
+		this.bodState = bodState;
+		this.bodRemark = bodRemark;
+	}
+
+	public BreakageOverflowDetail() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "BreakageOverflowDetail [bodId=" + bodId + ", bodPId=" + bodPId + ", bodBoId=" + bodBoId + ", bodType="
+				+ bodType + ", bodSId=" + bodSId + ", bodCreatetime=" + bodCreatetime + ", bodNumber=" + bodNumber
+				+ ", bodState=" + bodState + ", bodRemark=" + bodRemark + "]";
+	}
+    
+    
 }
