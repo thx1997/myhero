@@ -57,7 +57,7 @@ public class PurchaseNoteController {
 	}
 	
 	/**
-	 * 保存采购单时，修改响应的信息和总金额
+	 * 保存采购单时，修改商品的信息和总金额
 	 * @param note
 	 * @return
 	 */

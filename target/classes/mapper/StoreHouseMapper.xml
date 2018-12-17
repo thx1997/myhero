@@ -53,10 +53,10 @@
 			<if test="sPhone != null and sPhone != ''">
 				and s_phone like "%"#{sPhone,jdbcType=VARCHAR}"%"
 			</if>
-			<if test="beginsCreatetime != null and beginsCreatetime != ''">
+			<if test="beginsCreatetime != null">
 				and s_createtime &gt; #{beginsCreatetime,jdbcType=TIMESTAMP}
 			</if>
-			<if test="endsCreatetime != null and endsCreatetime != ''">
+			<if test="endsCreatetime != null">
 				and s_createtime &lt; #{endsCreatetime,jdbcType=TIMESTAMP}
 			</if>
 			<if test="sStatus != null">
