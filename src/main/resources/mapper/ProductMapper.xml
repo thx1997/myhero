@@ -231,7 +231,7 @@
   <insert id="insertProSupplier">
   	insert into i_supplier_product(spp_p_id,spp_s_id) values(#{pid},#{sid})
   </insert>
-  
+  <!-- 修改商品的供货商(rfy) -->
   <update id="updProSupplier"> 
     update i_supplier_product
     set spp_s_id=#{sid}

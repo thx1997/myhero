@@ -48,6 +48,6 @@ public interface ProductMapper {
     public int insertProSupplier(@Param("sid")Integer sid,@Param("pid")Integer pid);
     //修改商品的供货商(rfy)
     public int updProSupplier(@Param("sid")Integer sid,@Param("spid")Integer spid);
-    
+   
     
 }

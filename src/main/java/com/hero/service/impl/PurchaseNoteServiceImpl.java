@@ -21,5 +21,15 @@ public class PurchaseNoteServiceImpl implements PurchaseNoteService {
 		// TODO Auto-generated method stub
 		return purchaseNoteMapper.deleteByPrimaryKey(pnId);
 	}
+	@Override
+	public int updateByPrimaryKeySelective(PurchaseNote record) {
+		// TODO Auto-generated method stub
+		return purchaseNoteMapper.updateByPrimaryKeySelective(record);
+	}
+	@Override
+	public int updateTotalMoney(String pnid) {
+		// TODO Auto-generated method stub
+		return purchaseNoteMapper.updateTotalMoney(pnid);
+	}
 
 }
