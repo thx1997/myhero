@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.PurchasenoteDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.PurchasenoteDetail" >
+    <result column="pn_id" property="pnId" jdbcType="VARCHAR" />
+    <result column="pn_createtime" property="pnCreatetime" jdbcType="TIMESTAMP" />
+    <result column="pn_e_id" property="pnEId" jdbcType="INTEGER" />
+    <result column="pn_status" property="pnStatus" jdbcType="INTEGER" />
+    <result column="pn_accountantid" property="pnAccountantid" jdbcType="INTEGER" />
+    <result column="pn_warehousepersonid" property="pnWarehousepersonid" jdbcType="INTEGER" />
+    <result column="pn_totalmoney" property="pnTotalmoney" jdbcType="DECIMAL" />
+    <result column="pn_remark" property="pnRemark" jdbcType="VARCHAR" />
+    <result column="note_person" property="notePerson" jdbcType="VARCHAR" />
+    <result column="accountant_person" property="accountantPerson" jdbcType="VARCHAR" />
+    <result column="warehouse_person" property="warehousePerson" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.hero.entity.PurchasenoteDetail" >
+    insert into view_purchasenote_detail (pn_id, pn_createtime, pn_e_id, 
+      pn_status, pn_accountantid, pn_warehousepersonid, 
+      pn_totalmoney, pn_remark, note_person, 
+      accountant_person, warehouse_person)
+    values (#{pnId,jdbcType=VARCHAR}, #{pnCreatetime,jdbcType=TIMESTAMP}, #{pnEId,jdbcType=INTEGER}, 
+      #{pnStatus,jdbcType=INTEGER}, #{pnAccountantid,jdbcType=INTEGER}, #{pnWarehousepersonid,jdbcType=INTEGER}, 
+      #{pnTotalmoney,jdbcType=DECIMAL}, #{pnRemark,jdbcType=VARCHAR}, #{notePerson,jdbcType=VARCHAR}, 
+      #{accountantPerson,jdbcType=VARCHAR}, #{warehousePerson,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hero.entity.PurchasenoteDetail" >
+    insert into view_purchasenote_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pnId != null" >
+        pn_id,
+      </if>
+      <if test="pnCreatetime != null" >
+        pn_createtime,
+      </if>
+      <if test="pnEId != null" >
+        pn_e_id,
+      </if>
+      <if test="pnStatus != null" >
+        pn_status,
+      </if>
+      <if test="pnAccountantid != null" >
+        pn_accountantid,
+      </if>
+      <if test="pnWarehousepersonid != null" >
+        pn_warehousepersonid,
+      </if>
+      <if test="pnTotalmoney != null" >
+        pn_totalmoney,
+      </if>
+      <if test="pnRemark != null" >
+        pn_remark,
+      </if>
+      <if test="notePerson != null" >
+        note_person,
+      </if>
+      <if test="accountantPerson != null" >
+        accountant_person,
+      </if>
+      <if test="warehousePerson != null" >
+        warehouse_person,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pnId != null" >
+        #{pnId,jdbcType=VARCHAR},
+      </if>
+      <if test="pnCreatetime != null" >
+        #{pnCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pnEId != null" >
+        #{pnEId,jdbcType=INTEGER},
+      </if>
+      <if test="pnStatus != null" >
+        #{pnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="pnAccountantid != null" >
+        #{pnAccountantid,jdbcType=INTEGER},
+      </if>
+      <if test="pnWarehousepersonid != null" >
+        #{pnWarehousepersonid,jdbcType=INTEGER},
+      </if>
+      <if test="pnTotalmoney != null" >
+        #{pnTotalmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="pnRemark != null" >
+        #{pnRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="notePerson != null" >
+        #{notePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="accountantPerson != null" >
+        #{accountantPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="warehousePerson != null" >
+        #{warehousePerson,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <!-- rfy -->
+  <sql id="CountwhereSQL">
+  	<where>
+	      <if test="pnEId != null" >
+	        pn_e_id=#{pnEId,jdbcType=INTEGER},
+	      </if>
+	      <if test="pnStatus != null" >
+	        pn_status=#{pnStatus,jdbcType=INTEGER},
+	      </if>
+	      <if test="pnAccountantid != null" >
+	       pn_accountantid= #{pnAccountantid,jdbcType=INTEGER},
+	      </if>
+	      <if test="pnWarehousepersonid != null" >
+	       pn_warehousepersonid= #{pnWarehousepersonid,jdbcType=INTEGER},
+	      </if>
+  	</where>
+  </sql>
+  <!-- 多条件分页查询(rfy) -->
+  <select id="queryByQueryPage" resultMap="BaseResultMap" parameterType="com.hero.entity.PurchasenoteDetail">
+    select * from view_purchasenote_detail
+    <include refid="CountwhereSQL"/>
+    order by pn_createtime desc
+  	LIMIT #{startIndex},#{rows}
+  </select>
+ <!--查询分页总记录数(rfy) -->
+  	<select id="queryCountByQuery" resultType="int" parameterType="com.hero.entity.PurchasenoteDetail">
+  		select count(*) FROM view_purchasenote_detail
+  		<include refid="CountwhereSQL"/>
+  	</select>
+  
+  
+  
+  
+</mapper>
