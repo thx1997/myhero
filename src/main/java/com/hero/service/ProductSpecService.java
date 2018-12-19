@@ -14,4 +14,6 @@ public interface ProductSpecService {
     int insertSelective(ProductSpec record);
     //修改商品规格(rfy)
     int updateByPrimaryKeySelective(ProductSpec record);
+    //删除商品规格(rfy)
+    int deleteByPrimaryKey(Integer psId);
 }

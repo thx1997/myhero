@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.hero.entity.PurchaseDetail" >
     <id column="pd_id" property="pdId" jdbcType="INTEGER" />
     <result column="pd_pn_id" property="pdPnId" jdbcType="VARCHAR" />
+    <result column="pd_sh_id" property="pdShId" jdbcType="INTEGER" />
     <result column="pd_p_id" property="pdPId" jdbcType="INTEGER" />
     <result column="pd_ps_id" property="pdPsId" jdbcType="INTEGER" />
     <result column="pd_quantity" property="pdQuantity" jdbcType="INTEGER" />
@@ -27,6 +28,7 @@
     from i_purchasedetail
     where pd_id = #{pdId,jdbcType=INTEGER}
   </select>
+  <!-- 删除采购信息(rfy) -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from i_purchasedetail
     where pd_id = #{pdId,jdbcType=INTEGER}
@@ -99,6 +101,9 @@
       <if test="pdPnId != null" >
         pd_pn_id = #{pdPnId,jdbcType=VARCHAR},
       </if>
+      <if test="pdShId != null" >
+        pd_sh_id = #{pdShId,jdbcType=INTEGER},
+      </if>
       <if test="pdPId != null" >
         pd_p_id = #{pdPId,jdbcType=INTEGER},
       </if>
@@ -150,7 +155,14 @@
     where pd_pn_id = #{pnid} and pd_p_id=#{pid} and pd_ps_id=#{psid}
   </select>
   
-  
+  <!-- 批量删除采购信息(rfy) -->
+  <delete id="deleteByPdIdList" parameterType="java.lang.Integer" >
+    delete from i_purchasedetail
+    where pd_id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+	</foreach>
+  </delete>
   
   
   

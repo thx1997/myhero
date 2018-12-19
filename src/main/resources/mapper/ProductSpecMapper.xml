@@ -43,6 +43,7 @@
     from i_product_spec
     where ps_id = #{psId,jdbcType=INTEGER}
   </select>
+  <!-- 删除商品规格(rfy) -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from i_product_spec
     where ps_id = #{psId,jdbcType=INTEGER}

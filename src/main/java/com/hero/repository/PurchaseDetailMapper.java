@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.hero.entity.PurchaseDetail;
 
 public interface PurchaseDetailMapper {
+	//删除采购信息(rfy)
     int deleteByPrimaryKey(Integer pdId);
 
     int insert(PurchaseDetail record);
@@ -28,7 +29,8 @@ public interface PurchaseDetailMapper {
     //根据采购单号、商品编号、商品规格编号查询该条详情记录(rfy)
     public PurchaseDetail queryByPurIdAndPid(@Param("pnid")String pnid,@Param("pid")Integer pid,@Param("psid")Integer psid);
     
-    
+    //批量删除采购信息(rfy)
+    int deleteByPdIdList(@Param("list")List<Integer> pdid);
     
     
 }

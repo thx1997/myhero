@@ -15,7 +15,7 @@
         SELECT pu_name FROM i_product_unit WHERE pu_id=#{puId}
   </select>
   
-  
+  <!-- 根据单位编号查询单位信息(rfy) -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -32,6 +32,7 @@
     values (#{puId,jdbcType=INTEGER}, #{puName,jdbcType=VARCHAR}, #{puType,jdbcType=VARCHAR}, 
       #{puRemark,jdbcType=VARCHAR})
   </insert>
+  <!-- 添加单位(rfy) -->
   <insert id="insertSelective" parameterType="com.hero.entity.ProductUnit" >
     insert into i_product_unit
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -98,7 +99,7 @@
     from i_product_unit
     <where>
     	<if test="puName != null and puName!=''" >
-        pu_name = "%"#{puName}"%",
+        pu_name like "%"#{puName}"%"
       </if>
     </where>
     LIMIT #{startIndex},#{rows}
@@ -109,10 +110,20 @@
     from i_product_unit
     <where>
     	<if test="puName != null and puName!=''" >
-        pu_name = "%"#{puName}"%",
+        pu_name like "%"#{puName}"%"
       </if>
     </where>
   </select>
+  
+  
+  
+  <!-- 根据名称判断是否存在(rfy) -->
+  <select id="isExitByName" resultType="int" parameterType="java.lang.String">
+    select count(*)
+    from i_product_unit	
+    where pu_name = #{puname}
+  </select>
+  
   
   
 </mapper>

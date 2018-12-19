@@ -19,7 +19,7 @@ public interface ProductUnitMapper {
     int insert(ProductUnit record);
     //添加单位(rfy)
     int insertSelective(ProductUnit record);
-
+    //根据单位编号查询单位信息(rfy)
     ProductUnit selectByPrimaryKey(Integer puId);
     //修改单位(rfy)
     int updateByPrimaryKeySelective(ProductUnit record);
@@ -32,5 +32,8 @@ public interface ProductUnitMapper {
     public List<ProductUnit> queryByNamePage(ProductUnit record);
     //查询总条数(rfy)
     public int queryCountByName(ProductUnit record);
+    
+    //根据名称判断是否存在(rfy)
+    public int isExitByName(String puname);
     
 }

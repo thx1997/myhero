@@ -14,10 +14,52 @@ public class ProductBrandServiceImpl implements ProductBrandService {
 	@Autowired
 	private ProductBrandMapper productBrandMapper;
 
-	@Override
+	@Override//rfy
 	public List<ProductBrand> queryAll() {
 		// TODO Auto-generated method stub
 		return productBrandMapper.queryAll();
+	}
+
+	@Override//rfy
+	public List<ProductBrand> queryALLPage(ProductBrand record) {
+		// TODO Auto-generated method stub
+		return productBrandMapper.queryALLPage(record);
+	}
+
+	@Override//rfy
+	public int queryCountPage(ProductBrand record) {
+		// TODO Auto-generated method stub
+		return productBrandMapper.queryCountPage(record);
+	}
+
+	@Override//rfy
+	public int insertSelective(ProductBrand record) {
+		// TODO Auto-generated method stub
+		return productBrandMapper.insertSelective(record);
+	}
+
+	@Override//rfy
+	public int updateByPrimaryKeySelective(ProductBrand record) {
+		// TODO Auto-generated method stub
+		return productBrandMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Override//rfy
+	public int deleteByPrimaryKey(Integer pbId) {
+		// TODO Auto-generated method stub
+		return productBrandMapper.deleteByPrimaryKey(pbId);
+	}
+
+	@Override
+	public int isExitByName(String pbname) {
+		// TODO Auto-generated method stub
+		return productBrandMapper.isExitByName(pbname);
+	}
+
+	@Override
+	public ProductBrand selectByPrimaryKey(Integer pbId) {
+		// TODO Auto-generated method stub
+		return productBrandMapper.selectByPrimaryKey(pbId);
 	}
 	
 }

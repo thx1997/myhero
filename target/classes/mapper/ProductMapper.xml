@@ -51,6 +51,7 @@
     from i_product
     where p_id = #{pId,jdbcType=INTEGER}
   </select>
+  <!-- 删除商品信息(rfy) -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from i_product
     where p_id = #{pId,jdbcType=INTEGER}
@@ -65,6 +66,7 @@
       #{pOyaltyrate,jdbcType=DECIMAL}, #{pState,jdbcType=BIT}, #{pCreatetime,jdbcType=TIMESTAMP}, 
       #{pUpdatetime,jdbcType=TIMESTAMP}, #{pRemark,jdbcType=VARCHAR})
   </insert>
+  
   <insert id="insertSelective" parameterType="com.hero.entity.Product" >
     insert into i_product
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -91,10 +93,8 @@
       </if>
       <if test="pState != null" >
         p_state,
-      </if>
-      <if test="pCreatetime != null" >
+      </if>    
         p_createtime,
-      </if>
       <if test="pUpdatetime != null" >
         p_updatetime,
       </if>
@@ -127,9 +127,7 @@
       <if test="pState != null" >
         #{pState,jdbcType=BIT},
       </if>
-      <if test="pCreatetime != null" >
-        #{pCreatetime,jdbcType=TIMESTAMP},
-      </if>
+        NOW(),
       <if test="pUpdatetime != null" >
         #{pUpdatetime,jdbcType=TIMESTAMP},
       </if>
@@ -237,7 +235,15 @@
     set spp_s_id=#{sid}
     where spp_id=#{spid}
   </update>
+   <!-- 删除商品供货商的信息(rfy) -->
+  <delete id="delProSupplier" parameterType="java.lang.Integer" >
+    delete from i_supplier_product
+    where spp_id = #{spid,jdbcType=INTEGER}
+  </delete>
   
-  
+  <!-- 查询刚添加的商品的编号(rfy) -->
+  <select id="selectNewPId" resultType="int">
+  	SELECT MAX(p_id) FROM i_product
+  </select>
   
 </mapper>

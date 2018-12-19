@@ -11,12 +11,14 @@
   <sql id="Base_Column_List" >
     pb_id, pb_name, pb_createtime, pb_updatetime, pb_remark
   </sql>
+  <!-- 根据id查询品牌(rfy) -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from i_product_brand
     where pb_id = #{pbId,jdbcType=INTEGER}
   </select>
+  <!-- 删除品牌(rfy) -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from i_product_brand
     where pb_id = #{pbId,jdbcType=INTEGER}
@@ -27,6 +29,7 @@
     values (#{pbId,jdbcType=INTEGER}, #{pbName,jdbcType=VARCHAR}, #{pbCreatetime,jdbcType=TIMESTAMP}, 
       #{pbUpdatetime,jdbcType=TIMESTAMP}, #{pbRemark,jdbcType=VARCHAR})
   </insert>
+  <!-- 添加品牌(rfy) -->
   <insert id="insertSelective" parameterType="com.hero.entity.ProductBrand" >
     insert into i_product_brand
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -35,10 +38,8 @@
       </if>
       <if test="pbName != null" >
         pb_name,
-      </if>
-      <if test="pbCreatetime != null" >
+      </if>  
         pb_createtime,
-      </if>
       <if test="pbUpdatetime != null" >
         pb_updatetime,
       </if>
@@ -53,9 +54,7 @@
       <if test="pbName != null" >
         #{pbName,jdbcType=VARCHAR},
       </if>
-      <if test="pbCreatetime != null" >
-        #{pbCreatetime,jdbcType=TIMESTAMP},
-      </if>
+        NOW(),
       <if test="pbUpdatetime != null" >
         #{pbUpdatetime,jdbcType=TIMESTAMP},
       </if>
@@ -64,6 +63,7 @@
       </if>
     </trim>
   </insert>
+  <!-- 修改品牌(rfy) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.ProductBrand" >
     update i_product_brand
     <set >
@@ -73,9 +73,7 @@
       <if test="pbCreatetime != null" >
         pb_createtime = #{pbCreatetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="pbUpdatetime != null" >
-        pb_updatetime = #{pbUpdatetime,jdbcType=TIMESTAMP},
-      </if>
+        pb_updatetime = NOW(),
       <if test="pbRemark != null" >
         pb_remark = #{pbRemark,jdbcType=VARCHAR},
       </if>
@@ -96,6 +94,41 @@
     <include refid="Base_Column_List" />
     from i_product_brand
   </select>
+  
+  <!-- 多条件分页查询(rfy) -->
+   <select id="queryALLPage" resultMap="BaseResultMap" parameterType="com.hero.entity.ProductBrand">
+    select 
+    <include refid="Base_Column_List" />
+    from i_product_brand
+    <where>
+    	<if test="pbName != null and pbName!=''" >
+        pb_name like "%"#{pbName}"%"
+      </if>
+    </where>
+    LIMIT #{startIndex},#{rows}
+  </select>
+  <!-- 查询总条数(rfy) -->
+  <select id="queryCountPage" resultType="int" parameterType="com.hero.entity.ProductBrand">
+    select count(*)
+    from i_product_brand
+    <where>
+    	<if test="pbName != null and pbName!=''" >
+        pb_name like "%"#{pbName}"%"
+      </if>
+    </where>
+  </select>
+  
+  
+  
+   <!-- 根据名称判断是否存在(rfy)-->
+  <select id="isExitByName" resultType="int" parameterType="java.lang.String">
+    select count(*)
+    from i_product_brand
+    where pb_name = #{pbname}
+  </select>
+  
+  
+  
   
   
 </mapper>

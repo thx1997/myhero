@@ -25,4 +25,9 @@ public interface ProductUnitService {
     int insertSelective(ProductUnit record);
     //修改单位(rfy)
     int updateByPrimaryKeySelective(ProductUnit record);
+    //根据名称判断是否存在(rfy)
+    public int isExitByName(String puname);
+    //根据单位编号查询单位信息(rfy)
+    ProductUnit selectByPrimaryKey(Integer puId);
+    
 }

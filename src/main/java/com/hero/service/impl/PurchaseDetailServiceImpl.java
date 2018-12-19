@@ -39,6 +39,16 @@ public class PurchaseDetailServiceImpl implements PurchaseDetailService {
 		// TODO Auto-generated method stub
 		return purchaseDetailMapper.queryByPurIdAndPid(pnid, pid, psid);
 	}
+	@Override//(rfy)
+	public int deleteByPrimaryKey(Integer pdId) {
+		// TODO Auto-generated method stub
+		return purchaseDetailMapper.deleteByPrimaryKey(pdId);
+	}
+	@Override//(rfy)
+	public int deleteByPdIdList(List<Integer> pdid) {
+		// TODO Auto-generated method stub
+		return purchaseDetailMapper.deleteByPdIdList(pdid);
+	}
 	
 	
 

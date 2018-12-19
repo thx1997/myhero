@@ -10,7 +10,7 @@ public interface ProductSpecMapper {
 	 * @return 规格对象
 	 */
 	ProductSpec selectBypid(Integer pid);
-	
+	//删除商品规格(rfy)
     int deleteByPrimaryKey(Integer psId);
 
     int insert(ProductSpec record);

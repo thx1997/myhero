@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hero.entity.PurchaseDetail;
@@ -59,8 +60,46 @@ public class PurchaseDetailController {
 		return map;
 	}
 	
+	/**
+	 * 修改采购详情(rfy)
+	 * @param detail
+	 * @return
+	 */
+	@RequestMapping("/update")
+	public Object update(PurchaseDetail detail) {
+		System.out.println("参数啊----"+detail.toString());
+		Map<String, Object> map = new HashMap<String, Object>();
+		int u=purchaseDetailService.updateByPrimaryKeySelective(detail);
+		if (u>0) {
+			map.put("success", true);
+			map.put("message", "修改成功");
+		} else {
+			map.put("success", false);
+			map.put("message", "修改失败");
+		}
+		return map;
+	}
 	
 	
+	/**
+	 * 删除采购详情(rfy)
+	 * @param pdid
+	 * @return
+	 */
+	@RequestMapping("/delete")
+	public Object delete(@RequestParam("pdIds")List<Integer> pdIds) {
+		System.out.println("参数啊----"+pdIds);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int u=purchaseDetailService.deleteByPdIdList(pdIds);
+		if (u>0) {
+			map.put("success", true);
+			map.put("message", "删除成功");
+		} else {
+			map.put("success", false);
+			map.put("message", "删除失败");
+		}
+		return map;
+	}
 	
 	
 }

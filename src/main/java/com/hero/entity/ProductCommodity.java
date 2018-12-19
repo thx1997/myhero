@@ -21,9 +21,9 @@ public class ProductCommodity{
     private BigDecimal pOyaltyrate;
 
     private Boolean pState;
-    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     private Date pCreatetime;
-    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     private Date pUpdatetime;
 
     private String pRemark;
@@ -57,18 +57,25 @@ public class ProductCommodity{
 	private BigDecimal psDensity;//密度
 	private Integer densityId;//密度单位编号
 	private String densityName;//密度单位
-	
-	
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "ProductCommodity [pId=" + pId + ", pName=" + pName + ", pPsId=" + pPsId + ", pPcId=" + pPcId
+				+ ", pPbId=" + pPbId + ", pSalemoney=" + pSalemoney + ", pOyaltyrate=" + pOyaltyrate + ", pState="
+				+ pState + ", pCreatetime=" + pCreatetime + ", pUpdatetime=" + pUpdatetime + ", pRemark=" + pRemark
+				+ ", pcId=" + pcId + ", pcName=" + pcName + ", pbId=" + pbId + ", pbName=" + pbName + ", puId=" + puId
+				+ ", puName=" + puName + ", spId=" + spId + ", sId=" + sId + ", sName=" + sName + ", scId=" + scId
+				+ ", scName=" + scName + ", scType=" + scType + ", psId=" + psId + ", psWeight=" + psWeight
+				+ ", weightId=" + weightId + ", weightName=" + weightName + ", psSize=" + psSize + ", sizeId=" + sizeId
+				+ ", sizeName=" + sizeName + ", psDia=" + psDia + ", diaId=" + diaId + ", diaName=" + diaName
+				+ ", psDensity=" + psDensity + ", densityId=" + densityId + ", densityName=" + densityName + "]";
+	}
 	public ProductCommodity(Integer pId, String pName, Integer pPsId, Integer pPcId, Integer pPbId,
 			BigDecimal pSalemoney, BigDecimal pOyaltyrate, Boolean pState, Date pCreatetime, Date pUpdatetime,
 			String pRemark, Integer pcId, String pcName, Integer pbId, String pbName, Integer puId, String puName,
-			Integer sId, String sName, Integer scId, String scName, Integer scType, Integer psId, BigDecimal psWeight,
-			Integer weightId, String weightName, String psSize, Integer sizeId, String sizeName, BigDecimal psDia,
-			Integer diaId, String diaName, BigDecimal psDensity, Integer densityId, String densityName) {
+			Integer spId, Integer sId, String sName, Integer scId, String scName, Integer scType, Integer psId,
+			BigDecimal psWeight, Integer weightId, String weightName, String psSize, Integer sizeId, String sizeName,
+			BigDecimal psDia, Integer diaId, String diaName, BigDecimal psDensity, Integer densityId,
+			String densityName) {
 		super();
 		this.pId = pId;
 		this.pName = pName;
@@ -87,6 +94,7 @@ public class ProductCommodity{
 		this.pbName = pbName;
 		this.puId = puId;
 		this.puName = puName;
+		this.spId = spId;
 		this.sId = sId;
 		this.sName = sName;
 		this.scId = scId;
@@ -199,11 +207,23 @@ public class ProductCommodity{
 	public void setPbName(String pbName) {
 		this.pbName = pbName;
 	}
+	public Integer getPuId() {
+		return puId;
+	}
+	public void setPuId(Integer puId) {
+		this.puId = puId;
+	}
 	public String getPuName() {
 		return puName;
 	}
 	public void setPuName(String puName) {
 		this.puName = puName;
+	}
+	public Integer getSpId() {
+		return spId;
+	}
+	public void setSpId(Integer spId) {
+		this.spId = spId;
 	}
 	public Integer getsId() {
 		return sId;
@@ -247,6 +267,12 @@ public class ProductCommodity{
 	public void setPsWeight(BigDecimal psWeight) {
 		this.psWeight = psWeight;
 	}
+	public Integer getWeightId() {
+		return weightId;
+	}
+	public void setWeightId(Integer weightId) {
+		this.weightId = weightId;
+	}
 	public String getWeightName() {
 		return weightName;
 	}
@@ -258,6 +284,12 @@ public class ProductCommodity{
 	}
 	public void setPsSize(String psSize) {
 		this.psSize = psSize;
+	}
+	public Integer getSizeId() {
+		return sizeId;
+	}
+	public void setSizeId(Integer sizeId) {
+		this.sizeId = sizeId;
 	}
 	public String getSizeName() {
 		return sizeName;
@@ -271,6 +303,12 @@ public class ProductCommodity{
 	public void setPsDia(BigDecimal psDia) {
 		this.psDia = psDia;
 	}
+	public Integer getDiaId() {
+		return diaId;
+	}
+	public void setDiaId(Integer diaId) {
+		this.diaId = diaId;
+	}
 	public String getDiaName() {
 		return diaName;
 	}
@@ -283,54 +321,24 @@ public class ProductCommodity{
 	public void setPsDensity(BigDecimal psDensity) {
 		this.psDensity = psDensity;
 	}
-	public String getDensityName() {
-		return densityName;
-	}
-	public void setDensityName(String densityName) {
-		this.densityName = densityName;
-	}
-	public Integer getPuId() {
-		return puId;
-	}
-	public void setPuId(Integer puId) {
-		this.puId = puId;
-	}
-	public Integer getWeightId() {
-		return weightId;
-	}
-	public void setWeightId(Integer weightId) {
-		this.weightId = weightId;
-	}
-	public Integer getSizeId() {
-		return sizeId;
-	}
-	public void setSizeId(Integer sizeId) {
-		this.sizeId = sizeId;
-	}
-	public Integer getDiaId() {
-		return diaId;
-	}
-	public void setDiaId(Integer diaId) {
-		this.diaId = diaId;
-	}
 	public Integer getDensityId() {
 		return densityId;
 	}
 	public void setDensityId(Integer densityId) {
 		this.densityId = densityId;
 	}
-	@Override
-	public String toString() {
-		return "ProductCommodity [pId=" + pId + ", pName=" + pName + ", pPsId=" + pPsId + ", pPcId=" + pPcId
-				+ ", pPbId=" + pPbId + ", pSalemoney=" + pSalemoney + ", pOyaltyrate=" + pOyaltyrate + ", pState="
-				+ pState + ", pCreatetime=" + pCreatetime + ", pUpdatetime=" + pUpdatetime + ", pRemark=" + pRemark
-				+ ", pcId=" + pcId + ", pcName=" + pcName + ", pbId=" + pbId + ", pbName=" + pbName + ", puId=" + puId
-				+ ", puName=" + puName + ", sId=" + sId + ", sName=" + sName + ", scId=" + scId + ", scName=" + scName
-				+ ", scType=" + scType + ", psId=" + psId + ", psWeight=" + psWeight + ", weightId=" + weightId
-				+ ", weightName=" + weightName + ", psSize=" + psSize + ", sizeId=" + sizeId + ", sizeName=" + sizeName
-				+ ", psDia=" + psDia + ", diaId=" + diaId + ", diaName=" + diaName + ", psDensity=" + psDensity
-				+ ", densityId=" + densityId + ", densityName=" + densityName + "]";
+	public String getDensityName() {
+		return densityName;
 	}
+	public void setDensityName(String densityName) {
+		this.densityName = densityName;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

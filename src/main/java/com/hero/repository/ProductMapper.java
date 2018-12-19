@@ -25,12 +25,12 @@ public interface ProductMapper {
 	 */
 	int queryProBYPcidAndSidCount(StorehousePro storehousePro);
 	
-	
+	//删除商品信息(rfy)
     int deleteByPrimaryKey(Integer pId);
 
     int insert(Product record);
 
-    
+    //添加商品信息(rfy)
     int insertSelective(Product record);
 
     Product selectByPrimaryKey(Integer pId);
@@ -48,6 +48,11 @@ public interface ProductMapper {
     public int insertProSupplier(@Param("sid")Integer sid,@Param("pid")Integer pid);
     //修改商品的供货商(rfy)
     public int updProSupplier(@Param("sid")Integer sid,@Param("spid")Integer spid);
-   
+    //删除商品供货商的信息(rfy)
+    public int delProSupplier(Integer spid);
+    
+    
+    //查询刚添加的商品的编号(rfy)
+    public int selectNewPId();
     
 }

@@ -56,6 +56,30 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.updProSupplier(sid, spid);
 	}
 
+	@Override//(rfy)
+	public int selectNewPId() {
+		// TODO Auto-generated method stub
+		return productMapper.selectNewPId();
+	}
+
+	@Override//(rfy)
+	public int insertSelective(Product record) {
+		// TODO Auto-generated method stub
+		return productMapper.insertSelective(record);
+	}
+
+	@Override//(rfy)
+	public int deleteByPrimaryKey(Integer pId) {
+		// TODO Auto-generated method stub
+		return productMapper.deleteByPrimaryKey(pId);
+	}
+
+	@Override//(rfy)
+	public int delProSupplier(Integer spid) {
+		// TODO Auto-generated method stub
+		return productMapper.delProSupplier(spid);
+	}
+
 	
 
 }

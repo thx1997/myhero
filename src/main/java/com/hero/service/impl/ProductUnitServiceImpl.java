@@ -46,5 +46,15 @@ public class ProductUnitServiceImpl implements ProductUnitService {
 		// TODO Auto-generated method stub
 		return productUnitMapper.updateByPrimaryKeySelective(record);
 	}
+	@Override
+	public int isExitByName(String puname) {
+		// TODO Auto-generated method stub
+		return productUnitMapper.isExitByName(puname);
+	}
+	@Override
+	public ProductUnit selectByPrimaryKey(Integer puId) {
+		// TODO Auto-generated method stub
+		return productUnitMapper.selectByPrimaryKey(puId);
+	}
 
 }

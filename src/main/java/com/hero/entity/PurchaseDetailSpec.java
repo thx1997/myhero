@@ -7,6 +7,8 @@ public class PurchaseDetailSpec {
 
     private String pdPnId;
 
+    private Integer pdShId;
+    
     private Integer pdPId;
 
     private Integer pdPsId;
@@ -44,16 +46,25 @@ public class PurchaseDetailSpec {
     private BigDecimal psDensity;
 
     private String densityName;
+    private String shName;
+    
+    
 
     
     
-    public PurchaseDetailSpec(Integer pdId, String pdPnId, Integer pdPId, Integer pdPsId, Integer pdQuantity,
-			BigDecimal pdUnitprice, Integer pdSId, BigDecimal pdAmount, Integer pId, String pName, String sName,
-			String pcName, String pbName, BigDecimal psWeight, String weightName, String psSize, String sizeName,
-			BigDecimal psDia, String diaName, BigDecimal psDensity, String densityName) {
+	
+
+
+
+	public PurchaseDetailSpec(Integer pdId, String pdPnId, Integer pdShId, Integer pdPId, Integer pdPsId,
+			Integer pdQuantity, BigDecimal pdUnitprice, Integer pdSId, BigDecimal pdAmount, Integer pId, String pName,
+			String sName, String pcName, String pbName, BigDecimal psWeight, String weightName, String psSize,
+			String sizeName, BigDecimal psDia, String diaName, BigDecimal psDensity, String densityName,
+			String shName) {
 		super();
 		this.pdId = pdId;
 		this.pdPnId = pdPnId;
+		this.pdShId = pdShId;
 		this.pdPId = pdPId;
 		this.pdPsId = pdPsId;
 		this.pdQuantity = pdQuantity;
@@ -73,10 +84,11 @@ public class PurchaseDetailSpec {
 		this.diaName = diaName;
 		this.psDensity = psDensity;
 		this.densityName = densityName;
+		this.shName = shName;
 	}
 
-    
-    
+
+
 	public PurchaseDetailSpec() {
 		super();
 	}
@@ -251,17 +263,47 @@ public class PurchaseDetailSpec {
         this.densityName = densityName == null ? null : densityName.trim();
     }
 
+    
+
+	public Integer getPdShId() {
+		return pdShId;
+	}
+
+
+
+	public void setPdShId(Integer pdShId) {
+		this.pdShId = pdShId;
+	}
+
+
+
+	public String getShName() {
+		return shName;
+	}
+
+
+
+	public void setShName(String shName) {
+		this.shName = shName;
+	}
+
 
 
 	@Override
 	public String toString() {
-		return "PurchaseDetailSpec [pdId=" + pdId + ", pdPnId=" + pdPnId + ", pdPId=" + pdPId + ", pdPsId=" + pdPsId
-				+ ", pdQuantity=" + pdQuantity + ", pdUnitprice=" + pdUnitprice + ", pdSId=" + pdSId + ", pdAmount="
-				+ pdAmount + ", pId=" + pId + ", pName=" + pName + ", sName=" + sName + ", pcName=" + pcName
-				+ ", pbName=" + pbName + ", psWeight=" + psWeight + ", weightName=" + weightName + ", psSize=" + psSize
-				+ ", sizeName=" + sizeName + ", psDia=" + psDia + ", diaName=" + diaName + ", psDensity=" + psDensity
-				+ ", densityName=" + densityName + "]";
+		return "PurchaseDetailSpec [pdId=" + pdId + ", pdPnId=" + pdPnId + ", pdShId=" + pdShId + ", pdPId=" + pdPId
+				+ ", pdPsId=" + pdPsId + ", pdQuantity=" + pdQuantity + ", pdUnitprice=" + pdUnitprice + ", pdSId="
+				+ pdSId + ", pdAmount=" + pdAmount + ", pId=" + pId + ", pName=" + pName + ", sName=" + sName
+				+ ", pcName=" + pcName + ", pbName=" + pbName + ", psWeight=" + psWeight + ", weightName=" + weightName
+				+ ", psSize=" + psSize + ", sizeName=" + sizeName + ", psDia=" + psDia + ", diaName=" + diaName
+				+ ", psDensity=" + psDensity + ", densityName=" + densityName + ", shName=" + shName + "]";
 	}
+
+
+
+	
+
+	
     
     
 }

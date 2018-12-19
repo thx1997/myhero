@@ -55,14 +55,21 @@ public class ProductUnitController {
 	@ResponseBody
 	public Object insertUnit(ProductUnit unit) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int n=productUnitService.insertSelective(unit);
-		if (n>0) {
-			map.put("success", true);
-			map.put("message", "添加成功");
-		} else {
+		int e=productUnitService.isExitByName(unit.getPuName());//判断单位名是否已存在
+		if (e>0) {
 			map.put("success", false);
-			map.put("message", "添加失败");
+			map.put("message", "该单位已存在");
+		} else {
+			int n=productUnitService.insertSelective(unit);
+			if (n>0) {
+				map.put("success", true);
+				map.put("message", "添加成功");
+			} else {
+				map.put("success", false);
+				map.put("message", "添加失败");
+			}
 		}
+		
 		return map;
 	}
 	/**
@@ -74,28 +81,64 @@ public class ProductUnitController {
 	@ResponseBody
 	public Object updateUnit(ProductUnit unit) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int n=productUnitService.updateByPrimaryKeySelective(unit);
-		if (n>0) {
-			map.put("success", true);
-			map.put("message", "修改成功");
-		} else {
-			map.put("success", false);
-			map.put("message", "修改失败");
+		ProductUnit u=productUnitService.selectByPrimaryKey(unit.getPuId());
+		int n=0;
+		System.out.println(u.getPuName().equals(unit.getPuName()));
+		if (u.getPuName().equals(unit.getPuName())) {//判断是否更改了名称
+			n=productUnitService.updateByPrimaryKeySelective(unit);
+			if (n>0) {
+				map.put("success", true);
+				map.put("message", "修改成功");
+			} else {
+				map.put("success", false);
+				map.put("message", "修改失败");
+			}
+		} else {//若修改了名称，则判断名称是否存在
+			int e=productUnitService.isExitByName(unit.getPuName());//判断单位名是否已存在
+			if (e>0) {
+				map.put("success", false);
+				map.put("message", "该单位已存在");
+			} else {
+				n=productUnitService.updateByPrimaryKeySelective(unit);
+				if (n>0) {
+					map.put("success", true);
+					map.put("message", "修改成功");
+				} else {
+					map.put("success", false);
+					map.put("message", "修改失败");
+				}
+			}
 		}
+		
 		return map;
 	}
+	
+	/**
+	 * 删除单位(rfy)
+	 * @param puid
+	 * @return
+	 */
 	@RequestMapping(value="/delete")
 	@ResponseBody
 	public Object deleteUnit(Integer puid) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int n=productUnitService.deleteByPrimaryKey(puid);
-		if (n>0) {
-			map.put("success", true);
-			map.put("message", "删除成功");
-		} else {
+		int n;
+		try {
+			n = productUnitService.deleteByPrimaryKey(puid);
+			if (n>0) {
+				map.put("success", true);
+				map.put("message", "删除成功");
+			} else {
+				map.put("success", false);
+				map.put("message", "删除失败");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			map.put("success", false);
-			map.put("message", "删除失败");
+			map.put("message", "删除失败，该单位已被引用");
 		}
+		
 		return map;
 	}
 	

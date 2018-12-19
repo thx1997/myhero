@@ -8,7 +8,9 @@ public class PurchaseDetail {
     private Integer pdId;
 
     private String pdPnId;
-
+    
+    private Integer pdShId;
+    
     private Integer pdPId;
     
     private Integer pdPsId;
@@ -29,12 +31,15 @@ public class PurchaseDetail {
     private ProductSpec productspec;
 	
 	
+	
 	@Override
 	public String toString() {
-		return "PurchaseDetail [pdId=" + pdId + ", pdPnId=" + pdPnId + ", pdPId=" + pdPId + ", pdPsId=" + pdPsId
-				+ ", pdQuantity=" + pdQuantity + ", pdUnitprice=" + pdUnitprice + ", pdSId=" + pdSId + ", pdAmount="
-				+ pdAmount + ", product=" + product + ", supplier=" + supplier + "]";
+		return "PurchaseDetail [pdId=" + pdId + ", pdPnId=" + pdPnId + ", pdShId=" + pdShId + ", pdPId=" + pdPId
+				+ ", pdPsId=" + pdPsId + ", pdQuantity=" + pdQuantity + ", pdUnitprice=" + pdUnitprice + ", pdSId="
+				+ pdSId + ", pdAmount=" + pdAmount + ", product=" + product + ", supplier=" + supplier
+				+ ", productspec=" + productspec + "]";
 	}
+
 
 	public PurchaseDetail() {
 		super();
@@ -45,11 +50,13 @@ public class PurchaseDetail {
 
 	
 	
-	public PurchaseDetail(Integer pdId, String pdPnId, Integer pdPId, Integer pdPsId, Integer pdQuantity,
-			BigDecimal pdUnitprice, Integer pdSId, BigDecimal pdAmount, Product product, SupplierOrCustomer supplier) {
+	public PurchaseDetail(Integer pdId, String pdPnId, Integer pdShId, Integer pdPId, Integer pdPsId,
+			Integer pdQuantity, BigDecimal pdUnitprice, Integer pdSId, BigDecimal pdAmount, Product product,
+			SupplierOrCustomer supplier, ProductSpec productspec) {
 		super();
 		this.pdId = pdId;
 		this.pdPnId = pdPnId;
+		this.pdShId = pdShId;
 		this.pdPId = pdPId;
 		this.pdPsId = pdPsId;
 		this.pdQuantity = pdQuantity;
@@ -58,7 +65,13 @@ public class PurchaseDetail {
 		this.pdAmount = pdAmount;
 		this.product = product;
 		this.supplier = supplier;
+		this.productspec = productspec;
 	}
+
+
+
+
+
 
 	public SupplierOrCustomer getSupplier() {
 		return supplier;
@@ -138,6 +151,42 @@ public class PurchaseDetail {
 
 	public void setPdPsId(Integer pdPsId) {
 		this.pdPsId = pdPsId;
+	}
+
+
+
+
+
+
+	public Integer getPdShId() {
+		return pdShId;
+	}
+
+
+
+
+
+
+	public void setPdShId(Integer pdShId) {
+		this.pdShId = pdShId;
+	}
+
+
+
+
+
+
+	public ProductSpec getProductspec() {
+		return productspec;
+	}
+
+
+
+
+
+
+	public void setProductspec(ProductSpec productspec) {
+		this.productspec = productspec;
 	}
     
     

@@ -19,8 +19,10 @@ public interface PurchaseDetailService {
     //修改采购详情(rfy)
     int updateByPrimaryKeySelective(PurchaseDetail record);
   
-
-
+    //删除采购信息(rfy)
+    int deleteByPrimaryKey(Integer pdId);
+    //批量删除采购信息(rfy)
+    int deleteByPdIdList(@Param("list")List<Integer> pdid);
 
 
 

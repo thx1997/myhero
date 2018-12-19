@@ -120,4 +120,87 @@ public class ProductController {
 		return map;
 	}
 	
+	
+	/**
+	 * 添加商品信息
+	 * @param product
+	 * @param spec
+	 * @param sid
+	 * @return
+	 */
+	@RequestMapping(value="/insertProAndSpec")
+	public Object insertProAndSpec(Product product,ProductSpec spec,Integer sid) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int n=productService.insertSelective(product);//先添加商品信息
+		if (n>0) {//添加成功时
+			int pid=productService.selectNewPId();//查询刚添加的商品的id
+			int sp=productService.insertProSupplier(sid, pid);//添加供货商商品表信息
+			if (sp>0) {
+				spec.setPsPId(pid);
+				int spe=productSpecService.insertSelective(spec);//添加商品的规格信息
+				if (spe>0) {
+					map.put("success", true);
+					map.put("message", "添加成功");
+				} else {
+					map.put("success", false);
+					map.put("message", "添加失败");
+				}
+			} else {
+				map.put("success", false);
+				map.put("message", "添加失败");
+			}
+		} else {
+			map.put("success", false);
+			map.put("message", "添加失败");
+		}
+		return map;
+	}
+	
+	/**
+	 * 删除商品及规格信息(rfy)
+	 * @param pid
+	 * @param psid
+	 * @param spid
+	 * @return
+	 */
+	@RequestMapping(value="/deleteProAndSpec")
+	public Object deleteProAndSpec(Integer pid,Integer psid,Integer spid) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int sp=productService.delProSupplier(spid);//先删除商品供应商
+		if (sp>0) {
+			int ps=productSpecService.deleteByPrimaryKey(psid);//再删除商品规格
+			if (ps>0) {
+				int p=productService.deleteByPrimaryKey(pid);//最后删除商品
+				if (p>0) {
+					map.put("success", true);
+					map.put("message", "删除成功");
+				} else {
+					map.put("success", false);
+					map.put("message", "删除失败");
+				}
+			} else {
+				map.put("success", false);
+				map.put("message", "删除失败");
+			}
+		} else {
+			map.put("success", false);
+			map.put("message", "删除失败");
+		}
+		return map;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

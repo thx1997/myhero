@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.hero.entity.PurchaseDetailSpec" >
     <result column="pd_id" property="pdId" jdbcType="INTEGER" />
     <result column="pd_pn_id" property="pdPnId" jdbcType="VARCHAR" />
+    <result column="pd_sh_id" property="pdShId" jdbcType="INTEGER" />
     <result column="pd_p_id" property="pdPId" jdbcType="INTEGER" />
     <result column="pd_ps_id" property="pdPsId" jdbcType="INTEGER" />
     <result column="pd_quantity" property="pdQuantity" jdbcType="INTEGER" />
@@ -23,6 +24,7 @@
     <result column="dia_name" property="diaName" jdbcType="VARCHAR" />
     <result column="ps_density" property="psDensity" jdbcType="DECIMAL" />
     <result column="density_name" property="densityName" jdbcType="VARCHAR" />
+    <result column="sh_name" property="shName" jdbcType="VARCHAR" />
   </resultMap>
 <!--   <sql id="Base_Column_List" >
 	    pd_id, pd_pn_id, pd_p_id, pd_ps_id,pd_quantity, pd_unitprice, pd_s_id, pd_amount
@@ -33,13 +35,25 @@
    </sql> -->
  
  
- 
-  <!-- 根据采购单号查询采购详情(rfy) -->
-  <select id="queryByPurId" resultMap="BaseResultMap">
+ <!-- rfy -->
+  <sql id="CountwhereSQL">
+  	<where>
+	      <if test="pnid != null and pnid!=''" >
+	        and pd_pn_id =#{pnid}
+	      </if>
+  	</where>
+  </sql>
+  <!-- 根据采购单号分页查询采购详情(rfy) -->
+  <select id="queryByPurQuery" resultMap="BaseResultMap" parameterType="com.hero.entity.query.PurchaseDetailSpecQuery">
     select * from view_purchasedetail_spec
-    where pd_pn_id = #{pnid}
+    <include refid="CountwhereSQL"/>
+  	LIMIT #{startIndex},#{rows}
   </select>
- 
+ <!--查询分页总记录数(rfy) -->
+  	<select id="queryCountByPurQuery" resultType="int" parameterType="com.hero.entity.query.PurchaseDetailSpecQuery">
+  		select count(*) FROM view_purchasedetail_spec
+  		<include refid="CountwhereSQL"/>
+  	</select>
  
  
  

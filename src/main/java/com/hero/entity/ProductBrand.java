@@ -3,14 +3,15 @@ package com.hero.entity;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hero.entity.query.QueryBase;
 
-public class ProductBrand {
+public class ProductBrand extends QueryBase{
     private Integer pbId;
 
     private String pbName;
-    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     private Date pbCreatetime;
-    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd")
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-dd HH:mm:ss")
     private Date pbUpdatetime;
 
     private String pbRemark;

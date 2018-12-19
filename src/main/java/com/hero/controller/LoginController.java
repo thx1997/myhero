@@ -17,6 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hero.entity.Employee;
 import com.hero.entity.Role;
 import com.hero.entity.Token;
+import com.hero.service.BreakageOverflowServer;
 import com.hero.service.EmployeeService;
 import com.hero.service.PermissionService;
 import com.hero.service.RoleService;
@@ -36,19 +37,21 @@ public class LoginController {
 	
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private BreakageOverflowServer breakageOverflowServer;
 	
 	int count;
 	@RequestMapping("/confirm")
 	public Object login(String un,String pwd){
+		Employee user=employeeService.getEmpByEloginname(un);//根据用户名获取用户信息
+		if(user==null)
+			return new Result("用户名错误",0);
 		//先把用户输入的密码进行加密
 		PasswordEncoder encoder=null;
 		encoder = new PasswordEncoder(un, "Md5");	
 		pwd=encoder.encode(pwd, 5);
-		
-		Employee user=employeeService.getEmpByEloginname(un);//根据用户名获取用户信息
 		System.out.println("加密密码"+pwd+"正确密码"+user.getePwd());
-		if(user==null)
-			return new Result("用户名错误",0);
+		
 		if(user.geteIslockout()==1)
 			return new Result("用户已被锁定,请联系管理员解锁.QQ : 993206626 ",0);
 		if(!user.getePwd().equals(pwd)){//用户密码输入错误时
@@ -111,6 +114,7 @@ public class LoginController {
 		map.put("uId", uid);
 		map.put("roleName", rnameList);
 		System.out.println("登录响应》》"+map);
+		//breakageOverflowServer.deleteByNumberZero();//清除损溢单的无效信息(thx)
 		count=0;
 		System.out.println("登录成功时密码错误次数>>>>>>>>>>"+count);
 		return new Result(map);//登录成功

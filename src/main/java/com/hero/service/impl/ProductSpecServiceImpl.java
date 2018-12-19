@@ -24,5 +24,10 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 		// TODO Auto-generated method stub
 		return productSpecMapper.updateByPrimaryKeySelective(record);
 	}
+	@Override
+	public int deleteByPrimaryKey(Integer psId) {
+		// TODO Auto-generated method stub
+		return productSpecMapper.deleteByPrimaryKey(psId);
+	}
 
 }
