@@ -9,14 +9,31 @@
     <result column="bod_s_id" property="bodSId" jdbcType="INTEGER" />
     <result column="bod_createtime" property="bodCreatetime" jdbcType="TIMESTAMP" />
     <result column="bod_number" property="bodNumber" jdbcType="INTEGER" />
+     <result column="bod_gl_e_id" property="bodGlEid" jdbcType="INTEGER" />
+     <result column="bod_fz_e_id" property="bodFzEid" jdbcType="INTEGER" />
+    
     <result column="bod_state" property="bodState" jdbcType="INTEGER" />
     <result column="bod_remark" property="bodRemark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    bod_id, bod_p_id, bod_bo_id, bod_type, bod_s_id, bod_createtime, bod_number, bod_state, 
+    bod_id, bod_p_id, bod_bo_id, bod_type, bod_s_id, bod_createtime, bod_number,bod_gl_e_id,bod_fz_e_id, bod_state, 
     bod_remark
   </sql>
-  
+  <!-- 查询一个总单的所有详情单的状态(thx) -->
+  <select id="selectBodStateByBoid" parameterType="int" resultType="int">
+         SELECT MIN(bod_state) FROM i_breakage_overflow_detail WHERE bod_bo_id=#{boid}  
+  </select>
+  <!-- 更改单子状态(thx) -->
+  <update id="updateBodStateByBodId">
+       UPDATE i_breakage_overflow_detail SET bod_state=#{state},
+       <if test="type == 0">
+       bod_gl_e_id=#{eid}
+       </if>
+       <if test="type == 1">
+       bod_fz_e_id=#{eid}
+       </if>          
+        WHERE bod_id=#{bodId}
+  </update>
   
   <!-- 根据库存编号和商品编号查询该商品的库存量（thx） -->
   <select id="selectSdnumberBypuid" resultType="int">

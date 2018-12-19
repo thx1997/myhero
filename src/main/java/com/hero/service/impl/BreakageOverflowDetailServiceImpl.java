@@ -1,5 +1,7 @@
 package com.hero.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,14 @@ public class BreakageOverflowDetailServiceImpl implements BreakageOverflowDetail
 	public int insertSelective(BreakageOverflowDetail record) {
 		return breakageOverflowDetailMapper.insertSelective(record);
 	}
+	@Override//thx
+	public int updateBodStateByBodId(Integer bodId, Integer state, Integer eid, Integer type) {
+			return breakageOverflowDetailMapper.updateBodStateByBodId(bodId, state, eid, type);
+	}
+	@Override//thx
+	public Integer selectBodStateByBoid(Integer boid) {
+		return breakageOverflowDetailMapper.selectBodStateByBoid(boid);
+	}
+	
 
 }

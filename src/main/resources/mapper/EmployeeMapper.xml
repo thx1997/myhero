@@ -103,7 +103,12 @@
 			</if>
 		</where>
 	</sql>
-
+	<!--根据角色查询员工,返回员工集合(thx)  -->
+	<select id="selectEmpByRoleName" parameterType="string" resultMap="BaseResultMap">
+	SELECT 
+	<include refid="Base_Column_List" />
+	 FROM i_employee WHERE e_id IN(SELECT re_e_id FROM i_role_employee WHERE re_r_id=(SELECT r_id FROM i_role WHERE r_name=#{rname}))
+	</select>
 	<!--多条件分页查询员工,返回满足条件的集合(thx) -->
 	<select id="queryEmp" parameterType="com.hero.entity.query.EmployeeQuery"
 		resultMap="BaseResultMap">

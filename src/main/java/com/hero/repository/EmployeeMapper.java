@@ -78,6 +78,14 @@ public interface EmployeeMapper {
      * @return 受影响的行数
      */
     public int addRe(@Param("eid")int eid,@Param("rids") List<Integer> rids);
+    
+    /**
+     * 根据角色查询员工
+     * @author thx
+     * @param rname 角色名
+     * @return 满足条件的员工集合
+     */
+    List<Employee> selectEmpByRoleName(String rname);
     //更新用户信息：锁定解锁、锁定时间、登录时间、密码错误次数（rfy）
     int updateBySelective(Employee record);
     //根据员工登录名获取员工信息（rfy）

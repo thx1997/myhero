@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.BofDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.BofDetail" >
+    <result column="bo_id" property="boId" jdbcType="INTEGER" />
+    <result column="bo_createtime" property="boCreatetime" jdbcType="TIMESTAMP" />
+    <result column="bo_number" property="boNumber" jdbcType="INTEGER" />
+    <result column="bo_state" property="boState" jdbcType="INTEGER" />
+    <result column="bod_id" property="bodId" jdbcType="INTEGER" />
+    <result column="bod_p_id" property="bodPId" jdbcType="INTEGER" />
+    <result column="bod_type" property="bodType" jdbcType="INTEGER" />
+    <result column="bod_createtime" property="bodCreatetime" jdbcType="TIMESTAMP" />
+    <result column="bod_number" property="bodNumber" jdbcType="INTEGER" />
+    <result column="bod_state" property="bodState" jdbcType="INTEGER" />
+    <result column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+    <result column="e_id" property="eId" jdbcType="INTEGER" />
+    <result column="e_name" property="eName" jdbcType="VARCHAR" />
+    <result column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="pc_id" property="pcId" jdbcType="INTEGER" />
+    <result column="pc_name" property="pcName" jdbcType="VARCHAR" />
+    <result column="pb_id" property="pbId" jdbcType="INTEGER" />
+    <result column="pb_name" property="pbName" jdbcType="VARCHAR" />
+    <result column="ps_weight" property="psWeight" jdbcType="DECIMAL" />
+    <result column="ps_weightUnit" property="psWeightunit" jdbcType="VARCHAR" />
+    <result column="ps_size" property="psSize" jdbcType="VARCHAR" />
+    <result column="ps_sizeUnit" property="psSizeunit" jdbcType="VARCHAR" />
+    <result column="ps_dia" property="psDia" jdbcType="DECIMAL" />
+    <result column="ps_diaUnit" property="psDiaunit" jdbcType="VARCHAR" />
+    <result column="ps_density" property="psDensity" jdbcType="DECIMAL" />
+    <result column="ps_densityUnit" property="psDensityunit" jdbcType="VARCHAR" />
+ <result column="glName" property="glName" jdbcType="VARCHAR" />
+ <result column="fzName" property="fzName" jdbcType="VARCHAR" />
+ 
+  </resultMap>
+  <sql id="queryWhere">
+     <where>
+           <if test="boId != null">
+				and bo_id=#{boId}
+			</if>
+			<if test="beginBodCreatetime != null">
+				and bod_createtime &gt; #{beginBodCreatetime}
+			</if>
+			<if test="endBodCreatetime != null">
+				and bod_createtime &lt; #{endBodCreatetime}
+			</if>
+			  <if test="bodType != null">
+				and bod_type=#{bodType}
+			</if>
+			<if test="bodState != null">
+				and bod_state=#{bodState}
+			</if>
+		</where>
+  </sql>
+  <!--多条件分页查询损益单详情,返回满足条件的集合(thx) -->
+	<select id="querybofd" parameterType="com.hero.entity.query.BofDetailQuery" resultMap="BaseResultMap">
+		select *
+		from bof_deteil
+		<include refid="queryWhere" />
+		limit #{startIndex},#{rows}
+	</select>
+	<!--多条件分页查询损益单详情,返回满足条件的集合的总条数(thx) -->
+	<select id="querybofdCount"  parameterType="com.hero.entity.query.BofDetailQuery" resultType="int">
+		select count(*) 
+		from bof_deteil
+		<include refid="queryWhere" />
+	</select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <insert id="insert" parameterType="com.hero.entity.BofDetail" >
+    insert into bof_deteil (bo_id, bo_createtime, bo_number, 
+      bo_state, bod_id, bod_p_id, 
+      bod_type, bod_createtime, bod_number, 
+      bod_state, s_id, s_name, 
+      e_id, e_name, p_id, p_name, 
+      pc_id, pc_name, pb_id, 
+      pb_name, ps_weight, ps_weightUnit, 
+      ps_size, ps_sizeUnit, ps_dia, 
+      ps_diaUnit, ps_density, ps_densityUnit
+      )
+    values (#{boId,jdbcType=INTEGER}, #{boCreatetime,jdbcType=TIMESTAMP}, #{boNumber,jdbcType=INTEGER}, 
+      #{boState,jdbcType=INTEGER}, #{bodId,jdbcType=INTEGER}, #{bodPId,jdbcType=INTEGER}, 
+      #{bodType,jdbcType=BIT}, #{bodCreatetime,jdbcType=TIMESTAMP}, #{bodNumber,jdbcType=INTEGER}, 
+      #{bodState,jdbcType=INTEGER}, #{sId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, 
+      #{eId,jdbcType=INTEGER}, #{eName,jdbcType=VARCHAR}, #{pId,jdbcType=INTEGER}, #{pName,jdbcType=VARCHAR}, 
+      #{pcId,jdbcType=INTEGER}, #{pcName,jdbcType=VARCHAR}, #{pbId,jdbcType=INTEGER}, 
+      #{pbName,jdbcType=VARCHAR}, #{psWeight,jdbcType=DECIMAL}, #{psWeightunit,jdbcType=VARCHAR}, 
+      #{psSize,jdbcType=VARCHAR}, #{psSizeunit,jdbcType=VARCHAR}, #{psDia,jdbcType=DECIMAL}, 
+      #{psDiaunit,jdbcType=VARCHAR}, #{psDensity,jdbcType=DECIMAL}, #{psDensityunit,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hero.entity.BofDetail" >
+    insert into bof_deteil
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="boId != null" >
+        bo_id,
+      </if>
+      <if test="boCreatetime != null" >
+        bo_createtime,
+      </if>
+      <if test="boNumber != null" >
+        bo_number,
+      </if>
+      <if test="boState != null" >
+        bo_state,
+      </if>
+      <if test="bodId != null" >
+        bod_id,
+      </if>
+      <if test="bodPId != null" >
+        bod_p_id,
+      </if>
+      <if test="bodType != null" >
+        bod_type,
+      </if>
+      <if test="bodCreatetime != null" >
+        bod_createtime,
+      </if>
+      <if test="bodNumber != null" >
+        bod_number,
+      </if>
+      <if test="bodState != null" >
+        bod_state,
+      </if>
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="sName != null" >
+        s_name,
+      </if>
+      <if test="eId != null" >
+        e_id,
+      </if>
+      <if test="eName != null" >
+        e_name,
+      </if>
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="pName != null" >
+        p_name,
+      </if>
+      <if test="pcId != null" >
+        pc_id,
+      </if>
+      <if test="pcName != null" >
+        pc_name,
+      </if>
+      <if test="pbId != null" >
+        pb_id,
+      </if>
+      <if test="pbName != null" >
+        pb_name,
+      </if>
+      <if test="psWeight != null" >
+        ps_weight,
+      </if>
+      <if test="psWeightunit != null" >
+        ps_weightUnit,
+      </if>
+      <if test="psSize != null" >
+        ps_size,
+      </if>
+      <if test="psSizeunit != null" >
+        ps_sizeUnit,
+      </if>
+      <if test="psDia != null" >
+        ps_dia,
+      </if>
+      <if test="psDiaunit != null" >
+        ps_diaUnit,
+      </if>
+      <if test="psDensity != null" >
+        ps_density,
+      </if>
+      <if test="psDensityunit != null" >
+        ps_densityUnit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="boId != null" >
+        #{boId,jdbcType=INTEGER},
+      </if>
+      <if test="boCreatetime != null" >
+        #{boCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="boNumber != null" >
+        #{boNumber,jdbcType=INTEGER},
+      </if>
+      <if test="boState != null" >
+        #{boState,jdbcType=INTEGER},
+      </if>
+      <if test="bodId != null" >
+        #{bodId,jdbcType=INTEGER},
+      </if>
+      <if test="bodPId != null" >
+        #{bodPId,jdbcType=INTEGER},
+      </if>
+      <if test="bodType != null" >
+        #{bodType,jdbcType=BIT},
+      </if>
+      <if test="bodCreatetime != null" >
+        #{bodCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bodNumber != null" >
+        #{bodNumber,jdbcType=INTEGER},
+      </if>
+      <if test="bodState != null" >
+        #{bodState,jdbcType=INTEGER},
+      </if>
+      <if test="sId != null" >
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="sName != null" >
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="eId != null" >
+        #{eId,jdbcType=INTEGER},
+      </if>
+      <if test="eName != null" >
+        #{eName,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null" >
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pcId != null" >
+        #{pcId,jdbcType=INTEGER},
+      </if>
+      <if test="pcName != null" >
+        #{pcName,jdbcType=VARCHAR},
+      </if>
+      <if test="pbId != null" >
+        #{pbId,jdbcType=INTEGER},
+      </if>
+      <if test="pbName != null" >
+        #{pbName,jdbcType=VARCHAR},
+      </if>
+      <if test="psWeight != null" >
+        #{psWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="psWeightunit != null" >
+        #{psWeightunit,jdbcType=VARCHAR},
+      </if>
+      <if test="psSize != null" >
+        #{psSize,jdbcType=VARCHAR},
+      </if>
+      <if test="psSizeunit != null" >
+        #{psSizeunit,jdbcType=VARCHAR},
+      </if>
+      <if test="psDia != null" >
+        #{psDia,jdbcType=DECIMAL},
+      </if>
+      <if test="psDiaunit != null" >
+        #{psDiaunit,jdbcType=VARCHAR},
+      </if>
+      <if test="psDensity != null" >
+        #{psDensity,jdbcType=DECIMAL},
+      </if>
+      <if test="psDensityunit != null" >
+        #{psDensityunit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
