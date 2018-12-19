@@ -37,5 +37,13 @@ public class BreakageOverflowServerImpl implements BreakageOverflowServer {
 	public int querybofCount(BreakageOverflowQuery bofQuery) {
 		return breakageOverflowMapper.querybofCount(bofQuery);
 	}
+	@Override//
+	public int deleteByNumberZero() {
+		return breakageOverflowMapper.deleteByNumberZero();
+	}
+	@Override//thx
+	public int updateBoStateByBoId(Integer boId, Integer state) {
+		return breakageOverflowMapper.updateBoStateByBoId(boId, state);
+	}
 
 }

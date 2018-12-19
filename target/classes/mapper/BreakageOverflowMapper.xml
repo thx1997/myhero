@@ -33,9 +33,22 @@
 			  <if test="boState != null">
 				and bo_state=#{boState}
 			</if>
-			
+			<if test="bodType != null">
+				and bod_type=#{bodType}
+			</if>
+			<if test="1 == 1">
+				and bo_number!=0
+			</if>
 		</where>
   </sql>
+  
+  
+  <!--更改单子状态（（0：上报中1：已审核2：已处理）(thx)  -->
+  <update id="updateBoStateByBoId">
+        UPDATE i_breakage_overflow SET bo_state=#{state} WHERE bo_id=#{boId}  
+  </update>
+  
+  
    <!--多条件分页查询损益单,返回满足条件的集合(thx) -->
 	<select id="querybof" parameterType="com.hero.entity.query.BreakageOverflowQuery" resultMap="BaseResultMap">
 		select
@@ -72,6 +85,10 @@
          UPDATE i_breakage_overflow SET bo_number=#{number}  WHERE bo_id=#{boId}  
   </update>
   
+  <!--清除损溢单的无效信息(thx)  -->
+  <delete id="deleteByNumberZero">
+      DELETE FROM i_breakage_overflow WHERE bo_number=0   
+  </delete>
   
   
   

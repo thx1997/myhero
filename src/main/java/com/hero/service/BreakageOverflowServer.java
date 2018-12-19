@@ -50,5 +50,20 @@ public interface BreakageOverflowServer {
  	 * @return 满足条件的单子集合的总条数
  	 */
  	public int querybofCount(BreakageOverflowQuery bofQuery);
+ 	 /**
+     * 清除损溢单的无效信息
+     * @author thx
+     * @return 受影响的行数
+     */
+    int deleteByNumberZero();
     
+    /**
+     *  更改单子状态（（0：上报中1：已审核2：已处理）
+     *  @author thx
+     * @param boId 单子编号
+     * @param state 状态
+     * @return 受影响的行数
+     */
+	int updateBoStateByBoId(Integer boId,Integer state);
+	
 }

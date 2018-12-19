@@ -11,16 +11,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hero.entity.BofDetail;
 import com.hero.entity.BreakageOverflow;
 import com.hero.entity.BreakageOverflowDetail;
+import com.hero.entity.Department;
+import com.hero.entity.Employee;
 import com.hero.entity.Product;
 import com.hero.entity.ProductCategory;
 import com.hero.entity.ProductSpec;
+import com.hero.entity.Role;
 import com.hero.entity.StoreHouse;
+import com.hero.entity.query.BofDetailQuery;
 import com.hero.entity.query.BreakageOverflowQuery;
+import com.hero.entity.query.RoleQuery;
 import com.hero.entity.query.StorehousePro;
+import com.hero.service.BofDetailService;
 import com.hero.service.BreakageOverflowDetailService;
 import com.hero.service.BreakageOverflowServer;
+import com.hero.service.EmployeeService;
 import com.hero.service.ProductService;
 import com.hero.service.ProductSpecService;
 import com.hero.service.ProductUnitService;
@@ -40,7 +48,47 @@ public class BreakageOverflowController {
 	@Autowired
 	ProductUnitService productUnitService;
 	@Autowired
-	BreakageOverflowDetailService breakageOverflowDetailService;
+	BreakageOverflowDetailService breakageOverflowDetailService;	
+	@Autowired
+	EmployeeService employeeService;
+	@Autowired
+	BofDetailService bofDetailService;
+	/**
+	 * 修改单子状态(仓库管理员)
+	 * @param bodid 详情单编号
+	 * @param state 状态
+	 * @param boid 总单编号
+	 *  @param eid 操作人编号
+	 *  @param type 0：管理员核审按钮1：负责人处理按钮
+	 * @return
+	 */
+	@RequestMapping("/updateState")
+	public Object updateBodStateByBoId(Integer bodid,Integer state,Integer boid,Integer eid,int type) {
+		Map<String,Object> map=new HashMap<String,Object>();
+		//修改详情单状态
+        int n=breakageOverflowDetailService.updateBodStateByBodId(bodid, state,eid,type);
+      
+        //查询到所有详情单的最小状态
+        Integer minBodid=breakageOverflowDetailService.selectBodStateByBoid(boid);
+          //更改主表的状态为详情表的最小状态         
+         breakageOverflowServer.updateBoStateByBoId(boid,minBodid);
+         
+         
+        if(n>0) {
+        	map.put("success", true);
+        	map.put("message","操作成功");
+        }else {
+        	map.put("success", false);
+        	map.put("message","操作失败");
+        }
+		return map;
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * 多条件分页查询损益单
 	 * @param bofQuery 条件封装的实体
@@ -191,5 +239,39 @@ public class BreakageOverflowController {
 		
 		return map;
 	}
+	/**
+	 * 根据角色查询员工
+	 * @author thx
+	 * @return
+	 */
+	//@RequestMapping(value="/queryEmpByRname",name="根据角色查询员工")
+	@RequestMapping(value="/queryEmpByRname")
+	public Object queryEmpByRname() {
+		List<Employee> empList=employeeService.selectEmpByRoleName("仓库盘点员");
+		System.out.println("是仓库盘点员的有"+empList);
+		return empList;
+	}
+	/**
+	 * 多条件分页查询损益单详情
+	 * @param bofdQuery 条件封装的实体
+	 * @author thx
+	 * @return 
+	 */
+	@RequestMapping(value = "/querybofd")
+	public Object querybofd(BofDetailQuery bofdQuery,BindingResult bindingResult){
+		System.out.println("查询参数"+bofdQuery);
+		
+		List<BofDetail> rows = bofDetailService.querybofd(bofdQuery);
+		int total = bofDetailService.querybofdCount(bofdQuery);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
+		System.out.println("查询结果"+rows);
+		
+		map.put("total", total);
+		map.put("rows", rows);
+		return map;
+	}
+	
 	
 }

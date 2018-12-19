@@ -72,7 +72,13 @@ public interface EmployeeService {
 	     * @return 受影响的行数
 	     */
 	    public int addRe(int eid,List<Integer> rids);
-	 
+	    /**
+	     * 根据角色查询员工
+	     * @author thx
+	     * @param rname 角色名
+	     * @return 满足条件的员工集合
+	     */
+	    List<Employee> selectEmpByRoleName(String rname);
 	 
 	 //根据员工登录名获取员工信息（rfy）
 	 public Employee getEmpByEloginname(String ename);

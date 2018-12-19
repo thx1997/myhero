@@ -17,11 +17,31 @@ public class BreakageOverflowDetail {
 
     private Integer bodNumber;
 
+    private Integer bodGlEid;
+    
+    private Integer bodFzEid;
+    
     private Integer bodState;
 
     private String bodRemark;
 
-    public Integer getBodId() {
+    public Integer getBodGlEid() {
+		return bodGlEid;
+	}
+
+	public void setBodGlEid(Integer bodGlEid) {
+		this.bodGlEid = bodGlEid;
+	}
+
+	public Integer getBodFzEid() {
+		return bodFzEid;
+	}
+
+	public void setBodFzEid(Integer bodFzEid) {
+		this.bodFzEid = bodFzEid;
+	}
+
+	public Integer getBodId() {
         return bodId;
     }
 
@@ -93,8 +113,19 @@ public class BreakageOverflowDetail {
         this.bodRemark = bodRemark == null ? null : bodRemark.trim();
     }
 
+	
+
+	@Override
+	public String toString() {
+		return "BreakageOverflowDetail [bodId=" + bodId + ", bodPId=" + bodPId + ", bodBoId=" + bodBoId + ", bodType="
+				+ bodType + ", bodSId=" + bodSId + ", bodCreatetime=" + bodCreatetime + ", bodNumber=" + bodNumber
+				+ ", bodGlEid=" + bodGlEid + ", bodFzEid=" + bodFzEid + ", bodState=" + bodState + ", bodRemark="
+				+ bodRemark + "]";
+	}
+
 	public BreakageOverflowDetail(Integer bodId, Integer bodPId, Integer bodBoId, Boolean bodType, Integer bodSId,
-			Date bodCreatetime, Integer bodNumber, Integer bodState, String bodRemark) {
+			Date bodCreatetime, Integer bodNumber, Integer bodGlEid, Integer bodFzEid, Integer bodState,
+			String bodRemark) {
 		super();
 		this.bodId = bodId;
 		this.bodPId = bodPId;
@@ -103,6 +134,8 @@ public class BreakageOverflowDetail {
 		this.bodSId = bodSId;
 		this.bodCreatetime = bodCreatetime;
 		this.bodNumber = bodNumber;
+		this.bodGlEid = bodGlEid;
+		this.bodFzEid = bodFzEid;
 		this.bodState = bodState;
 		this.bodRemark = bodRemark;
 	}
@@ -111,12 +144,7 @@ public class BreakageOverflowDetail {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "BreakageOverflowDetail [bodId=" + bodId + ", bodPId=" + bodPId + ", bodBoId=" + bodBoId + ", bodType="
-				+ bodType + ", bodSId=" + bodSId + ", bodCreatetime=" + bodCreatetime + ", bodNumber=" + bodNumber
-				+ ", bodState=" + bodState + ", bodRemark=" + bodRemark + "]";
-	}
+	
     
     
 }

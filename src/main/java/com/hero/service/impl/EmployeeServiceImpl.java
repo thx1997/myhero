@@ -56,6 +56,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int addRe(int eid, List<Integer> rids) {
 		return employeeMapper.addRe(eid, rids);
 	}
+	@Override//thx
+	public List<Employee> selectEmpByRoleName(String rname) {
+		return employeeMapper.selectEmpByRoleName(rname);
+	}
 	@Override
 	public Employee getEmpByEloginname(String ename) {
 		return employeeMapper.getEmpByEloginname(ename);
@@ -64,6 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int updateBySelective(Employee record) {
 		return employeeMapper.updateBySelective(record);
 	}
+	
 	
 	
 
