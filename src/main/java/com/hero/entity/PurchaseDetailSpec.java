@@ -20,7 +20,9 @@ public class PurchaseDetailSpec {
     private Integer pdSId;
 
     private BigDecimal pdAmount;
-
+    
+    private Integer pdState;
+    
     private Integer pId;
 
     private String pName;
@@ -56,11 +58,13 @@ public class PurchaseDetailSpec {
 
 
 
+	
+
 	public PurchaseDetailSpec(Integer pdId, String pdPnId, Integer pdShId, Integer pdPId, Integer pdPsId,
-			Integer pdQuantity, BigDecimal pdUnitprice, Integer pdSId, BigDecimal pdAmount, Integer pId, String pName,
-			String sName, String pcName, String pbName, BigDecimal psWeight, String weightName, String psSize,
-			String sizeName, BigDecimal psDia, String diaName, BigDecimal psDensity, String densityName,
-			String shName) {
+			Integer pdQuantity, BigDecimal pdUnitprice, Integer pdSId, BigDecimal pdAmount, Integer pdState,
+			Integer pId, String pName, String sName, String pcName, String pbName, BigDecimal psWeight,
+			String weightName, String psSize, String sizeName, BigDecimal psDia, String diaName, BigDecimal psDensity,
+			String densityName, String shName) {
 		super();
 		this.pdId = pdId;
 		this.pdPnId = pdPnId;
@@ -71,6 +75,7 @@ public class PurchaseDetailSpec {
 		this.pdUnitprice = pdUnitprice;
 		this.pdSId = pdSId;
 		this.pdAmount = pdAmount;
+		this.pdState = pdState;
 		this.pId = pId;
 		this.pName = pName;
 		this.sName = sName;
@@ -289,15 +294,30 @@ public class PurchaseDetailSpec {
 
 
 
+	public Integer getPdState() {
+		return pdState;
+	}
+
+
+
+	public void setPdState(Integer pdState) {
+		this.pdState = pdState;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "PurchaseDetailSpec [pdId=" + pdId + ", pdPnId=" + pdPnId + ", pdShId=" + pdShId + ", pdPId=" + pdPId
 				+ ", pdPsId=" + pdPsId + ", pdQuantity=" + pdQuantity + ", pdUnitprice=" + pdUnitprice + ", pdSId="
-				+ pdSId + ", pdAmount=" + pdAmount + ", pId=" + pId + ", pName=" + pName + ", sName=" + sName
-				+ ", pcName=" + pcName + ", pbName=" + pbName + ", psWeight=" + psWeight + ", weightName=" + weightName
-				+ ", psSize=" + psSize + ", sizeName=" + sizeName + ", psDia=" + psDia + ", diaName=" + diaName
-				+ ", psDensity=" + psDensity + ", densityName=" + densityName + ", shName=" + shName + "]";
+				+ pdSId + ", pdAmount=" + pdAmount + ", pdState=" + pdState + ", pId=" + pId + ", pName=" + pName
+				+ ", sName=" + sName + ", pcName=" + pcName + ", pbName=" + pbName + ", psWeight=" + psWeight
+				+ ", weightName=" + weightName + ", psSize=" + psSize + ", sizeName=" + sizeName + ", psDia=" + psDia
+				+ ", diaName=" + diaName + ", psDensity=" + psDensity + ", densityName=" + densityName + ", shName="
+				+ shName + "]";
 	}
+
+
 
 
 

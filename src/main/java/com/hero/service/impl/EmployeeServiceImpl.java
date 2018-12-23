@@ -68,6 +68,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int updateBySelective(Employee record) {
 		return employeeMapper.updateBySelective(record);
 	}
+	@Override//(rfy)
+	public List<Employee> selEmpByRname(String rname) {
+		// TODO Auto-generated method stub
+		return employeeMapper.selectEmpByRoleName(rname);
+	}
 	
 	
 	

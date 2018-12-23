@@ -193,4 +193,20 @@
 		</set>
 		where s_id = #{sId,jdbcType=INTEGER}
 	</update>
+	
+	
+	
+	
+	
+	
+	<!-- 根据用户编号查询仓库编号(rfy) -->
+	<select id="selSidByEid" resultType="java.lang.Integer"
+		parameterType="java.lang.Integer">
+		SELECT s_id FROM i_storehouse WHERE s_e_id=#{eid}
+
+	</select>
+	
+	
+	
+	
 </mapper>

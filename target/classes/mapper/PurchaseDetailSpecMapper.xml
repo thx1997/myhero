@@ -11,6 +11,7 @@
     <result column="pd_unitprice" property="pdUnitprice" jdbcType="DECIMAL" />
     <result column="pd_s_id" property="pdSId" jdbcType="INTEGER" />
     <result column="pd_amount" property="pdAmount" jdbcType="DECIMAL" />
+    <result column="pd_state" property="pdState" jdbcType="INTEGER" />
     <result column="p_id" property="pId" jdbcType="INTEGER" />
     <result column="p_name" property="pName" jdbcType="VARCHAR" />
     <result column="s_name" property="sName" jdbcType="VARCHAR" />
@@ -40,6 +41,9 @@
   	<where>
 	      <if test="pnid != null and pnid!=''" >
 	        and pd_pn_id =#{pnid}
+	      </if>
+	      <if test="shid != null and shid!=''" >
+	        and pd_sh_id =#{shid}
 	      </if>
   	</where>
   </sql>

@@ -39,4 +39,14 @@ public interface StoreHouseMapper {
     List<Employee> selEctemplByStoreHouse();
     
     int lockStoreHouse(@Param("sid")int sid,@Param("status")int status);
+    
+    
+    
+    //根据用户编号查询仓库编号(rfy)
+    public int selSidByEid(Integer eid);
+    
+    
+    
+    
+    
 }

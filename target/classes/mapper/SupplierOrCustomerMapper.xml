@@ -280,12 +280,12 @@
     </foreach>    
     </insert>
     
-    <!-- 查询所有供应商信息（rfy） -->
+    <!-- 根据状态查询所有供应商或客户信息（rfy） -->
     <select id="getAllSupplier" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from i_supplier_customer
-    where s_type=1
+    where s_type=#{stype}
     </select>
     
     

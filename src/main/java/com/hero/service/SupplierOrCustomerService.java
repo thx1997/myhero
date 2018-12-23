@@ -38,8 +38,8 @@ public interface SupplierOrCustomerService {
   	public int insertSupplierProCate(Integer sid,List<Integer> pcids);
 
 
-    //查询所有供应商信息（rfy）
-  	public List<SupplierOrCustomer> getAllSupplier();
+    //根据stype查询所有供应商或客户信息（rfy）
+  	public List<SupplierOrCustomer> getAllSupplier(Integer stype);
 
 
 

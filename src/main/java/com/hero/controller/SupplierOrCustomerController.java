@@ -213,9 +213,9 @@ public class SupplierOrCustomerController {
 	 * @return
 	 */
 	@RequestMapping(value="/queryAllSupplier")
-	public Object queryAllSupplier(){
+	public Object queryAllSupplier(Integer stype){
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<SupplierOrCustomer> list=supplierOrCustomerService.getAllSupplier();
+		List<SupplierOrCustomer> list=supplierOrCustomerService.getAllSupplier(stype);
 		return list;
 	}
 	

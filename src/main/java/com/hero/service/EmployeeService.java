@@ -84,5 +84,9 @@ public interface EmployeeService {
 	 public Employee getEmpByEloginname(String ename);
 	 //更新用户信息：锁定解锁、锁定时间、登录时间、密码错误次数（rfy）
 	 public int updateBySelective(Employee record);
+	 
+	 
+	//根据角色名查询拥有该角色的员工(rfy)
+	 public List<Employee> selEmpByRname(String rname);
 	  
 }

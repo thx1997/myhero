@@ -72,4 +72,9 @@ public class StoreHouseServerImpl implements StoreHouseServer {
 	public StoreHouse selectSHByeid(Integer eid) {
 		return storeHouseMapper.selectSHByeid(eid);
 	}
+	@Override//(rfy)
+	public int selSidByEid(Integer eid) {
+		// TODO Auto-generated method stub
+		return storeHouseMapper.selSidByEid(eid);
+	}
 }

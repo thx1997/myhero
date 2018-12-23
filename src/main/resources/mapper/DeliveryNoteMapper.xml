@@ -23,6 +23,7 @@
     from i_deliverynote
     where dn_id = #{dnId,jdbcType=VARCHAR}
   </select>
+  <!-- 删除(rfy) -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from i_deliverynote
     where dn_id = #{dnId,jdbcType=VARCHAR}
@@ -37,6 +38,7 @@
       #{dnWarehousepersonid,jdbcType=INTEGER}, #{dnSalesmanid,jdbcType=INTEGER}, #{dnTotalmoney,jdbcType=DECIMAL}, 
       #{dnRemark,jdbcType=VARCHAR})
   </insert>
+  <!-- 新增订单(rfy) -->
   <insert id="insertSelective" parameterType="com.hero.entity.DeliveryNote" >
     insert into i_deliverynote
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -104,6 +106,7 @@
       </if>
     </trim>
   </insert>
+  <!-- 修改销售单(rfy) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.DeliveryNote" >
     update i_deliverynote
     <set >
@@ -137,6 +140,7 @@
     </set>
     where dn_id = #{dnId,jdbcType=VARCHAR}
   </update>
+  
   <update id="updateByPrimaryKey" parameterType="com.hero.entity.DeliveryNote" >
     update i_deliverynote
     set dn_createtime = #{dnCreatetime,jdbcType=TIMESTAMP},
@@ -150,4 +154,12 @@
       dn_remark = #{dnRemark,jdbcType=VARCHAR}
     where dn_id = #{dnId,jdbcType=VARCHAR}
   </update>
+  
+  <!-- 修改总金额(rfy) -->
+  <update id="updateTotalMoney" parameterType="java.lang.String" >
+    update i_deliverynote
+    set dn_totalmoney = (SELECT SUM(dd_amount) FROM i_deliverydetail WHERE dd_dn_id=#{dnid})
+    where dn_id = #{dnid,jdbcType=VARCHAR}
+  </update>
+  
 </mapper>

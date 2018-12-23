@@ -6,7 +6,9 @@ public class DeliveryDetail {
     private Integer ddId;
 
     private String ddDnId;
-
+    
+    private Integer ddShId;
+    
     private Integer ddPId;
 
     private Integer ddQuantity;
@@ -19,24 +21,21 @@ public class DeliveryDetail {
 
     private String ddRemark;
 
-    @Override
-	public String toString() {
-		return "DeliveryDetail [ddId=" + ddId + ", ddDnId=" + ddDnId + ", ddPId=" + ddPId + ", ddQuantity=" + ddQuantity
-				+ ", ddUnitprice=" + ddUnitprice + ", ddAmount=" + ddAmount + ", ddRoyalty=" + ddRoyalty + ", ddRemark="
-				+ ddRemark + "]";
-	}
-
-	public DeliveryDetail(Integer ddId, String ddDnId, Integer ddPId, Integer ddQuantity, BigDecimal ddUnitprice,
-			BigDecimal ddAmount, BigDecimal ddRoyalty, String ddRemark) {
+    private Integer ddState;
+    
+	public DeliveryDetail(Integer ddId, String ddDnId, Integer ddShId, Integer ddPId, Integer ddQuantity,
+			BigDecimal ddUnitprice, BigDecimal ddAmount, BigDecimal ddRoyalty, String ddRemark, Integer ddState) {
 		super();
 		this.ddId = ddId;
 		this.ddDnId = ddDnId;
+		this.ddShId = ddShId;
 		this.ddPId = ddPId;
 		this.ddQuantity = ddQuantity;
 		this.ddUnitprice = ddUnitprice;
 		this.ddAmount = ddAmount;
 		this.ddRoyalty = ddRoyalty;
 		this.ddRemark = ddRemark;
+		this.ddState = ddState;
 	}
 
 	public DeliveryDetail() {
@@ -106,4 +105,28 @@ public class DeliveryDetail {
     public void setDdRemark(String ddRemark) {
         this.ddRemark = ddRemark == null ? null : ddRemark.trim();
     }
+
+	public Integer getDdShId() {
+		return ddShId;
+	}
+
+	public void setDdShId(Integer ddShId) {
+		this.ddShId = ddShId;
+	}
+
+	public Integer getDdState() {
+		return ddState;
+	}
+
+	public void setDdState(Integer ddState) {
+		this.ddState = ddState;
+	}
+
+	@Override
+	public String toString() {
+		return "DeliveryDetail [ddId=" + ddId + ", ddDnId=" + ddDnId + ", ddShId=" + ddShId + ", ddPId=" + ddPId
+				+ ", ddQuantity=" + ddQuantity + ", ddUnitprice=" + ddUnitprice + ", ddAmount=" + ddAmount
+				+ ", ddRoyalty=" + ddRoyalty + ", ddRemark=" + ddRemark + ", ddState=" + ddState + "]";
+	}
+    
 }

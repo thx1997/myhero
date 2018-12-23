@@ -11,6 +11,7 @@
     <result column="pd_unitprice" property="pdUnitprice" jdbcType="DECIMAL" />
     <result column="pd_s_id" property="pdSId" jdbcType="INTEGER" />
     <result column="pd_amount" property="pdAmount" jdbcType="DECIMAL" />
+    <result column="pd_state" property="pdState" jdbcType="INTEGER" />
     <!--商品信息映射设置(rfy) -->
 	<association property="product" resultMap="com.hero.repository.ProductMapper.BaseResultMap"></association>
     <!--供应商信息映射设置(rfy) -->
@@ -165,7 +166,10 @@
   </delete>
   
   
-  
+  <!-- 根据仓库编号查询采购单编号(rfy) -->
+  <select id="selPnIdsByShId" resultType="String" parameterType="java.lang.Integer" >
+    SELECT pd_pn_id FROM i_purchasedetail WHERE pd_sh_id=#{shid}
+  </select>
   
   
   

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hero.entity.Employee;
 import com.hero.entity.Role;
+import com.hero.entity.SupplierOrCustomer;
 import com.hero.entity.query.EmployeeQuery;
 import com.hero.entity.query.QueryBase;
 import com.hero.service.EmployeeService;
@@ -354,5 +355,29 @@ public class EmployeeController {
 	public Object testToken(){
 		return new Result(1, 0, "token有效,请放心使用");
 	}
+	
+	
+	
+	
+	/**
+	 * 根据角色名查询拥有该角色的所有员工信息(rfy)
+	 * @return
+	 */
+	@RequestMapping(value="/queryAllEmpByRname")
+	public Object queryAllEmpByRname(String rname){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Employee> list=employeeService.selectEmpByRoleName(rname);
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

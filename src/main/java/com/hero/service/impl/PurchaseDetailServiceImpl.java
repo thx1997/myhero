@@ -49,6 +49,11 @@ public class PurchaseDetailServiceImpl implements PurchaseDetailService {
 		// TODO Auto-generated method stub
 		return purchaseDetailMapper.deleteByPdIdList(pdid);
 	}
+	@Override//(rfy)
+	public List<String> selPnIdsByShId(Integer shid) {
+		// TODO Auto-generated method stub
+		return purchaseDetailMapper.selPnIdsByShId(shid);
+	}
 	
 	
 

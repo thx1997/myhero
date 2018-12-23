@@ -32,5 +32,8 @@ public interface PurchaseDetailMapper {
     //批量删除采购信息(rfy)
     int deleteByPdIdList(@Param("list")List<Integer> pdid);
     
+    //根据仓库编号查询采购单编号(rfy)
+    public List<String> selPnIdsByShId(Integer shid);
+    
     
 }
