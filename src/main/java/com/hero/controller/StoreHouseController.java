@@ -21,6 +21,23 @@ public class StoreHouseController {
 	@Autowired
 	private StoreHouseServer storeHouseService;
 	/**
+	 * 查询自己负责的仓库
+	 * @param eid （仓库负责人）编号
+	 * @return
+	 */
+	@RequestMapping("/querySHByEid")
+	public Object selAllStoreHouse(Integer eid) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//查询属于自己负责仓库
+		StoreHouse sh=storeHouseService.selectSHByeid(eid);
+		map.put("sh", sh);
+		return map;
+	}
+	
+	
+	
+	
+	/**
 	 * localhost:8080/invoicing/StoreHouse/selAllStoreHouse
 	 * @param storeHouseQuery
 	 * @return 多条件分页

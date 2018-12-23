@@ -15,6 +15,15 @@ public interface StoreHouseMapper {
 	 */
 	List<StoreHouse> queryAllInvoicing();
 	
+	/**
+	 * 根据仓库负责人编号查询负责的仓库
+	 * @author thx
+	 * @param eid  仓库负责人编号
+	 * @return 仓库
+	 */
+	StoreHouse selectSHByeid(Integer eid);
+	
+	
     int deleteByPrimaryKey(Integer sId);
 
     int insertSelective(StoreHouse record);

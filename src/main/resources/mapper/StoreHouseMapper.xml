@@ -26,6 +26,16 @@
 	    from i_storehouse
 	    where s_status=0
 	  </select>
+	  
+	  <!-- 根据仓库负责人编号查询负责的仓库(thx) -->
+	  <select id="selectSHByeid" parameterType="int" resultMap="BaseResultMap">
+	  	  SELECT 
+	  <include refid="Base_Column_List" />
+	   FROM i_storehouse WHERE s_e_id=#{eid}
+	  </select>
+	  
+	  
+	  
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select s.*,e.*

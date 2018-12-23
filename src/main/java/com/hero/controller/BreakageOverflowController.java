@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hero.entity.BofDetail;
@@ -16,6 +17,7 @@ import com.hero.entity.BreakageOverflow;
 import com.hero.entity.BreakageOverflowDetail;
 import com.hero.entity.Department;
 import com.hero.entity.Employee;
+import com.hero.entity.InventoryControl;
 import com.hero.entity.Product;
 import com.hero.entity.ProductCategory;
 import com.hero.entity.ProductSpec;
@@ -29,6 +31,7 @@ import com.hero.service.BofDetailService;
 import com.hero.service.BreakageOverflowDetailService;
 import com.hero.service.BreakageOverflowServer;
 import com.hero.service.EmployeeService;
+import com.hero.service.InventoryControlService;
 import com.hero.service.ProductService;
 import com.hero.service.ProductSpecService;
 import com.hero.service.ProductUnitService;
@@ -53,6 +56,8 @@ public class BreakageOverflowController {
 	EmployeeService employeeService;
 	@Autowired
 	BofDetailService bofDetailService;
+	@Autowired
+	InventoryControlService inventoryControlService;
 	/**
 	 * 修改单子状态(仓库管理员)
 	 * @param bodid 详情单编号
@@ -97,14 +102,19 @@ public class BreakageOverflowController {
 	 */
 	//@RequestMapping(value = "/getreakageOverflows",name="多条件查询")
 	@RequestMapping(value = "/getreakageOverflows")
-	public Object getreakageOverflows(BreakageOverflowQuery bofQuery,BindingResult bindingResult){
+	public Object getreakageOverflows(BreakageOverflowQuery bofQuery,Integer eid,@RequestParam("roles[]")String[] roles,BindingResult bindingResult){
+		Map<String,Object> map=new HashMap<String,Object>();
 		System.out.println("查询参数"+bofQuery.toString());
+		for (int i = 0; i < roles.length; i++) {
+			if(roles[i].equals("仓库盘点员")) {
+			System.out.println("仓库盘点员查看自己的");
+			bofQuery.setBoEId(eid);				
+			}
+	    }
 		List<BreakageOverflow> rows = breakageOverflowServer.querybof(bofQuery);
 		int total = breakageOverflowServer.querybofCount(bofQuery);
-		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("total", total);
 		map.put("rows", rows);
-		System.out.println(rows);
 		return map;
 	}
 	
@@ -270,6 +280,25 @@ public class BreakageOverflowController {
 		
 		map.put("total", total);
 		map.put("rows", rows);
+		return map;
+	}
+	/**
+	 * 添加某仓库下某商品的上下限数量
+	 * @author thx
+	 * @param inc
+	 * @param bindingResult
+	 * @return
+	 */
+	@RequestMapping(value = "/addNumControl")
+	public Object addNumControl(InventoryControl inc,BindingResult bindingResult){
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println("添加上下限参数"+inc);
+		int n=inventoryControlService.insertSelective(inc);
+		if(n>0) {
+			map.put("success", true);
+		}else {
+			map.put("success", false);
+		}		
 		return map;
 	}
 	
