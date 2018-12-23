@@ -18,7 +18,7 @@ import com.hero.service.PurchaseNoteService;
 import com.hero.service.StorehouseDetailService;
 
 @RestController
-@RequestMapping("/purchaseDetailController")
+@RequestMapping(value="/purchaseDetailController",name="采购详情管理")
 public class PurchaseDetailController {
 	@Autowired
 	private PurchaseDetailService purchaseDetailService;

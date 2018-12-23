@@ -17,7 +17,7 @@ import com.hero.service.RoleService;
 import com.hero.util.Result;
 
 @RestController
-@RequestMapping("/purchaseNoteController")
+@RequestMapping(value="/purchaseNoteController",name="采购管理")
 public class PurchaseNoteController {
 	@Autowired
 	private PurchaseNoteService purchaseNoteService;

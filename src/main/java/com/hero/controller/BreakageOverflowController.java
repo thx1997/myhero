@@ -71,7 +71,7 @@ public class BreakageOverflowController {
 	 * @param num 目标减数
 	 * @return
 	 */
-	@RequestMapping("/updateNumBysidpid")
+	@RequestMapping(value="/updateNumBysidpid",name="负责人处理")
 	public Object updateNumBysidpid(Integer sid,Integer pid,Integer num) {
 		System.out.println("仓库编号"+sid+"商品编号"+pid+"减得数量"+num);
 		Map<String,Object> map=new HashMap<String,Object>();
@@ -98,7 +98,7 @@ public class BreakageOverflowController {
 	 *  @param type 0：管理员核审按钮1：负责人处理按钮
 	 * @return
 	 */
-	@RequestMapping("/updateState")
+	@RequestMapping(value="/updateState",name="仓库管理员核审")
 	public Object updateBodStateByBoId(Integer bodid,Integer state,Integer boid,Integer eid,int type) {
 		Map<String,Object> map=new HashMap<String,Object>();
 		//修改详情单状态
