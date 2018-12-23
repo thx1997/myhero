@@ -189,4 +189,38 @@
       </if>
     </trim>
   </insert>
+  
+  
+  <!--多条件参数 rfy -->
+  <sql id="CountwhereSQL">
+  	<where>
+	      <if test="sid != null" >
+	        and sd_s_id=#{sid}
+	      </if>
+	      <if test="spid != null" >
+	        and sd_ssp_id=#{spid}
+	      </if>
+	      <if test="eid != null" >
+	        and s_e_id=#{eid}
+	      </if>
+  	</where>
+  </sql>
+  
+  
+  <!-- 多条件分页查询商品属性(rfy) -->
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="com.hero.entity.query.HouseDetailProQuery" >
+    SELECT * FROM view_housedetatil_product
+    <include refid="CountwhereSQL"/>
+  	LIMIT #{startIndex},#{rows}
+  </select>
+  <!--查询分页总记录数(rfy) -->
+  <select id="queryCountPage" resultType="int" parameterType="com.hero.entity.query.HouseDetailProQuery">
+  	SELECT count(*) FROM view_housedetatil_product
+    <include refid="CountwhereSQL"/>
+  </select>
+  
+  
+  
+  
+  
 </mapper>

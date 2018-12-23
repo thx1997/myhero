@@ -49,7 +49,42 @@ public class HouseDetailPro {
 
     private Integer icGoodnum;
 
-    public Integer getSdSId() {
+    
+    public HouseDetailPro() {
+		super();
+	}
+
+	public HouseDetailPro(Integer sdSId, Integer sdNumber, Integer sdSspId, Integer sEId, Integer pId, String pName,
+			Integer pcId, String pcName, Integer pbId, String pbName, String puName, Integer psId, BigDecimal psWeight,
+			String weightName, String psSize, String sizeName, BigDecimal psDia, String diaName, BigDecimal psDensity,
+			String densityName, Integer icTopnum, Integer icDownnum, Integer icGoodnum) {
+		super();
+		this.sdSId = sdSId;
+		this.sdNumber = sdNumber;
+		this.sdSspId = sdSspId;
+		this.sEId = sEId;
+		this.pId = pId;
+		this.pName = pName;
+		this.pcId = pcId;
+		this.pcName = pcName;
+		this.pbId = pbId;
+		this.pbName = pbName;
+		this.puName = puName;
+		this.psId = psId;
+		this.psWeight = psWeight;
+		this.weightName = weightName;
+		this.psSize = psSize;
+		this.sizeName = sizeName;
+		this.psDia = psDia;
+		this.diaName = diaName;
+		this.psDensity = psDensity;
+		this.densityName = densityName;
+		this.icTopnum = icTopnum;
+		this.icDownnum = icDownnum;
+		this.icGoodnum = icGoodnum;
+	}
+
+	public Integer getSdSId() {
         return sdSId;
     }
 
@@ -232,4 +267,15 @@ public class HouseDetailPro {
     public void setIcGoodnum(Integer icGoodnum) {
         this.icGoodnum = icGoodnum;
     }
+
+	@Override
+	public String toString() {
+		return "HouseDetailPro [sdSId=" + sdSId + ", sdNumber=" + sdNumber + ", sdSspId=" + sdSspId + ", sEId=" + sEId
+				+ ", pId=" + pId + ", pName=" + pName + ", pcId=" + pcId + ", pcName=" + pcName + ", pbId=" + pbId
+				+ ", pbName=" + pbName + ", puName=" + puName + ", psId=" + psId + ", psWeight=" + psWeight
+				+ ", weightName=" + weightName + ", psSize=" + psSize + ", sizeName=" + sizeName + ", psDia=" + psDia
+				+ ", diaName=" + diaName + ", psDensity=" + psDensity + ", densityName=" + densityName + ", icTopnum="
+				+ icTopnum + ", icDownnum=" + icDownnum + ", icGoodnum=" + icGoodnum + "]";
+	}
+    
 }
