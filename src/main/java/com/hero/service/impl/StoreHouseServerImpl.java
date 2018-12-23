@@ -77,4 +77,5 @@ public class StoreHouseServerImpl implements StoreHouseServer {
 		// TODO Auto-generated method stub
 		return storeHouseMapper.selSidByEid(eid);
 	}
+	
 }
