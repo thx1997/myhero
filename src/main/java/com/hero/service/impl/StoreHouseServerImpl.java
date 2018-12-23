@@ -68,4 +68,8 @@ public class StoreHouseServerImpl implements StoreHouseServer {
 		// TODO Auto-generated method stub
 		return storeHouseMapper.lockStoreHouse(sid, status);
 	}
+	@Override//thx
+	public StoreHouse selectSHByeid(Integer eid) {
+		return storeHouseMapper.selectSHByeid(eid);
+	}
 }
