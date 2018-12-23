@@ -103,22 +103,22 @@
   <sql id="CountwhereSQL">
   	<where>
   		  <if test="pnId != null and pnId!=''" >
-	        pn_id like "%"#{pnId}"%",
+	        and pn_id like "%"#{pnId}"%"
 	      </if>
 	      <if test="pnEId != null" >
-	        pn_e_id=#{pnEId,jdbcType=INTEGER},
+	        and pn_e_id=#{pnEId,jdbcType=INTEGER}
 	      </if>
 	      <if test="pnStatus != null" >
-	        pn_status=#{pnStatus,jdbcType=INTEGER},
+	        and pn_status=#{pnStatus,jdbcType=INTEGER}
 	      </if>
 	      <if test="pnAccountantid != null" >
-	       pn_accountantid= #{pnAccountantid,jdbcType=INTEGER},
+	       and pn_accountantid= #{pnAccountantid,jdbcType=INTEGER}
 	      </if>
 	      <if test="pnWarehousepersonid != null" >
-	       pn_warehousepersonid= #{pnWarehousepersonid,jdbcType=INTEGER},
+	     and pn_warehousepersonid= #{pnWarehousepersonid,jdbcType=INTEGER}
 	      </if>
 	      <if test="pnids != null" >
-	        pn_id in
+	      and pn_id in
 	        <foreach collection="pnids" item="item" index="index" open="(" separator="," close=")">
 			#{item}
 			</foreach> 
