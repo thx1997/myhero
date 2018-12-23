@@ -6,6 +6,16 @@ import com.hero.entity.StoreHouse;
 import com.hero.entity.StorehouseDetail;
 
 public interface StorehouseDetailMapper {
+	/**
+	 * 减某个仓库某件商品的库存量
+	 * @author thx
+	 * @param sid 仓库编号
+	 * @param pid 商品编号
+	 * @param num 目标减数
+	 * @return
+	 */
+	int updateNumBysidpid(@Param("sid")Integer sid,@Param("pid")Integer pid,@Param("num")Integer num);
+	
     int deleteByPrimaryKey(Integer sdId);
 
     int insert(StorehouseDetail record);

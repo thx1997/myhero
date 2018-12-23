@@ -36,6 +36,7 @@ import com.hero.service.ProductService;
 import com.hero.service.ProductSpecService;
 import com.hero.service.ProductUnitService;
 import com.hero.service.StoreHouseServer;
+import com.hero.service.StorehouseDetailService;
 
 @RestController
 @RequestMapping(value="/breakageOverflow",name="库存管理")
@@ -58,6 +59,36 @@ public class BreakageOverflowController {
 	BofDetailService bofDetailService;
 	@Autowired
 	InventoryControlService inventoryControlService;
+	@Autowired
+	StorehouseDetailService storehouseDetailService;
+	
+	/**
+	 * 
+	 *减某个仓库某件商品的库存量
+	 * @author thx
+	 * @param sid 仓库编号
+	 * @param pid 商品编号
+	 * @param num 目标减数
+	 * @return
+	 */
+	@RequestMapping("/updateNumBysidpid")
+	public Object updateNumBysidpid(Integer sid,Integer pid,Integer num) {
+		System.out.println("仓库编号"+sid+"商品编号"+pid+"减得数量"+num);
+		Map<String,Object> map=new HashMap<String,Object>();
+        int n=storehouseDetailService.updateNumBysidpid(sid, pid, num);
+      
+        if(n>0) {
+        	map.put("success", true);
+        	map.put("message","操作成功");
+        }else {
+        	map.put("success", false);
+        	map.put("message","操作失败");
+        }
+		return map;
+	}
+	
+	
+	
 	/**
 	 * 修改单子状态(仓库管理员)
 	 * @param bodid 详情单编号

@@ -31,4 +31,10 @@ public class StorehouseDetailServiceImpl implements StorehouseDetailService {
 		return storehouseDetailMapper.selByPidAndSid(pid, sid);
 	}
 
+	@Override//thx
+	public int updateNumBysidpid(Integer sid, Integer pid, Integer num) {
+		// TODO Auto-generated method stub
+		return storehouseDetailMapper.updateNumBysidpid(sid, pid, num);
+	}
+
 }

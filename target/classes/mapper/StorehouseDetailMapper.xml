@@ -21,6 +21,10 @@
 	<sql id="Query_Pro_List">
 		p_id,p_name,p_ps_id,p_pc_id,p_pb_id,p_salemoney,p_oyaltyrate,p_state,p_createtime,p_updatetime
 	</sql>
+	<!-- 减某个仓库某件商品的库存量(thx) -->
+	<update id="updateNumBysidpid">
+	    UPDATE i_storehousedetail SET sd_number=sd_number-#{num} WHERE sd_s_id=#{sid} AND sd_p_id=#{pid}
+	</update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
