@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.HouseDetailProMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.HouseDetailPro" >
+    <result column="sd_s_id" property="sdSId" jdbcType="INTEGER" />
+    <result column="sd_number" property="sdNumber" jdbcType="INTEGER" />
+    <result column="sd_ssp_id" property="sdSspId" jdbcType="INTEGER" />
+    <result column="s_e_id" property="sEId" jdbcType="INTEGER" />
+    <result column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="pc_id" property="pcId" jdbcType="INTEGER" />
+    <result column="pc_name" property="pcName" jdbcType="VARCHAR" />
+    <result column="pb_id" property="pbId" jdbcType="INTEGER" />
+    <result column="pb_name" property="pbName" jdbcType="VARCHAR" />
+    <result column="pu_name" property="puName" jdbcType="VARCHAR" />
+    <result column="ps_id" property="psId" jdbcType="INTEGER" />
+    <result column="ps_weight" property="psWeight" jdbcType="DECIMAL" />
+    <result column="weight_name" property="weightName" jdbcType="VARCHAR" />
+    <result column="ps_size" property="psSize" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="ps_dia" property="psDia" jdbcType="DECIMAL" />
+    <result column="dia_name" property="diaName" jdbcType="VARCHAR" />
+    <result column="ps_density" property="psDensity" jdbcType="DECIMAL" />
+    <result column="density_name" property="densityName" jdbcType="VARCHAR" />
+    <result column="ic_topnum" property="icTopnum" jdbcType="INTEGER" />
+    <result column="ic_downnum" property="icDownnum" jdbcType="INTEGER" />
+    <result column="ic_goodnum" property="icGoodnum" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.hero.entity.HouseDetailPro" >
+    insert into view_housedetatil_product (sd_s_id, sd_number, sd_ssp_id, 
+      s_e_id, p_id, p_name, pc_id, 
+      pc_name, pb_id, pb_name, 
+      pu_name, ps_id, ps_weight, 
+      weight_name, ps_size, size_name, 
+      ps_dia, dia_name, ps_density, 
+      density_name, ic_topnum, ic_downnum, 
+      ic_goodnum)
+    values (#{sdSId,jdbcType=INTEGER}, #{sdNumber,jdbcType=INTEGER}, #{sdSspId,jdbcType=INTEGER}, 
+      #{sEId,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, #{pName,jdbcType=VARCHAR}, #{pcId,jdbcType=INTEGER}, 
+      #{pcName,jdbcType=VARCHAR}, #{pbId,jdbcType=INTEGER}, #{pbName,jdbcType=VARCHAR}, 
+      #{puName,jdbcType=VARCHAR}, #{psId,jdbcType=INTEGER}, #{psWeight,jdbcType=DECIMAL}, 
+      #{weightName,jdbcType=VARCHAR}, #{psSize,jdbcType=VARCHAR}, #{sizeName,jdbcType=VARCHAR}, 
+      #{psDia,jdbcType=DECIMAL}, #{diaName,jdbcType=VARCHAR}, #{psDensity,jdbcType=DECIMAL}, 
+      #{densityName,jdbcType=VARCHAR}, #{icTopnum,jdbcType=INTEGER}, #{icDownnum,jdbcType=INTEGER}, 
+      #{icGoodnum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hero.entity.HouseDetailPro" >
+    insert into view_housedetatil_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sdSId != null" >
+        sd_s_id,
+      </if>
+      <if test="sdNumber != null" >
+        sd_number,
+      </if>
+      <if test="sdSspId != null" >
+        sd_ssp_id,
+      </if>
+      <if test="sEId != null" >
+        s_e_id,
+      </if>
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="pName != null" >
+        p_name,
+      </if>
+      <if test="pcId != null" >
+        pc_id,
+      </if>
+      <if test="pcName != null" >
+        pc_name,
+      </if>
+      <if test="pbId != null" >
+        pb_id,
+      </if>
+      <if test="pbName != null" >
+        pb_name,
+      </if>
+      <if test="puName != null" >
+        pu_name,
+      </if>
+      <if test="psId != null" >
+        ps_id,
+      </if>
+      <if test="psWeight != null" >
+        ps_weight,
+      </if>
+      <if test="weightName != null" >
+        weight_name,
+      </if>
+      <if test="psSize != null" >
+        ps_size,
+      </if>
+      <if test="sizeName != null" >
+        size_name,
+      </if>
+      <if test="psDia != null" >
+        ps_dia,
+      </if>
+      <if test="diaName != null" >
+        dia_name,
+      </if>
+      <if test="psDensity != null" >
+        ps_density,
+      </if>
+      <if test="densityName != null" >
+        density_name,
+      </if>
+      <if test="icTopnum != null" >
+        ic_topnum,
+      </if>
+      <if test="icDownnum != null" >
+        ic_downnum,
+      </if>
+      <if test="icGoodnum != null" >
+        ic_goodnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sdSId != null" >
+        #{sdSId,jdbcType=INTEGER},
+      </if>
+      <if test="sdNumber != null" >
+        #{sdNumber,jdbcType=INTEGER},
+      </if>
+      <if test="sdSspId != null" >
+        #{sdSspId,jdbcType=INTEGER},
+      </if>
+      <if test="sEId != null" >
+        #{sEId,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null" >
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pcId != null" >
+        #{pcId,jdbcType=INTEGER},
+      </if>
+      <if test="pcName != null" >
+        #{pcName,jdbcType=VARCHAR},
+      </if>
+      <if test="pbId != null" >
+        #{pbId,jdbcType=INTEGER},
+      </if>
+      <if test="pbName != null" >
+        #{pbName,jdbcType=VARCHAR},
+      </if>
+      <if test="puName != null" >
+        #{puName,jdbcType=VARCHAR},
+      </if>
+      <if test="psId != null" >
+        #{psId,jdbcType=INTEGER},
+      </if>
+      <if test="psWeight != null" >
+        #{psWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="weightName != null" >
+        #{weightName,jdbcType=VARCHAR},
+      </if>
+      <if test="psSize != null" >
+        #{psSize,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="psDia != null" >
+        #{psDia,jdbcType=DECIMAL},
+      </if>
+      <if test="diaName != null" >
+        #{diaName,jdbcType=VARCHAR},
+      </if>
+      <if test="psDensity != null" >
+        #{psDensity,jdbcType=DECIMAL},
+      </if>
+      <if test="densityName != null" >
+        #{densityName,jdbcType=VARCHAR},
+      </if>
+      <if test="icTopnum != null" >
+        #{icTopnum,jdbcType=INTEGER},
+      </if>
+      <if test="icDownnum != null" >
+        #{icDownnum,jdbcType=INTEGER},
+      </if>
+      <if test="icGoodnum != null" >
+        #{icGoodnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

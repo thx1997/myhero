@@ -102,6 +102,9 @@
   <!-- rfy -->
   <sql id="CountwhereSQL">
   	<where>
+  		  <if test="pnId != null and pnId!=''" >
+	        pn_id like "%"#{pnId}"%",
+	      </if>
 	      <if test="pnEId != null" >
 	        pn_e_id=#{pnEId,jdbcType=INTEGER},
 	      </if>
@@ -113,6 +116,12 @@
 	      </if>
 	      <if test="pnWarehousepersonid != null" >
 	       pn_warehousepersonid= #{pnWarehousepersonid,jdbcType=INTEGER},
+	      </if>
+	      <if test="pnids != null" >
+	        pn_id in
+	        <foreach collection="pnids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+			</foreach> 
 	      </if>
   	</where>
   </sql>

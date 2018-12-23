@@ -97,4 +97,9 @@ public interface EmployeeMapper {
     
 
     int updateByPrimaryKey(Employee record);
+    
+    //根据角色名查询拥有该角色的员工(rfy)
+  	public List<Employee> selEmpByRname(String rname);
+    
+    
 }

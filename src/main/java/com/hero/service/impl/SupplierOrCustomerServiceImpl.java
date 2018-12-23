@@ -93,9 +93,9 @@ public class SupplierOrCustomerServiceImpl implements SupplierOrCustomerService 
 	}
 
 	@Override//(rfy)
-	public List<SupplierOrCustomer> getAllSupplier() {
+	public List<SupplierOrCustomer> getAllSupplier(Integer stype) {
 		// TODO Auto-generated method stub
-		return supplierOrCustomerMapper.getAllSupplier();
+		return supplierOrCustomerMapper.getAllSupplier(stype);
 	}
 	
 	

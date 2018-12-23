@@ -11,14 +11,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hero.entity.PurchaseDetail;
+import com.hero.entity.PurchaseNote;
+import com.hero.entity.StorehouseDetail;
 import com.hero.service.PurchaseDetailService;
+import com.hero.service.PurchaseNoteService;
+import com.hero.service.StorehouseDetailService;
 
 @RestController
 @RequestMapping("/purchaseDetailController")
 public class PurchaseDetailController {
 	@Autowired
 	private PurchaseDetailService purchaseDetailService;
-	
+	@Autowired
+	private StorehouseDetailService storehouseDetailService;
+	@Autowired
+	private PurchaseNoteService purchaseNoteService;
 	/**
 	 * 预报存采购的商品(rfy)
 	 * @param detail
@@ -100,6 +107,58 @@ public class PurchaseDetailController {
 		}
 		return map;
 	}
+	
+	
+	
+	//分配仓库
+	@RequestMapping(value="/checkHouse",name="采购分配仓库")
+	public Object checkHouse(StorehouseDetail detail,Integer num,Integer pdId,String pnid,Integer uid) {
+		System.out.println("参数啊----"+detail+num+pdId+pnid);
+		Map<String, Object> map = new HashMap<String, Object>();
+		PurchaseDetail pdetail=new PurchaseDetail();
+		pdetail.setPdId(pdId);
+		pdetail.setPdShId(detail.getSdSId());
+		PurchaseNote note=new PurchaseNote();
+		note.setPnId(pnid);
+		note.setPnWarehousepersonid(uid);
+		note.setPnStatus(3);
+		StorehouseDetail shdetail=storehouseDetailService.selByPidAndSid(detail.getSdPId(), detail.getSdSId());
+			if (shdetail!=null) {//修改商品库存量
+				int onum=shdetail.getSdNumber();//原来的库存量
+				int nnum=onum+num;
+				detail.setSdNumber(nnum);
+				detail.setSdId(shdetail.getSdId());
+				int ud=storehouseDetailService.updateByPrimaryKeySelective(detail);
+				if(ud>0) {
+					
+					map.put("success", true);
+					map.put("message", "分配成功");
+				} else {
+					map.put("success", false);
+					map.put("message", "分配失败");
+				}
+			} else {//添加商品仓库详情
+				detail.setSdNumber(num);
+				int d=storehouseDetailService.insertSelective(detail);
+				
+				if(d>0) {
+					
+					map.put("success", true);
+					map.put("message", "分配成功");
+				} else {
+					map.put("success", false);
+					map.put("message", "分配失败");
+				}
+			}
+		
+		purchaseDetailService.updateByPrimaryKeySelective(pdetail);//先修改采购详情中的信息
+		purchaseNoteService.updateByPrimaryKeySelective(note);//修改采购单状态
+		return map;
+	}
+	
+	
+	
+	
 	
 	
 }

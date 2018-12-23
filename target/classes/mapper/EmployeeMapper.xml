@@ -462,4 +462,15 @@
     from i_employee
     where e_loginname = #{ename}
   </select>
+  
+  
+  
+  <!-- 根据角色名查询拥有该角色的员工(rfy) -->
+   <select id="selEmpByRname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT * FROM i_employee WHERE e_id 
+	IN(SELECT re_e_id FROM i_role_employee WHERE re_r_id 
+	=(SELECT r_id FROM i_role WHERE r_name =#{rname}))
+  </select>
+  
+  
 </mapper>

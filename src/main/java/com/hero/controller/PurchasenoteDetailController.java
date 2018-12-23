@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hero.entity.ProductBrand;
 import com.hero.entity.PurchasenoteDetail;
 import com.hero.entity.Role;
+import com.hero.service.PurchaseDetailService;
 import com.hero.service.PurchasenoteDetailService;
 import com.hero.service.RoleService;
+import com.hero.service.StoreHouseServer;
 
 @RestController
 @RequestMapping("/purchasenoteDetailController")
@@ -22,6 +24,10 @@ public class PurchasenoteDetailController {
 	private PurchasenoteDetailService purchasenoteDetailService;
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private PurchaseDetailService purchaseDetailService;
+	@Autowired
+	private StoreHouseServer storeHouseServer;
 	/**
 	 * 多条件分页查询(rfy)
 	 * @param brand
@@ -41,8 +47,18 @@ public class PurchasenoteDetailController {
 			query.setPnEId(suid);
 			
 		}
+		if (rname.contains("会计")) {//如果用户是会计，只能查看审核中的采购单
+			query.setPnStatus(0);
+			
+		}
 		if (rname.contains("仓库管理员")) {//如果用户是仓库管理员，只能查看采购完的订单
 			query.setPnStatus(1);
+			
+		}
+		if (rname.contains("仓库负责人")) {//如果用户是仓库负责人，只能查看分配给自己仓库的采购单
+			int sid=storeHouseServer.selSidByEid(suid);//查询仓库负责人所负责的仓库的编号
+			List<String> pnids=purchaseDetailService.selPnIdsByShId(sid);//根据仓库编号，查询采购详情表中的采购单的编号
+			query.setPnids(pnids);
 			
 		}
 		

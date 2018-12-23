@@ -122,4 +122,10 @@ public interface RoleMapper {
 	 * @return
 	 */
 		public int insertPermissionGiveRole(@Param("list")List<Integer> permissId,@Param("rid")Integer rid);
+
+
+
+
+		
+
 }

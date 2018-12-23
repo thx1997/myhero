@@ -45,8 +45,8 @@ public interface SupplierOrCustomerMapper {
   	//添加供货商的商品类别（rfy）
   	public int insertSupplierProCate(@Param("sid")Integer sid,@Param("pcids")List<Integer> pcids);
   	
-  	//查询所有供应商信息（rfy）
-  	public List<SupplierOrCustomer> getAllSupplier();
+  	//根据状态查询所有供应商或客户信息（rfy）
+  	public List<SupplierOrCustomer> getAllSupplier(Integer stype);
   	
   	
 }

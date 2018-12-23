@@ -28,4 +28,7 @@ public interface StoreHouseServer {
     List<Employee> selEctemplByStoreHouse();
     
     int lockStoreHouse(int sid,int status);
+    
+    //根据用户编号查询仓库编号(rfy)
+    public int selSidByEid(Integer eid);
 }

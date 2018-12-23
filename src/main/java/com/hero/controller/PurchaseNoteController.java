@@ -26,7 +26,7 @@ public class PurchaseNoteController {
 	@Autowired
 	private RoleService roleService;
 	/**
-	 * 新增采购单
+	 * 新增采购单(rfy)
 	 * @param note
 	 * @return
 	 */
@@ -45,7 +45,7 @@ public class PurchaseNoteController {
 	}
 	
 	/**
-	 * 采购单未保存
+	 * 采购单未保存(rfy)
 	 * @param pnid
 	 * @return
 	 */
@@ -63,21 +63,27 @@ public class PurchaseNoteController {
 	}
 	
 	/**
-	 * 保存采购单时，修改商品的信息和总金额
+	 * 保存采购单时，修改商品的信息和总金额(rfy)
 	 * @param note
 	 * @return
 	 */
 	@RequestMapping("/updateAny")
 	public Object updateAny(PurchaseNote note) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int n=purchaseNoteService.updateByPrimaryKeySelective(note);
-		int u=purchaseNoteService.updateTotalMoney(note.getPnId());
-		if (n>0&&u>0) {
-			map.put("success", true);
-			map.put("message", "保存成功");
-		} else {
+		int e=purchaseDetailService.selDetailByPid(note.getPnId());//先查询是否已选择商品
+		if (e>0) {
+			int n=purchaseNoteService.updateByPrimaryKeySelective(note);
+			int u=purchaseNoteService.updateTotalMoney(note.getPnId());
+			if (n>0&&u>0) {
+				map.put("success", true);
+				map.put("message", "保存成功");
+			} else {
+				map.put("success", false);
+				map.put("message", "保存失败");
+			}
+		}else {
 			map.put("success", false);
-			map.put("message", "保存失败");
+			map.put("message", "保存失败,请选择商品");
 		}
 		return map;
 	}
@@ -87,7 +93,7 @@ public class PurchaseNoteController {
 	 * @param note
 	 * @return
 	 */
-	@RequestMapping("/update")
+	@RequestMapping(value="/update",name="保存/审核采购单")
 	public Object update(PurchaseNote note,Integer uid) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Role> rlist=roleService.getRoleByEid(uid);
@@ -98,6 +104,11 @@ public class PurchaseNoteController {
 		System.out.println("角色名:"+rname);
 		if (rname.contains("会计")) {//如果用户是会计，保存会计的编号到采购单中
 			note.setPnAccountantid(uid);
+			note.setPnStatus(2);
+		}
+		if (rname.contains("仓库管理员")) {//如果用户是仓库管理员，保存仓库管理员的编号到采购单中
+			note.setPnWarehousepersonid(uid);
+			note.setPnStatus(3);
 		}
 
 		int n=purchaseNoteService.updateByPrimaryKeySelective(note);

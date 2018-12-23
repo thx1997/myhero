@@ -68,4 +68,9 @@ public class StoreHouseServerImpl implements StoreHouseServer {
 		// TODO Auto-generated method stub
 		return storeHouseMapper.lockStoreHouse(sid, status);
 	}
+	@Override//(rfy)
+	public int selSidByEid(Integer eid) {
+		// TODO Auto-generated method stub
+		return storeHouseMapper.selSidByEid(eid);
+	}
 }

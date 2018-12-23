@@ -4,15 +4,17 @@
   <resultMap id="BaseResultMap" type="com.hero.entity.DeliveryDetail" >
     <id column="dd_id" property="ddId" jdbcType="INTEGER" />
     <result column="dd_dn_id" property="ddDnId" jdbcType="VARCHAR" />
+    <result column="dd_sh_id" property="ddShId" jdbcType="INTEGER" />
     <result column="dd_p_id" property="ddPId" jdbcType="INTEGER" />
     <result column="dd_quantity" property="ddQuantity" jdbcType="INTEGER" />
     <result column="dd_unitprice" property="ddUnitprice" jdbcType="DECIMAL" />
     <result column="dd_amount" property="ddAmount" jdbcType="DECIMAL" />
     <result column="dd_royalty" property="ddRoyalty" jdbcType="DECIMAL" />
     <result column="dd_remark" property="ddRemark" jdbcType="VARCHAR" />
+    <result column="dd_state" property="ddState" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    dd_id, dd_dn_id, dd_p_id, dd_quantity, dd_unitprice, dd_amount, dd_royalty, dd_remark
+    dd_id, dd_dn_id,dd_sh_id, dd_p_id, dd_quantity, dd_unitprice, dd_amount, dd_royalty, dd_remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -32,6 +34,7 @@
       #{ddQuantity,jdbcType=INTEGER}, #{ddUnitprice,jdbcType=DECIMAL}, #{ddAmount,jdbcType=DECIMAL}, 
       #{ddRoyalty,jdbcType=DECIMAL}, #{ddRemark,jdbcType=VARCHAR})
   </insert>
+  <!-- 添加销售详情(rfy) -->
   <insert id="insertSelective" parameterType="com.hero.entity.DeliveryDetail" >
     insert into i_deliverydetail
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -40,6 +43,9 @@
       </if>
       <if test="ddDnId != null" >
         dd_dn_id,
+      </if>
+      <if test="ddShId != null" >
+        dd_sh_id,
       </if>
       <if test="ddPId != null" >
         dd_p_id,
@@ -59,6 +65,9 @@
       <if test="ddRemark != null" >
         dd_remark,
       </if>
+      <if test="ddState != null" >
+        dd_state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="ddId != null" >
@@ -66,6 +75,9 @@
       </if>
       <if test="ddDnId != null" >
         #{ddDnId,jdbcType=VARCHAR},
+      </if>
+      <if test="ddShId != null" >
+        #{ddShId,jdbcType=INTEGER},
       </if>
       <if test="ddPId != null" >
         #{ddPId,jdbcType=INTEGER},
@@ -85,13 +97,20 @@
       <if test="ddRemark != null" >
         #{ddRemark,jdbcType=VARCHAR},
       </if>
+      <if test="ddState != null" >
+        #{ddState,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
+  <!-- 修改销售详情(rfy) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.DeliveryDetail" >
     update i_deliverydetail
     <set >
       <if test="ddDnId != null" >
         dd_dn_id = #{ddDnId,jdbcType=VARCHAR},
+      </if>
+      <if test="ddShId != null" >
+        dd_sh_id = #{ddShId,jdbcType=INTEGER},
       </if>
       <if test="ddPId != null" >
         dd_p_id = #{ddPId,jdbcType=INTEGER},
@@ -117,6 +136,7 @@
   <update id="updateByPrimaryKey" parameterType="com.hero.entity.DeliveryDetail" >
     update i_deliverydetail
     set dd_dn_id = #{ddDnId,jdbcType=VARCHAR},
+      dd_sh_id = #{ddShId,jdbcType=INTEGER},
       dd_p_id = #{ddPId,jdbcType=INTEGER},
       dd_quantity = #{ddQuantity,jdbcType=INTEGER},
       dd_unitprice = #{ddUnitprice,jdbcType=DECIMAL},
@@ -125,4 +145,43 @@
       dd_remark = #{ddRemark,jdbcType=VARCHAR}
     where dd_id = #{ddId,jdbcType=INTEGER}
   </update>
+  
+  <!-- 根据销售单号和商品编号查询该条详情记录(rfy)-->
+  <select id="selectByDnIdAndPid" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from i_deliverydetail
+    <where>
+    	 <if test="dnid != null" >
+        	and dd_dn_id = #{dnid}
+	      </if>
+	      <if test="pid != null" >
+	        and dd_p_id = #{pid}
+	      </if>
+    </where>
+    <!-- where dd_dn_id = #{dnid} and dd_p_id=#{pid} -->
+  </select>
+  <!--根据销售单号删除销售详情(rfy)  -->
+  <delete id="deleteByDnid" parameterType="java.lang.String" >
+    delete from i_deliverydetail
+    where dd_dn_id = #{dnid}
+  </delete>
+  
+  <!-- 批量删除采购信息(rfy) -->
+  <delete id="deleteByDdIdList" parameterType="java.lang.Integer" >
+    delete from i_deliverydetail
+    where dd_id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+	</foreach>
+  </delete>
+  
+  <!--根据销售单号判断是否存在详情(rfy)  -->
+  <select id="isHaveByDnid" resultType="int" parameterType="java.lang.String" >
+    select count(*)
+    from i_deliverydetail
+    where dd_dn_id = #{dnid}
+  </select>
+  
+  
 </mapper>

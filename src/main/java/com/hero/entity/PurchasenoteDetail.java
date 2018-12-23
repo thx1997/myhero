@@ -2,6 +2,7 @@ package com.hero.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import com.hero.entity.query.QueryBase;
 
@@ -28,10 +29,13 @@ public class PurchasenoteDetail extends QueryBase{
 
     private String warehousePerson;
 
+    private List<String> pnids;
     
-    public PurchasenoteDetail(String pnId, Date pnCreatetime, Integer pnEId, Integer pnStatus, Integer pnAccountantid,
+   
+
+	public PurchasenoteDetail(String pnId, Date pnCreatetime, Integer pnEId, Integer pnStatus, Integer pnAccountantid,
 			Integer pnWarehousepersonid, BigDecimal pnTotalmoney, String pnRemark, String notePerson,
-			String accountantPerson, String warehousePerson) {
+			String accountantPerson, String warehousePerson, List<String> pnids) {
 		super();
 		this.pnId = pnId;
 		this.pnCreatetime = pnCreatetime;
@@ -44,6 +48,7 @@ public class PurchasenoteDetail extends QueryBase{
 		this.notePerson = notePerson;
 		this.accountantPerson = accountantPerson;
 		this.warehousePerson = warehousePerson;
+		this.pnids = pnids;
 	}
 
 	public PurchasenoteDetail() {
@@ -138,12 +143,23 @@ public class PurchasenoteDetail extends QueryBase{
         this.warehousePerson = warehousePerson == null ? null : warehousePerson.trim();
     }
 
+	public List<String> getPnids() {
+		return pnids;
+	}
+
+	public void setPnids(List<String> pnids) {
+		this.pnids = pnids;
+	}
+
 	@Override
 	public String toString() {
 		return "PurchasenoteDetail [pnId=" + pnId + ", pnCreatetime=" + pnCreatetime + ", pnEId=" + pnEId
 				+ ", pnStatus=" + pnStatus + ", pnAccountantid=" + pnAccountantid + ", pnWarehousepersonid="
 				+ pnWarehousepersonid + ", pnTotalmoney=" + pnTotalmoney + ", pnRemark=" + pnRemark + ", notePerson="
-				+ notePerson + ", accountantPerson=" + accountantPerson + ", warehousePerson=" + warehousePerson + "]";
+				+ notePerson + ", accountantPerson=" + accountantPerson + ", warehousePerson=" + warehousePerson
+				+ ", pnids=" + pnids + "]";
 	}
+
+	
     
 }

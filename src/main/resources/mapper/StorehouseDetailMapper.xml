@@ -39,6 +39,7 @@
       #{sdSspId,jdbcType=INTEGER}, #{sdNumber,jdbcType=INTEGER}, #{sdUpdatetime,jdbcType=TIMESTAMP}, 
       #{sdRemark,jdbcType=VARCHAR})
   </insert>
+  <!-- 添加(rfy) -->
   <insert id="insertSelective" parameterType="com.hero.entity.StorehouseDetail" >
     insert into i_storehousedetail
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -57,9 +58,9 @@
       <if test="sdNumber != null" >
         sd_number,
       </if>
-      <if test="sdUpdatetime != null" >
+      
         sd_updatetime,
-      </if>
+
       <if test="sdRemark != null" >
         sd_remark,
       </if>
@@ -80,14 +81,15 @@
       <if test="sdNumber != null" >
         #{sdNumber,jdbcType=INTEGER},
       </if>
-      <if test="sdUpdatetime != null" >
-        #{sdUpdatetime,jdbcType=TIMESTAMP},
-      </if>
+     
+       NOW(),
+
       <if test="sdRemark != null" >
         #{sdRemark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
+  <!-- 修改(rfy) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.StorehouseDetail" >
     update i_storehousedetail
     <set >
@@ -103,9 +105,9 @@
       <if test="sdNumber != null" >
         sd_number = #{sdNumber,jdbcType=INTEGER},
       </if>
-      <if test="sdUpdatetime != null" >
-        sd_updatetime = #{sdUpdatetime,jdbcType=TIMESTAMP},
-      </if>
+      
+        sd_updatetime =NOW(),
+
       <if test="sdRemark != null" >
         sd_remark = #{sdRemark,jdbcType=VARCHAR},
       </if>
@@ -122,4 +124,20 @@
       sd_remark = #{sdRemark,jdbcType=VARCHAR}
     where sd_id = #{sdId,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  <!--根据商品编号查询仓库详情信息(rfy)  -->
+  <select id="selByPidAndSid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from i_storehousedetail
+    where sd_p_id = #{pid,jdbcType=INTEGER} and sd_s_id=#{sid}
+  </select>
+  
+  
+  
+  
+  
+  
 </mapper>
