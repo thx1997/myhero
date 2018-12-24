@@ -135,6 +135,6 @@
 			</plugin>
 		</plugins>
 		<!-- Spring Boot项目打包名称 -->
-		<finalName>demo1</finalName>
+		<finalName>inv</finalName>
 	</build>
 </project>

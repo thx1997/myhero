@@ -5,11 +5,14 @@ public class HouseDetailProQuery extends QueryBase{
 	private Integer sid;//仓库编号
 	private Integer spid;//位置中间表编号
 	private Integer eid;//员工编号
-	public HouseDetailProQuery(Integer sid, Integer spid, Integer eid) {
+	private String pname;//商品名称
+	
+	public HouseDetailProQuery(Integer sid, Integer spid, Integer eid, String pname) {
 		super();
 		this.sid = sid;
 		this.spid = spid;
 		this.eid = eid;
+		this.pname = pname;
 	}
 	public HouseDetailProQuery() {
 		super();
@@ -31,6 +34,12 @@ public class HouseDetailProQuery extends QueryBase{
 	}
 	public void setEid(Integer eid) {
 		this.eid = eid;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
 	}
 	
 }

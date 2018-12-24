@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.DeliverynoteDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.DeliverynoteDetail" >
+    <result column="dn_id" property="dnId" jdbcType="VARCHAR" />
+    <result column="dn_createtime" property="dnCreatetime" jdbcType="TIMESTAMP" />
+    <result column="dn_c_id" property="dnCId" jdbcType="INTEGER" />
+    <result column="dn_e_id" property="dnEId" jdbcType="INTEGER" />
+    <result column="dn_status" property="dnStatus" jdbcType="INTEGER" />
+    <result column="dn_accountantid" property="dnAccountantid" jdbcType="INTEGER" />
+    <result column="dn_warehousepersonid" property="dnWarehousepersonid" jdbcType="INTEGER" />
+    <result column="dn_salesmanid" property="dnSalesmanid" jdbcType="INTEGER" />
+    <result column="dn_totalmoney" property="dnTotalmoney" jdbcType="DECIMAL" />
+    <result column="dn_remark" property="dnRemark" jdbcType="VARCHAR" />
+    <result column="note_person" property="notePerson" jdbcType="VARCHAR" />
+    <result column="accountant_person" property="accountantPerson" jdbcType="VARCHAR" />
+    <result column="warehouse_person" property="warehousePerson" jdbcType="VARCHAR" />
+    <result column="sale_person" property="salePerson" jdbcType="VARCHAR" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.hero.entity.DeliverynoteDetail" >
+    insert into view_deliverynote_detail (dn_id, dn_createtime, dn_c_id, 
+      dn_e_id, dn_status, dn_accountantid, 
+      dn_warehousepersonid, dn_salesmanid, dn_totalmoney, 
+      dn_remark, note_person, accountant_person, 
+      warehouse_person, sale_person, s_name
+      )
+    values (#{dnId,jdbcType=VARCHAR}, #{dnCreatetime,jdbcType=TIMESTAMP}, #{dnCId,jdbcType=INTEGER}, 
+      #{dnEId,jdbcType=INTEGER}, #{dnStatus,jdbcType=INTEGER}, #{dnAccountantid,jdbcType=INTEGER}, 
+      #{dnWarehousepersonid,jdbcType=INTEGER}, #{dnSalesmanid,jdbcType=INTEGER}, #{dnTotalmoney,jdbcType=DECIMAL}, 
+      #{dnRemark,jdbcType=VARCHAR}, #{notePerson,jdbcType=VARCHAR}, #{accountantPerson,jdbcType=VARCHAR}, 
+      #{warehousePerson,jdbcType=VARCHAR}, #{salePerson,jdbcType=VARCHAR}, #{sName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hero.entity.DeliverynoteDetail" >
+    insert into view_deliverynote_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dnId != null" >
+        dn_id,
+      </if>
+      <if test="dnCreatetime != null" >
+        dn_createtime,
+      </if>
+      <if test="dnCId != null" >
+        dn_c_id,
+      </if>
+      <if test="dnEId != null" >
+        dn_e_id,
+      </if>
+      <if test="dnStatus != null" >
+        dn_status,
+      </if>
+      <if test="dnAccountantid != null" >
+        dn_accountantid,
+      </if>
+      <if test="dnWarehousepersonid != null" >
+        dn_warehousepersonid,
+      </if>
+      <if test="dnSalesmanid != null" >
+        dn_salesmanid,
+      </if>
+      <if test="dnTotalmoney != null" >
+        dn_totalmoney,
+      </if>
+      <if test="dnRemark != null" >
+        dn_remark,
+      </if>
+      <if test="notePerson != null" >
+        note_person,
+      </if>
+      <if test="accountantPerson != null" >
+        accountant_person,
+      </if>
+      <if test="warehousePerson != null" >
+        warehouse_person,
+      </if>
+      <if test="salePerson != null" >
+        sale_person,
+      </if>
+      <if test="sName != null" >
+        s_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dnId != null" >
+        #{dnId,jdbcType=VARCHAR},
+      </if>
+      <if test="dnCreatetime != null" >
+        #{dnCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dnCId != null" >
+        #{dnCId,jdbcType=INTEGER},
+      </if>
+      <if test="dnEId != null" >
+        #{dnEId,jdbcType=INTEGER},
+      </if>
+      <if test="dnStatus != null" >
+        #{dnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dnAccountantid != null" >
+        #{dnAccountantid,jdbcType=INTEGER},
+      </if>
+      <if test="dnWarehousepersonid != null" >
+        #{dnWarehousepersonid,jdbcType=INTEGER},
+      </if>
+      <if test="dnSalesmanid != null" >
+        #{dnSalesmanid,jdbcType=INTEGER},
+      </if>
+      <if test="dnTotalmoney != null" >
+        #{dnTotalmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="dnRemark != null" >
+        #{dnRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="notePerson != null" >
+        #{notePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="accountantPerson != null" >
+        #{accountantPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="warehousePerson != null" >
+        #{warehousePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="salePerson != null" >
+        #{salePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="sName != null" >
+        #{sName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  <!-- rfy -->
+  <sql id="CountwhereSQL">
+  	<where>
+  		  <if test="dnId != null and dnId!=''" >
+	        and dn_id like "%"#{dnId}"%"
+	      </if>
+	      <if test="dnEId != null" >
+	        and dn_e_id=#{dnEId,jdbcType=INTEGER}
+	      </if>
+	      <if test="dnStatus != null" >
+	       and dn_status=#{dnStatus,jdbcType=INTEGER}
+	      </if>
+	      <if test="dnAccountantid != null" >
+	       and dn_accountantid= #{dnAccountantid,jdbcType=INTEGER}
+	      </if>
+	      <if test="dnWarehousepersonid != null" >
+	       and dn_warehousepersonid= #{dnWarehousepersonid,jdbcType=INTEGER}
+	      </if>
+	      <if test="dnSalesmanid != null" >
+	      and dn_salesmanid= #{dnSalesmanid,jdbcType=INTEGER}
+	      </if>
+	      
+  	</where>
+  </sql>
+  <!-- 多条件分页查询(rfy) -->
+  <select id="queryByQueryPage" resultMap="BaseResultMap" parameterType="com.hero.entity.PurchasenoteDetail">
+    select * from view_deliverynote_detail
+    <include refid="CountwhereSQL"/>
+    order by dn_createtime desc
+  	LIMIT #{startIndex},#{rows}
+  </select>
+ <!--查询分页总记录数(rfy) -->
+  	<select id="queryCountByQuery" resultType="int" parameterType="com.hero.entity.PurchasenoteDetail">
+  		select count(*) FROM view_deliverynote_detail
+  		<include refid="CountwhereSQL"/>
+  	</select>
+  
+  
+  
+</mapper>

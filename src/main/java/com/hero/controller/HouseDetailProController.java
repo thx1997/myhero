@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hero.entity.HouseDetailPro;
+import com.hero.entity.ProductCategory;
+import com.hero.entity.ProductCommodity;
 import com.hero.entity.Role;
 import com.hero.entity.query.HouseDetailProQuery;
 import com.hero.service.HouseDetailProService;
@@ -30,6 +32,7 @@ public class HouseDetailProController {
 	 */
 	@RequestMapping(value="/queryAllByQuery")
 	public Object queryAllByQuery(HouseDetailProQuery query,Integer eeid) {
+		System.out.println(">>>>"+query);
 		Map<String, Object> map = new HashMap<String, Object>();	
 		List<Role> rlist=roleService.getRoleByEid(eeid);
 		List<String> rname=new ArrayList<String>();//根据用户编号获取用户拥有的角色
