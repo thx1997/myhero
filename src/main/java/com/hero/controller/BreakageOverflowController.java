@@ -17,6 +17,7 @@ import com.hero.entity.BreakageOverflow;
 import com.hero.entity.BreakageOverflowDetail;
 import com.hero.entity.Department;
 import com.hero.entity.Employee;
+import com.hero.entity.HouseDetailPro;
 import com.hero.entity.InventoryControl;
 import com.hero.entity.Product;
 import com.hero.entity.ProductCategory;
@@ -25,12 +26,14 @@ import com.hero.entity.Role;
 import com.hero.entity.StoreHouse;
 import com.hero.entity.query.BofDetailQuery;
 import com.hero.entity.query.BreakageOverflowQuery;
+import com.hero.entity.query.HouseDetailProQuery1;
 import com.hero.entity.query.RoleQuery;
 import com.hero.entity.query.StorehousePro;
 import com.hero.service.BofDetailService;
 import com.hero.service.BreakageOverflowDetailService;
 import com.hero.service.BreakageOverflowServer;
 import com.hero.service.EmployeeService;
+import com.hero.service.HouseDetailProService;
 import com.hero.service.InventoryControlService;
 import com.hero.service.ProductService;
 import com.hero.service.ProductSpecService;
@@ -61,7 +64,8 @@ public class BreakageOverflowController {
 	InventoryControlService inventoryControlService;
 	@Autowired
 	StorehouseDetailService storehouseDetailService;
-	
+	@Autowired
+	private HouseDetailProService houseDetailProService;
 	/**
 	 * 
 	 *减某个仓库某件商品的库存量
@@ -190,16 +194,33 @@ public class BreakageOverflowController {
 	 * @param storehousePro 条件封装的实体类
 	 * @return
 	 */
-	@RequestMapping(value="/queryProBYPcidAndSid")
+	/*@RequestMapping(value="/queryProBYPcidAndSid")
 	public Object queryProBYPcidAndSid(StorehousePro storehousePro) {
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Product> list=productService.queryProBYPcidAndSid(storehousePro);
 		int total=productService.queryProBYPcidAndSidCount(storehousePro);
+		
+		
+		map.put("total", total);
+		map.put("rows",list);
+		System.out.println("11111111111111111111"+list);
+		return map;
+	}*/
+	@RequestMapping(value="/queryProBYPcidAndSid")
+	public Object queryProBYPcidAndSid(HouseDetailProQuery1 houseDetailProQuery1) {
+		System.out.println("查询参数11111111"+houseDetailProQuery1);
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<HouseDetailPro> list=houseDetailProService.queryProBYPcidAndSid(houseDetailProQuery1);
+		int total=houseDetailProService.queryProBYPcidAndSidCount(houseDetailProQuery1);
+		
+		
 		map.put("total", total);
 		map.put("rows",list);
 		System.out.println("11111111111111111111"+list);
 		return map;
 	}
+	
 	/**
 	 * 根据商品编号查询规格
 	 * @author thx

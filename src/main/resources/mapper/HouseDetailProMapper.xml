@@ -26,6 +26,33 @@
     <result column="ic_downnum" property="icDownnum" jdbcType="INTEGER" />
     <result column="ic_goodnum" property="icGoodnum" jdbcType="INTEGER" />
   </resultMap>
+  <!--多条件参数 thx -->
+  <sql id="whereSQL">
+  	<where>
+	      <if test="pcId != null" >
+	        and pc_id=#{pcId}
+	      </if>
+	      <if test="sdSId != null" >
+	        and sd_s_id=#{sdSId}
+	      </if>
+	      <if test="pName != null and pName!=''" >
+	        and p_name like "%"#{pName}"%"
+	      </if>
+  	</where>
+  </sql>
+  
+  <!--根据仓库编号和商品类别编号查询商品(thx)  -->
+  <select id="queryProBYPcidAndSid" resultMap="BaseResultMap" parameterType="com.hero.entity.query.HouseDetailProQuery1" >
+    SELECT * FROM view_housedetatil_product
+    <include refid="whereSQL"/>
+  	LIMIT #{startIndex},#{rows}  
+  </select>
+  <!--根据仓库编号和商品类别编号查询商品(thx),  -->
+  <select id="queryProBYPcidAndSidCount" resultType="int" parameterType="com.hero.entity.query.HouseDetailProQuery1" >
+    SELECT count(*) FROM view_housedetatil_product
+    <include refid="whereSQL"/>
+  </select>
+  
   <insert id="insert" parameterType="com.hero.entity.HouseDetailPro" >
     insert into view_housedetatil_product (sd_s_id, sd_number, sd_ssp_id, 
       s_e_id, p_id, p_name, pc_id, 
@@ -202,6 +229,9 @@
 	      </if>
 	      <if test="eid != null" >
 	        and s_e_id=#{eid}
+	      </if>
+	      <if test="pname != null and pname!=''" >
+	        and p_name like "%"#{pname}"%"
 	      </if>
   	</where>
   </sql>
