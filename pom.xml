@@ -135,6 +135,6 @@
 			</plugin>
 		</plugins>
 		<!-- Spring Boot项目打包名称 -->
-		<finalName>invoicing</finalName>
+		<finalName>demo</finalName>
 	</build>
 </project>

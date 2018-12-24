@@ -3,7 +3,6 @@ package com.hero.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.junit.runners.Parameterized.Parameters;
 
 import com.hero.entity.Employee;
 import com.hero.entity.Role;

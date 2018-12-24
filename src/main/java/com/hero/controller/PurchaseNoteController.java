@@ -104,7 +104,7 @@ public class PurchaseNoteController {
 		System.out.println("角色名:"+rname);
 		if (rname.contains("会计")) {//如果用户是会计，保存会计的编号到采购单中
 			note.setPnAccountantid(uid);
-			note.setPnStatus(2);
+			note.setPnStatus(1);
 		}
 		if (rname.contains("仓库管理员")) {//如果用户是仓库管理员，保存仓库管理员的编号到采购单中
 			note.setPnWarehousepersonid(uid);

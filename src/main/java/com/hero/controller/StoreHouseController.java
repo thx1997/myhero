@@ -15,7 +15,7 @@ import com.hero.service.StoreHouseServer;
 
 
 @RestController
-@RequestMapping("StoreHouse")
+@RequestMapping("/StoreHouse")
 public class StoreHouseController {
 
 	@Autowired
@@ -136,4 +136,15 @@ public class StoreHouseController {
 		}
 		return map;
 	}
+	
+	/**
+	 * 查询所有仓库信息(rfy)
+	 * @return
+	 */
+	@RequestMapping("/selectAll")
+	public Object selectAll() {
+		List<StoreHouse> list =storeHouseService.queryAllInvoicing();
+		return list;
+	}
+	
 }
