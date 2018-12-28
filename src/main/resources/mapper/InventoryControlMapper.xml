@@ -84,6 +84,7 @@
       </if>
     </trim>
   </insert>
+  <!-- 修改某仓库下某商品的上下限数量(THX) -->
   <update id="updateByPrimaryKeySelective" parameterType="com.hero.entity.InventoryControl" >
     update i_inventory_control
     <set >

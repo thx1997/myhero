@@ -71,7 +71,7 @@ public class ProductCategoryController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		ProductCategory c=productCategoryService.selectByPrimaryKey(cate.getPcId());
 		int n=0;
-		if (c.getPcName()==cate.getPcName()) {//先判断用户在页面是否修改了名称，若修改名称则需判断修改后的名称在同一父模块下是否存在
+		if (c.getPcName().equals(cate.getPcName())) {//先判断用户在页面是否修改了名称，若修改名称则需判断修改后的名称在同一父模块下是否存在
 			n=productCategoryService.updateByPrimaryKeySelective(cate);
 			if (n>0) {
 				map.put("success", true);
