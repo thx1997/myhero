@@ -345,12 +345,32 @@ public class BreakageOverflowController {
 	public Object addNumControl(InventoryControl inc,BindingResult bindingResult){
 		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println("添加上下限参数"+inc);
-		int n=inventoryControlService.insertSelective(inc);
-		if(n>0) {
-			map.put("success", true);
+		//首先查看一下库存上下限是否存在
+		int count=inventoryControlService.IsExitControlByPidAndSid(inc.getIcPId(), inc.getIcSId());
+		
+		
+		
+		if(count>0) {
+			//存在就修改
+			int m=inventoryControlService.updateByPrimaryKeySelective(inc);
+			if(m>0) {
+				map.put("success", true);
+			}else {
+				map.put("success", false);
+			}	
 		}else {
-			map.put("success", false);
-		}		
+			//不存在则添加一下
+			int n=inventoryControlService.insertSelective(inc);
+			if(n>0) {
+				map.put("success", true);
+			}else {
+				map.put("success", false);
+			}	
+		}
+		
+		
+		
+		
 		return map;
 	}
 	

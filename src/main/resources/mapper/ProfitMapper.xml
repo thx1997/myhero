@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.ProfitMapper" >
+  
+	<select id="queryProfit" resultType="profit">
+				SELECT dn_totalmoney-pn_totalmoney AS 'profit',pn_createtime AS 'times' FROM i_deliverynote 
+			JOIN i_purchasenote ON 
+			   dn_createtime=pn_createtime
+			GROUP BY dn_createtime
+	</select>
+	
+</mapper>
