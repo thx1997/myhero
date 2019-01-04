@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.repository.StatisticsPurchaseProMapper" >
+  <resultMap id="BaseResultMap" type="com.hero.entity.StatisticsPurchasePro" >
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="pronum" property="pronum" jdbcType="INTEGER" />   
+  </resultMap>
+  <resultMap id="BaseResultMap1" type="com.hero.entity.StatisticsSupplierPro" >   
+    <result column="s_name" property="name" />
+    <result column="pronum" property="y"/>
+  </resultMap>
+  
+  
+  <!-- rfy -->
+  <sql id="CountwhereSQL">
+  	<where>
+	      <if test="year != null" >
+	       and DATE_FORMAT(pn.pn_createtime,'%Y')= ${year}
+	      </if>
+	   	  <if test="month != null">
+		  and DATE_FORMAT(pn.pn_createtime,'%m')=${month}
+		  </if>
+		  and pn.pn_status=3
+  	</where>
+  </sql>
+  <!-- 根据年份和月份查询商品采购数量(rfy) -->
+  <select id="queryByYearAndMonth" resultMap="BaseResultMap">
+  		SELECT p.p_name,SUM(pd.pd_quantity)AS pronum FROM i_purchasenote pn 
+		JOIN i_purchasedetail pd ON pn.pn_id=pd.pd_pn_id 
+		JOIN i_product p ON pd.pd_p_id=p.p_id
+		LEFT JOIN i_supplier_product sp ON p.p_id=sp.spp_p_id
+		LEFT JOIN i_supplier_customer sc ON sp.spp_s_id=sc.s_id
+  		<include refid="CountwhereSQL"/>
+  		GROUP BY pd.pd_p_id
+		ORDER BY pronum DESC
+		LIMIT 10
+  </select>
+  
+  
+  <!-- rfy -->
+  <sql id="CountwhereSQL1">
+  	<where>
+	      <if test="year != null" >
+	       and DATE_FORMAT(pn.pn_createtime,'%Y')= ${year}
+	      </if>
+	   	  <if test="month != null">
+		  and DATE_FORMAT(pn.pn_createtime,'%m')=${month}
+		  </if>
+		  and pn.pn_status=3
+  	</where>
+  </sql>
+  <!-- 根据年份和月份查询供应商供应的商品占比(rfy) -->
+  <select id="supplierQueryByYearAndMonth" resultMap="BaseResultMap1">
+  		
+  		SELECT sc.s_name,SUM(pd.pd_quantity)/(
+		SELECT SUM(pd.pd_quantity) FROM i_purchasenote pn 
+		JOIN i_purchasedetail pd ON pn.pn_id=pd.pd_pn_id 
+		JOIN i_product p ON pd.pd_p_id=p.p_id
+		LEFT JOIN i_supplier_product sp ON p.p_id=sp.spp_p_id
+		LEFT JOIN i_supplier_customer sc ON sp.spp_s_id=sc.s_id
+		<include refid="CountwhereSQL1"/>
+		)AS pronum
+		FROM i_purchasenote pn 
+		JOIN i_purchasedetail pd ON pn.pn_id=pd.pd_pn_id 
+		JOIN i_product p ON pd.pd_p_id=p.p_id
+		LEFT JOIN i_supplier_product sp ON p.p_id=sp.spp_p_id
+		LEFT JOIN i_supplier_customer sc ON sp.spp_s_id=sc.s_id
+		<include refid="CountwhereSQL1"/>
+		GROUP BY sc.s_id
+  </select>
+  
+  
+  
+  
+  
+  
+  
+</mapper>

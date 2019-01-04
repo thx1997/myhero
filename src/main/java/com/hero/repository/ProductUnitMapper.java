@@ -36,4 +36,7 @@ public interface ProductUnitMapper {
     //根据名称判断是否存在(rfy)
     public int isExitByName(String puname);
     
+    //根据单位类型查询单位信息(rfy)
+    public List<ProductUnit> queryUnitByType(String type);
+    
 }

@@ -141,4 +141,41 @@
   
   
   
+  
+  
+   <!-- rfy -->
+  <sql id="CountwhereSQL1">
+  	<where>
+  		  <if test="pnId != null and pnId!=''" >
+	        and pn_id like "%"#{pnId}"%"
+	      </if>
+	      <if test="pnAccountantid != null" >
+	       and pn_accountantid= #{pnAccountantid,jdbcType=INTEGER}
+	      </if>
+	   	  <if test="beginsCreatetime != null">
+			and pn_createtime &gt; #{beginsCreatetime,jdbcType=TIMESTAMP}
+		  </if>
+		  <if test="endsCreatetime != null">
+			and pn_createtime &lt; #{endsCreatetime,jdbcType=TIMESTAMP}
+		  </if>
+		  and pn_status not in(0)
+  	</where>
+  </sql>
+  <!-- 多条件分页查询(rfy) -->
+  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.hero.entity.query.PurchasenoteDetailQuery">
+    select * from view_purchasenote_detail
+    <include refid="CountwhereSQL1"/>
+    order by pn_createtime desc
+  	LIMIT #{startIndex},#{rows}
+  </select>
+ <!--查询分页总记录数(rfy) -->
+  	<select id="queryCountByPage" resultType="int" parameterType="com.hero.entity.query.PurchasenoteDetailQuery">
+  		select count(*) FROM view_purchasenote_detail
+  		<include refid="CountwhereSQL1"/>
+  	</select>
+  
+  
+  
+  
+  
 </mapper>

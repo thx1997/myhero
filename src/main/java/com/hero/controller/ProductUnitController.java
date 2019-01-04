@@ -32,6 +32,17 @@ public class ProductUnitController {
 	}
 	
 	/**
+	 * 根据单位类型查询单位(rfy)
+	 * @return
+	 */
+	@RequestMapping("/queryUnitByStype")
+	public Object queryUnitByStype(String sstype) {
+		List<ProductUnit> list = productUnitService.queryUnitByType(sstype);
+		return list;
+	}
+	
+	
+	/**
 	 * 多条件分页查询(rfy)
 	 * @param unit
 	 * @return

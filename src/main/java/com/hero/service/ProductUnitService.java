@@ -14,7 +14,7 @@ public interface ProductUnitService {
 	String selectPuNameBypuid(Integer puId);
 	//查询所有单位(rfy)
     public List<ProductUnit> queryAllUnit();
-  //多条件分页查询(rfy)
+    //多条件分页查询(rfy)
     public List<ProductUnit> queryByNamePage(ProductUnit record);
     //查询总条数(rfy)
     public int queryCountByName(ProductUnit record);
@@ -29,5 +29,8 @@ public interface ProductUnitService {
     public int isExitByName(String puname);
     //根据单位编号查询单位信息(rfy)
     ProductUnit selectByPrimaryKey(Integer puId);
+    
+    //根据单位类型查询单位信息(rfy)
+    public List<ProductUnit> queryUnitByType(String type);
     
 }

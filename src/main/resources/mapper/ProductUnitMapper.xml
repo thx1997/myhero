@@ -123,7 +123,12 @@
     from i_product_unit	
     where pu_name = #{puname}
   </select>
-  
-  
+  <!-- 根据单位类型查询单位信息(rfy) -->
+  <select id="queryUnitByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from i_product_unit
+    where pu_type = #{stype}
+  </select>
   
 </mapper>

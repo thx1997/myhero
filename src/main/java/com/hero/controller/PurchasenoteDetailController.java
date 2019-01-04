@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hero.entity.ProductBrand;
 import com.hero.entity.PurchasenoteDetail;
 import com.hero.entity.Role;
+import com.hero.entity.query.PurchasenoteDetailQuery;
 import com.hero.service.PurchaseDetailService;
 import com.hero.service.PurchasenoteDetailService;
 import com.hero.service.RoleService;
@@ -43,6 +43,7 @@ public class PurchasenoteDetailController {
 			rname.add(r.getrName());
 		}
 		System.out.println("角色名:"+rname);
+		
 		if (rname.contains("采购员")) {//如果用户是采购员，只能查看自己添加过的采购单
 			query.setPnEId(suid);
 			
@@ -64,6 +65,25 @@ public class PurchasenoteDetailController {
 		
 		List<PurchasenoteDetail> list=purchasenoteDetailService.queryByQueryPage(query);
 		int total=purchasenoteDetailService.queryCountByQuery(query);
+		map.put("total", total);
+		map.put("rows",list);
+		return map;
+	}
+	
+	
+	
+	
+	/**
+	 * 多条件分页查询(rfy)
+	 * @param brand
+	 * @return
+	 */
+	@RequestMapping(value="/queryPage")
+	public Object queryByPage(PurchasenoteDetailQuery query) {
+		System.out.println("条件参数>>>>>>>"+query);
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<PurchasenoteDetail> list=purchasenoteDetailService.queryByPage(query);
+		int total=purchasenoteDetailService.queryCountByPage(query);
 		map.put("total", total);
 		map.put("rows",list);
 		return map;

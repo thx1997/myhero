@@ -56,5 +56,10 @@ public class ProductUnitServiceImpl implements ProductUnitService {
 		// TODO Auto-generated method stub
 		return productUnitMapper.selectByPrimaryKey(puId);
 	}
+	@Override
+	public List<ProductUnit> queryUnitByType(String type) {
+		// TODO Auto-generated method stub
+		return productUnitMapper.queryUnitByType(type);
+	}
 
 }
