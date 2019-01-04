@@ -14,5 +14,13 @@ public class InventoryControlServiceImpl implements InventoryControlService {
 	public int insertSelective(InventoryControl record) {
 		return inventoryControlMapper.insertSelective(record);
 	}
+	@Override//thx
+	public int IsExitControlByPidAndSid(Integer pid, Integer sid) {
+		return inventoryControlMapper.IsExitControlByPidAndSid(pid, sid);
+	}
+	@Override//thx
+	public int updateByPrimaryKeySelective(InventoryControl record) {
+		return inventoryControlMapper.updateByPrimaryKeySelective(record);
+	}
 
 }
