@@ -55,4 +55,41 @@ public class StatisticsPurchaseProController {
 	}
 	
 	
+	/**
+	 * 根据年份、月份查询商品销售数量(rfy)
+	 * @param y
+	 * @param m
+	 * @return
+	 */
+	@RequestMapping("/deliveryqueryByYearAndMonth")
+	public Object deliveryqueryByYearAndMonth(Integer year,Integer month) {
+		System.out.println("参数啊----"+year+">>>"+month);
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<StatisticsPurchasePro> pro=statisticsPurchaseProService.queryDeliveryByYearAndMonth(year, month);
+		List<String> pNames=pro.stream().map(StatisticsPurchasePro::getpName).collect(Collectors.toList());
+		System.out.println("商品名称："+pNames);
+		List<Integer> pNums=pro.stream().map(StatisticsPurchasePro::getPronum).collect(Collectors.toList());
+		System.out.println("数量："+pNums);
+		map.put("pname", pNames);
+		map.put("pnum", pNums);
+		return map;
+	}
+	
+	
+	/**
+	 * 根据年份、月份查询客户拿货的商品占比(rfy)
+	 * @param y
+	 * @param m
+	 * @return
+	 */
+	@RequestMapping("/customerqueryByYearAndMonth")
+	public Object customerqueryByYearAndMonth(Integer year,Integer month) {
+		System.out.println("参数啊----"+year+">>>"+month);
+		List<StatisticsSupplierPro> count=statisticsPurchaseProService.customerQueryByYearAndMonth(year,month);
+		//Map<String, Object> appleMap = count.stream().collect(Collectors.toMap(StatisticsSupplierPro::getSname, StatisticsSupplierPro::getCountnum));
+		
+		return count;
+	}
+	
+	
 }

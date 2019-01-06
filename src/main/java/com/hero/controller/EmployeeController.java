@@ -201,14 +201,23 @@ public class EmployeeController {
 		emp.setePwd(pwd);
 		Map<String, Object> map = new HashMap<String, Object>();
          System.out.println("最终参数==》" + emp);
-		Integer n = employeeService.insertSelective(emp);
-		if(n>0) {
-		     map.put("success", true);
-		     map.put("message", "添加成功");     
-		}else {
+		Integer n;
+		try {
+			n = employeeService.insertSelective(emp);
+			if(n>0) {
+			     map.put("success", true);
+			     map.put("message", "添加成功");     
+			}else {
+				 map.put("success", false);
+				 map.put("message", "添加失败"); 
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
 			 map.put("success", false);
-			 map.put("message", "添加失败"); 
+			 map.put("message", "登录名不能重复"); 
 		}
+		
 		return map;
 	}
 	/**

@@ -66,13 +66,21 @@ public class DepartmentController {
 	public Object addEmp(Department dep) {
 		System.out.println("添加参数==》" + dep);
 		Map<String, Object> map = new HashMap<String, Object>();
-   		Integer n = departmentService.insertSelective(dep);
-		if(n>0) {
-		     map.put("success", true);
-		     map.put("message", "添加成功");     
-		}else {
-			 map.put("success", false);
-			 map.put("message", "添加失败"); 
+   		try {
+			Integer n = departmentService.insertSelective(dep);
+			
+			if(n>0) {
+			     map.put("success", true);
+			     map.put("message", "添加成功");     
+			}else {
+				 map.put("success", false);
+				 map.put("message", "添加失败"); 
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			map.put("success", false);
+			 map.put("message", "该部门已存在"); 
 		}
 		return map;
 	}

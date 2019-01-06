@@ -28,8 +28,8 @@
   		SELECT p.p_name,SUM(pd.pd_quantity)AS pronum FROM i_purchasenote pn 
 		JOIN i_purchasedetail pd ON pn.pn_id=pd.pd_pn_id 
 		JOIN i_product p ON pd.pd_p_id=p.p_id
-		LEFT JOIN i_supplier_product sp ON p.p_id=sp.spp_p_id
-		LEFT JOIN i_supplier_customer sc ON sp.spp_s_id=sc.s_id
+		<!-- LEFT JOIN i_supplier_product sp ON p.p_id=sp.spp_p_id
+		LEFT JOIN i_supplier_customer sc ON sp.spp_s_id=sc.s_id -->
   		<include refid="CountwhereSQL"/>
   		GROUP BY pd.pd_p_id
 		ORDER BY pronum DESC
@@ -55,9 +55,6 @@
   		SELECT sc.s_name,SUM(pd.pd_quantity)/(
 		SELECT SUM(pd.pd_quantity) FROM i_purchasenote pn 
 		JOIN i_purchasedetail pd ON pn.pn_id=pd.pd_pn_id 
-		JOIN i_product p ON pd.pd_p_id=p.p_id
-		LEFT JOIN i_supplier_product sp ON p.p_id=sp.spp_p_id
-		LEFT JOIN i_supplier_customer sc ON sp.spp_s_id=sc.s_id
 		<include refid="CountwhereSQL1"/>
 		)AS pronum
 		FROM i_purchasenote pn 
@@ -70,9 +67,58 @@
   </select>
   
   
+  <!-- rfy -->
+  <sql id="CountwhereSQL2">
+  	<where>
+	      <if test="year != null" >
+	       and DATE_FORMAT(dn.dn_createtime,'%Y')= ${year}
+	      </if>
+	   	  <if test="month != null">
+		  and DATE_FORMAT(dn.dn_createtime,'%m')=${month}
+		  </if>
+		  and dn.dn_status=1
+  	</where>
+  </sql>
+  <!-- 根据年份和月份查询商品销售数量(rfy) -->
+  <select id="queryDeliveryByYearAndMonth" resultMap="BaseResultMap">
+		SELECT p.p_name,SUM(dd.dd_quantity)AS pronum FROM i_deliverynote dn 
+		JOIN i_deliverydetail dd ON dn.dn_id=dd.dd_dn_id
+		JOIN i_product p ON dd.dd_p_id=p.p_id
+		
+  		<include refid="CountwhereSQL2"/>
+  		GROUP BY dd.dd_p_id
+		ORDER BY pronum DESC
+		LIMIT 10
+  </select>
   
   
-  
-  
+  <!-- rfy -->
+  <sql id="CountwhereSQL3">
+  	<where>
+	      <if test="year != null" >
+	       and DATE_FORMAT(dn.dn_createtime,'%Y')= ${year}
+	      </if>
+	   	  <if test="month != null">
+		  and DATE_FORMAT(dn.dn_createtime,'%m')=${month}
+		  </if>
+		  and dn.dn_status=1
+  	</where>
+  </sql>
+  <!-- 根据年份和月份查询客户拿货的商品占比(rfy) -->
+  <select id="customerQueryByYearAndMonth" resultMap="BaseResultMap1">
+  		
+  		SELECT sc.s_name,SUM(dd.dd_quantity)/(
+		SELECT SUM(dd.dd_quantity) FROM i_deliverynote dn 
+		JOIN i_deliverydetail dd ON dn.dn_id=dd.dd_dn_id 
+		JOIN i_product p ON dd.dd_p_id=p.p_id
+		<include refid="CountwhereSQL3"/>
+		)AS pronum
+		FROM i_deliverynote dn
+		JOIN i_deliverydetail dd ON dn.dn_id=dd.dd_dn_id 
+		JOIN i_product p ON dd.dd_p_id=p.p_id
+		LEFT JOIN i_supplier_customer sc ON dn.dn_c_id=sc.s_id
+		<include refid="CountwhereSQL3"/>
+		GROUP BY sc.s_id
+  </select>
   
 </mapper>

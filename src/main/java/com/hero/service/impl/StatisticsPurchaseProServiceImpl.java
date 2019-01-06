@@ -23,5 +23,15 @@ public class StatisticsPurchaseProServiceImpl implements StatisticsPurchaseProSe
 		// TODO Auto-generated method stub
 		return statisticsPurchaseProMapper.supplierQueryByYearAndMonth(y, m);
 	}
+	@Override//(rfy)
+	public List<StatisticsPurchasePro> queryDeliveryByYearAndMonth(int y, int m) {
+		// TODO Auto-generated method stub
+		return statisticsPurchaseProMapper.queryDeliveryByYearAndMonth(y, m);
+	}
+	@Override//(rfy)
+	public List<StatisticsSupplierPro> customerQueryByYearAndMonth(int y, int m) {
+		// TODO Auto-generated method stub
+		return statisticsPurchaseProMapper.customerQueryByYearAndMonth(y, m);
+	}
 
 }
