@@ -29,9 +29,12 @@ public class StatisticsPurchaseProController {
 		System.out.println("参数啊----"+year+">>>"+month);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<StatisticsPurchasePro> pro=statisticsPurchaseProService.queryByYearAndMonth(year, month);
+	
+		
 		List<String> pNames=pro.stream().map(StatisticsPurchasePro::getpName).collect(Collectors.toList());
 		System.out.println("商品名称："+pNames);
 		List<Integer> pNums=pro.stream().map(StatisticsPurchasePro::getPronum).collect(Collectors.toList());
+		
 		System.out.println("数量："+pNums);
 		map.put("pname", pNames);
 		map.put("pnum", pNums);
